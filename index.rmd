@@ -250,6 +250,7 @@ hist(rbeta(1000,2,9), main = "Right Skewed", ylab = "", xlab = "", breaks=seq(0,
 - Useful for visualizing bivariate relationships (2 variables)
 
 ```{r scatterplot, echo=FALSE,fig.height=5,fig.width=5,fig.align='center'}
+library(ggplot2)
 ggplot(iris,aes(x=iris$Sepal.Length, y=iris$Petal.Length))+
   geom_point()+ggtitle("Petal vs Sepal Length")+xlab("Sepal Length")+ylab("Petal Length")
 ```
@@ -291,7 +292,7 @@ ggplot(iris,aes(x=iris$Sepal.Length, y=iris$Petal.Length))+
 # The Algorithm
 <space>
 
-```{r, echo=FALSE,fig.height=5,fig.width=5,message=FALSE}
+```{r, echo=FALSE,fig.height=5,fig.width=5,message=FALSE,warning=FALSE}
 library(plyr)
 df <- iris
 find_hull<-function(df) df[chull(df$Sepal.Length,df$Petal.Length),]
