@@ -1,103 +1,2097 @@
 ---
+
 title       : Machine Learning with R
 author      : Ilan Man
-job         : Business Intelligence @ Squarespace
+job         : Strategy Operations  @ Squarespace
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 widgets     : mathjax       # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
----
-  
+
+----
+
 ## Agenda 
-  
+<space>
+
 1. Machine Learning Overview
-2. Using R
+2. Exploring Data
 3. Nearest Neighbors
 4. Naive Bayes
-5. Linear Regression
-6. Measureing Performance
+5. Measuring Performance
+6. Linear Regression
 
 ----
+
 ## Machine Learning Overview
-# Abstraction and generalization
+# What is it?  
+<space>
+
+- Field of study interested in transforming data into intelligent actions
+- Intersection of statistics, available data and computing power
+- It is NOT data mining
+- Data mining is an exploratory exercise, whereas most machine learning has a known answer
+- Data mining is a subset of machine learning (unsupervised)
 
 ----
-  
+
 ## Machine Learning Overview
-# Terminology
-  
-- Supervised vs Unsupervised
-- training set
-- testing set
-- cross validation set
-  
-----
-  
-## Machine Learning Overview
-# Steps
-  
-- step 1
-- step 2
+# Uses
+<space>
+
+- Predict outcome of elections
+- Email filtering - spam or not
+- Credit fraud prediction
+- Image processing
+- Customer churn
+- Customer subscription rates
 
 ----
-  
+
+## Machine Learning Overview
+# How do machines learn?
+<space>
+
+- Data input 
+  - Provides a factual basis for reasoning
+- Abstraction 
+- Generalization 
+
+----
+
+## Machine Learning Overview
+# Abstraction
+<space>
+
+- Assign meaning to the data
+- Formulas, graphs, logic, etc...
+- Your model
+- Fitting model is called training
+
+----
+
+## Machine Learning Overview
+# Generalization
+<space>
+
+- Turn abstracted knowledge into something that can be utilized
+- Model user heuristics since it cannot see every example
+  - When hueristics are systematically wrong, the algorithm has a bias
+- Very simple models have high bias
+  - Some bias is good - let's us ignore the noise
+
+----
+
+## Machine Learning Overview
+# Generalization
+<space>
+
+- After training, the model is tested on unseen data
+- Perfect generalization is exceedingly rare
+  - Partly due to noise
+  - Measurement error
+  - Change in user behavior
+  - Incorrect data, erroneous values, etc...
+- Fitting too closesly to the noise leads to overfitting
+  - Complex models have high variance
+  - Good on training, bad on testing
+
+----
+
+## Machine Learning Overview
+# Steps to apply Machine Learning
+<space>
+
+1. Collect data
+2. Explore and preprocess data 
+  - Majority of the time is spent in this stage
+3. Train the model
+  - Specific tasks will inform which algorithm is appropriate
+4. Evaluate model performance
+  - Performance measures depend on use case
+5. Improve model performance as necessary
+
+----
+
 ## Machine Learning Overview
 # Choosing an algorithm
-  
-- step 1
-- step 2
+<space>
+
+- Consider input data
+- An <strong>example</strong> is one data point that the machine is intended to learn 
+- A feature is a characteristic of the example
+  - e.g. Number of times the word "viagra" appears in an email
+- For classification problems, a label is the example's classification
+- Most algorithms require data in matrix format because Math said so
+- Features can be numeric, categorical/nominal or ordinal
 
 ----
 
-# Managing and Understanding Data
-  # factors, lists, matrixes
-  # saving and loading data
-  # exploring data
-  # visualizing data
-    # mean, median, variance, std, histograms
-    # scatterplots
-    # cross tabulation
+## Machine Learning Overview
+# Types of algorithms
+<space>
+
+- Supervised
+  - Discover relationship between known, target feature and other features
+  - Predictive
+  - Classification and numeric prediction tasks
+- Unsupervised
+  - Unkown answer
+  - Descriptive
+  - Pattern discovery and clustering into groups
+  - Requires human intervention to interpret clusters
 
 ----
 
-# K-Nearest neighbors
-  # classification using Knn
-  # the algorithm
-  # example dataset
-  # collecting, explorting, transforming data, training, evaluating, improving performance
-  # summary
-
-----
-
-# Naive Bayes
-  # basic probability concepts
-  # bayes theorem and naive bayes algorithm
-  # example dataset
-    # same steps as above
-
-----
-
-# Regression example
-  # understanding linear regression
-  # simple, multiple, correlations
-  # example data set
-  # repeat steps from above, including data preprocessing
-
-----
-
-# Model performance
-  # confusion matrices
-  # F-score
-  # ROC/AUC
-  # holdout method, bootstrap sampling
-
-----
-
+## Machine Learning Overview
 # Summary
+<space>
+
+1. Generalization and Abstraction
+2. Overfitting vs underfitting
+3. The right algorithm will be informed by the problem to be solved
+4. Terminology
 
 ----
 
+## Exploring Data
+# Exploring and understanding data
+<space>
+
+- Load and explore the data
+
+```{r inspect}
+data(iris)
+
+# inspect the structure of the dataset
+str(iris)
+```
+
+----
+
+## Exploring Data
+# Exploring and understanding data
+<space>
+
+```{r summary}
+# summarize the data  - five number summary
+summary(iris[,1:4])
+```
+
+----
+
+## Exploring Data
+# Exploring and understanding data
+<space>
+
+- Measures of central tendency: mean and median
+  - Mean is sensitive to outliers
+    - Trimmed mean
+  - Median is resistant
+
+```{r skew, echo=FALSE,fig.height=5, fig.width=5}
+N <- 100000; x <- rnbinom(N, 10, .5)
+hist(x, xlim=c(min(x),max(x)), probability=T, nclass=max(x)-min(x)+1, 
+col='lightblue', xlab=' ', ylab=' ', axes=F,main='Positive Skew')
+lines(density(x,bw=1), col='red', lwd=3)
+```
+
+----
+
+## Exploring Data
+# Exploring and understanding data
+<space>
+
+- Measures of dispersion
+  - Range is the `max()` - `min()`
+  - Interquartile range (IQR) is the `Q3` - `Q1`
+  - Quantile
+
+```{r dispersion, comment=""}
+quantile(iris$Sepal.Length, probs = c(0.10,0.50,0.99))
+```
+
+----
+
+## Exploring Data
+# Visualizing - Boxplots
+<space>
+
+- Lets you see the spread in the data
+
+```{r boxplot, echo=FALSE, fig.height=5,fig.width=7,fig.align='center'}
+par(mfrow=c(1,2))
+boxplot(iris$Sepal.Length, main="Sepal Length", ylab="Sepal Length")
+boxplot(iris$Petal.Length, main="Petal Length", ylab="Petal Length")
+```
+
+----
+
+## Exploring Data
+# Visualizing - histograms
+<space>
+
+- Each bar is a 'bin'
+- Height of bar is the frequency (count of) that bin
+- Some distributions are normally distributed (bell shaped) or skewed (heavy tails)
+
+```{r histogram, echo=FALSE,fig.height=4,fig.width=6,fig.align='center'}
+par(mfrow=c(1,2))
+hist(rbeta(1000,9,2), main = "Left Skewed", xlab = "", breaks=seq(0,1,0.025))
+hist(rbeta(1000,2,9), main = "Right Skewed", ylab = "", xlab = "", breaks=seq(0,1,0.025))
+```
+
+----
+
+## Exploring Data
+# Visualizing - scatterplots
+<space>
+
+- Useful for visualizing bivariate relationships (2 variables)
+
+```{r scatterplot, echo=FALSE,fig.height=5,fig.width=5,fig.align='center'}
+ggplot(iris,aes(x=iris$Sepal.Length, y=iris$Petal.Length))+
+  geom_point()+ggtitle("Petal vs Sepal Length")+xlab("Sepal Length")+ylab("Petal Length")
+```
+
+----
+
+## Exploring Data
+# Summary
+<space>
+
+- Measures of central tendency and dispersion
+- Visualizing data using histograms, boxplots, scatterplots
+- Skewed vs normally distributed data
+
+----
+
+## K-Nearest Neighbors
+# Classification using kNN
+<space>
+
+- Understanding the algorithm
+- Data Preparation
+- Case study: diagnosing breast cancer
+- Summary
+
+----
+
+## K-Nearest Neighbors
+# The Concept
+<space>
+
+- Things that are similar are probably of the same class
+- Good for: when it's difficult to define, but "you know it when you see it"
+- Bad for: when a clear distinction doesn't exist
+
+----
+
+## K-Nearest Neighbors
+# The Algorithm
+<space>
+
+```{r, echo=FALSE,fig.height=5,fig.width=5,message=FALSE}
+library(plyr)
+df <- iris
+find_hull<-function(df) df[chull(df$Sepal.Length,df$Petal.Length),]
+hulls <- ddply(df, "Species", find_hull)
+ggplot(iris,aes(x=iris$Sepal.Length, y=iris$Petal.Length,color=iris$Species))+geom_point()+
+  ggtitle("Petal vs Sepal Length")+xlab("Sepal Length")+ylab("Petal Length")+
+  scale_color_discrete(name='Species')
+```
+
+----
+
+## K-Nearest Neighbors
+# The Algorithm
+<space>
+
+```{r shaded plot, echo=FALSE,fig.height=5,fig.width=5}
+plot <- ggplot(data = df, aes(x = Sepal.Length, y = Petal.Length, colour=Species, fill = Species)) + geom_point() + geom_polygon(data = hulls, alpha = 0.5)+ggtitle("Petal vs Sepal Length")+xlab("Sepal Length")+ylab("Petal Length")+scale_color_discrete(name='Species')
+plot
+```
+
+----
+
+## K-Nearest Neighbors
+# The Algorithm
+<space>
+
+```{r new point, echo=FALSE,fig.height=5,fig.width=5,fig.align='left'}
+plot + geom_point(aes(x=7,y=4),color="black")
+```
+
+- Suppose we had a new point with Sepal Length of 7 and Petal Length of 4
+- Which species will it probably belong to?
+
+----
+
+## K-Nearest Neighbors
+# The Algorithm
+<space>
+
+- Calculate its nearest neighbor
+  - Euclidean distance
+  - $dist(p,q) = \sqrt{(p_1-q_1)^2+(p_2-q_2)^2+ ... + (p_n-q_n)^2}$
+  - Closest neighbor -> 1-NN
+  - 3 closest neighbors -> 3-NN. 
+  - Winner is the majority class of all neighbors
+
+----
+
+## K-Nearest Neighbors
+# The Algorithm
+<space>
+
+- Calculate its nearest neighbor
+  - Euclidean distance
+  - $dist(p,q) = \sqrt{(p_1-q_1)^2+(p_2-q_2)^2+ ... + (p_n-q_n)^2}$
+  - Closest neighbor -> 1-NN
+  - 3 closest neighbors -> 3-NN. 
+  - Winner is the majority class of all neighbors
+- Why not just fit to all data points?
+
+----
+
+## K-Nearest neighbors
+# Bias vs. Variance
+<space>
+
+- Fitting to every point results in an overfit model
+  - High variance problem
+- Fitting to only 1 point results in an underfit model
+  - High bias problem
+- Choosing the right $k$ is a balance between bias and variance
+- Rule of thumb: $k = \sqrt{N}$
+
+----
+
+## K-Nearest neighbors
+# Data preparation
+<space>
+
+- Classify houses based on prices and square footage
+
+```{r house price data, message=FALSE}
+library(scales)  # format ggplot() axis
+price <- seq(300000,600000,by=10000)
+size <- price/1000 + rnorm(length(price),10,50)
+houses <- data.frame(price,size)
+ex <- ggplot(houses,aes(price,size))+geom_point()+scale_x_continuous(labels = comma)+
+  xlab("Price")+ylab("Size")+ggtitle("Square footage vs Price")
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r house price plot, echo = FALSE,fig.height=6,fig.width=6}
+ex
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r clusters,echo=FALSE,fig.height=6,fig.width=6}
+clus <- kmeans(as.matrix(houses),centers=3)
+center <- as.data.frame(clus$centers)
+center_plot <- ex + geom_point(data=center,aes(x=center$price,y=center$size),color='blue',size=4)+
+  ggtitle("Groupings")
+center_plot
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r new cluster plot,echo=FALSE,fig.height=6,fig.width=6}
+new_p <- c(400000,300)
+new_plot <- center_plot+geom_point(aes(x=400000,y=300),color='red',size=3)+ggtitle("New house")
+new_plot
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r distance_2_ways,comment=""}
+# 1) using loops
+loop_dist <- 0
+for(i in 1:nrow(houses)){
+  loop_dist[i] <- sqrt(sum((new_p-houses[i,])^2))
+  }
+
+# 2) vectorized
+vec_dist <- sqrt(rowSums(t(new_p-t(houses))^2))
+closest <- data.frame(houses[which.min(vec_dist),])
+print(closest)
+```
+
+----
+
+## K-Nearest Neighbors
+# Data Preparation
+<space>
+
+```{r,echo=FALSE,fig.height=6,fig.width=6}
+new_plot
+```
+
+----
+
+## K-Nearest Neighbors
+# Data Preparation
+<space>
+
+```{r,echo=FALSE,fig.height=6,fig.width=6}
+new_plot + geom_point(data=closest,aes(x=price,y=size),color='green',size=3)+ggtitle("Closest neighbor?")
+```
+
+----
+
+## K-Nearest Neighbors
+# Data Preparation
+<space>
+
+- Feature scaling. Two common approaches:
+- min-max normalization
+  - $X_{new} = \frac{X-min(X)}{max(X) - min(X)}$
+- z-score standardization
+  - $X_{new} = \frac{X-mean(X)}{sd(X)}$
+- Euclidean distance doesn't discriminate between important and noisy features
+  - can add weights
+
+----
+
+## K-Nearest Neighbors
+# Data Preparation
+<space>
+
+```{r calc_distance,comment=""}
+new_house <- scale(houses)
+new_new <- c((new[1]-mean(houses[,1]))/sd(houses[,1]),(new[2]-mean(houses[,2]))/sd(houses[,2]))
+
+vec_dist <- sqrt(rowSums(t(new_new-t(new_house))^2))
+which.min(vec_dist)
+```
+
+----
+
+## K-Nearest Neighbors
+# Data Preparation
+<space>
+
+```{r scale_closest_plot, echo=FALSE,fig.height=6,fig.width=6}
+scale_closest <- data.frame(houses[which.min(vec_dist),])
+new_plot + geom_point(data=scale_closest,aes(x=price,y=size),color='green',size=3)
+```
+
+----
+
+## K-Nearest Neighbors
+# Lazy learner
+<space>
+
+- kNN doesn't actually learn anything!
+- Stores training data and applies it - verbatim - to new examples
+- Known as instance-based learning
+- Non-parametric learning method
+- Harder for us to understand how the classifier is using the data
+- However kNN finds natural patterns 
+- Don't need to fit aribtrarily to a model
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r knn_data_read}
+data <- read.table('http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data', sep=',', stringsAsFactors=FALSE, header=FALSE)
+
+# first column has the ID which is not useful
+data <- data[,-1]
+# names taken from the .names file online
+n <- c("radius","texture","perimeter","area","smoothness","compactness",
+   "concavity","concave_points","symmetry","fractal")
+ind <- c("mean","std","worst")
+
+headers<-as.character()
+for(i in ind){
+  headers<-c(headers,paste(n,i))
+  }
+names(data)<-c("diagnosis",headers)
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r knn_struct,comment=""}
+str(data[,1:10])
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r inspect_knn,comment=""}
+# inspect remaining data more closely
+prop.table(table(data$diagnosis)); head(data)[2:6]
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r,comment=""}
+# scale each numeric value
+scaled_data <- as.data.frame(lapply(data[,-1], scale))
+scaled_data <- cbind(diagnosis=data$diagnosis, scaled_data)
+head(scaled_data[2:6])
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r knn_classifier,comment=""}
+library(class)  # get k-NN classifier
+predict_1 <- knn(train = scaled_data[,2:31], test = scaled_data[,2:31],
+                 cl = scaled_data[,1],
+                 k = floor(sqrt(nrow(scaled_data))))                  
+table(predict_1)
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r knn_conf}
+pred_B <- which(predict_1=="B")
+actual_B <- which(scaled_data[,1]=="B")
+pred_M <- which(predict_1=="M")
+actual_M <- which(scaled_data[,1]=="M")
+true_positive <- sum(pred_B %in% actual_B)
+true_negative <- sum(pred_M %in% actual_M)
+false_positive <- sum(pred_B %in% actual_M)
+false_negative <- sum(pred_M %in% actual_B)
+
+conf_mat <- matrix(c(true_positive,false_positive,false_negative,true_negative),nrow=2,ncol=2)
+
+acc <- sum(diag(conf_mat))/sum(conf_mat)
+tpr <- conf_mat[1,1]/sum(conf_mat[1,])
+tn <- conf_mat[2,2]/sum(conf_mat[2,])
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r knn_conf_results,echo=FALSE,comment=""}
+c(acc=acc,tpr=tpr,tn=tn)
+colnames(conf_mat) <- c('tp','fp')
+rownames(conf_mat) <- c('fn','tn')
+conf_mat
+```
+
+- Is that right?
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r knn_train_test}
+# create randomized training and testing sets
+total_n <- nrow(scaled_data)
+
+# train on 2/3 of the data
+train_ind <- sample(total_n,total_n*2/3)
+train_labels <- scaled_data[train_ind,1]
+test_labels <- scaled_data[-train_ind,1]
+train_set <- scaled_data[train_ind,2:31]
+test_set <- scaled_data[-train_ind,2:31]
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r knn_repredict,comment=""}
+library(class)
+predict_1 <- knn(train = train_set, test = test_set, cl = train_labels,
+                 k = floor(sqrt(nrow(train_set))))                  
+table(predict_1)
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r}
+pred_B <- which(predict_1=="B")
+test_B <- which(test_labels=="B")
+pred_M <- which(predict_1=="M")
+test_M <- which(test_labels=="M")
+true_positive <- sum(pred_B %in% test_B)
+true_negative <- sum(pred_M %in% test_M)
+false_positive <- sum(pred_B %in% test_M)
+false_negative <- sum(pred_M %in% test_B)
+
+conf_mat <- matrix(c(true_positive,false_negative,false_positive,true_negative),nrow=2,ncol=2)
+
+acc <- sum(diag(conf_mat))/sum(conf_mat)
+tpr <- conf_mat[1,1]/sum(conf_mat[1,])
+tn <- conf_mat[2,2]/sum(conf_mat[2,])
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r knn_new_conf,echo=FALSE,comment=""}
+c(acc=acc,tpr=tpr,tn=tn)
+colnames(conf_mat) <- c('Actual B','Actual M')
+rownames(conf_mat) <- c('Pred B','Pred M')
+conf_mat
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r caret_conf,comment=""}
+library(caret)
+confusionMatrix(predict_1,test_labels)$table
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```
+Exercise: Find the Accuracy for various value of k.
+Hint 1 - look at the `knn` function parameters
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r adjust_k, comment=""}
+k_params <- c(1,3,5,10,15,20,25,30,40)
+perf_acc <- NULL
+per <- NULL
+for(i in k_params){
+  predictions <- knn(train = train_set,
+                     test = test_set,
+                     cl = train_labels,
+                     k = i)
+  conf <- confusionMatrix(predictions,test_labels)$table
+  perf_acc <- sum(diag(conf))/sum(conf)
+  per <- rbind(per,c(i, perf_acc,conf[[1]],conf[[3]],conf[[2]],conf[[4]]))
+}
+```
+
+----
+
+## K-Nearest Neighbors
+# Case study
+<space>
+
+```{r xtable, echo=FALSE, results='asis'}
+library(xtable)
+performances <- data.frame(per)
+names(performances)<-c("K","Acc","TP","FP","FN","TN")
+tab <- xtable(performances)
+print(tab,type='html')
+```
+
+----
+
+## K-Nearest Neighbors
+# Summary
+<space>
+  
+- kNN is a lazy learning algorithm
+- Assigns the majority class of the k data points closest to the new data
+  - Ensure all features are on the same scale
+- Pros
+  - Can be applied to data from any distribution
+  - Simple and intuitive
+- Cons
+  - Choosing k requires trial and error
+  - Testing step is computationally expensive (unlike parametric models)
+  - Needs a large number of training samples to be useful
 
 
+----
 
+## Naive Bayes
+# Probabilistic learning 
+<space>
+
+- Probability and Bayes Theorem
+- Understanding Naive Bayes
+- Case study: filtering mobile phone spam
+
+----
+
+## Naive Bayes
+# Probability and Bayes Theorem
+<space>
+
+- Terminology: 
+  + `probability`
+  + `event` 
+  + `trial` - e.g. 1 flip of a coin, 1 toss of a die
+- $X_{i}$ is an event
+- The set of all events is $\{X_{1},X_{2},...,X_{n}\}$
+- The probability of an event is the frequency of its occurrence
+  + $0 \leq P(X) \leq 1$
+  + $P(\sum_{i=1}^{n} X_{i}) = \sum_{i=1}^{n} P(X_{i})$
+
+----
+
+## Naive Bayes
+# Probability and Bayes Theorem
+<space>
+
+- $A \cap B$ is "A and B"
+- Independent events
+  - $P(A \cap B) = P(A) \times P(B)$
+- $A \mid B$ is "A given B"
+- Conditional probability
+  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
+
+----
+
+## Naive Bayes
+# Probability and Bayes Theorem
+<space>
+
+- Independent events
+  - $A \cap B$ is "A and B"
+  - $P(A \cap B) = P(A) \times P(B)$
+- Conditional probability
+  - $A \mid B$ is "A given B"
+  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ 
+  - $P(B \mid A) = \frac{P(B \cap A)}{P(A)}$
+  - $P(B \mid A) \times P(A) = P(B \cap A)$
+
+----
+
+## Naive Bayes
+# Probability and Bayes Theorem
+<space>
+
+- Independent events
+  - $A \cap B$ is "A and B"
+  - $P(A \cap B) = P(A) \times P(B)$
+- Conditional probability
+  - $A \mid B$ is "A given B"
+  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ 
+  - $P(B \mid A) = \frac{P(B \cap A)}{P(A)}$
+  - $P(B \mid A) \times P(A) = P(B \cap A)$
+  - but... $P(B \cap A) = P(A \cap B)$
+  
+----
+
+## Naive Bayes
+# Probability and Bayes Theorem
+<space>
+
+- Independent events
+  - $A \cap B$ is "A and B"
+  - $P(A \cap B) = P(A) \times P(B)$
+- Conditional probability
+  - $A \mid B$ is "A given B"
+  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ 
+  - $P(B \mid A) = \frac{P(B \cap A)}{P(A)}$
+  - $P(B \mid A) \times P(A) = P(B \cap A)$
+  - but... $P(B \cap A) = P(A \cap B)$
+  - so.... $P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}$ <-- *Bayes Theorem!*
+
+----
+
+## Naive Bayes
+# Bayes Example
+<space>
+
+- A decision should be made using all available information
+  - As new information enters, the decision might be changed
+- Example: Email filtering
+  - spam and non-spam (AKA ham)
+  - classify emails depending on what words they contain
+  - $P(spam \mid CASH!)$ = ?
+
+----
+
+## Naive Bayes
+# Bayes Example
+<space>
+
+```{r, bayes_ex,comment=""}
+# data frame with frequency of emails with the word "cash"
+bayes_ex <- data.frame(cash_yes=c(10,3,13),
+                      cash_no=c(20,67,87),
+                      total=c(30,70,100),
+                      row.names=c('spam','ham','total'))
+bayes_ex
+```
+
+----
+
+## Naive Bayes
+# Bayes Example
+<space>
+
+- Recall Bayes Theorem: 
+  - $P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}$
+- A = event that email is spam  
+- B = event that "CASH" exists in the email  
+$P(spam \mid cash=yes) = P(cash=yes \mid spam) \times \frac{P(spam)}{P(cash=yes)}$
+
+----
+
+## Naive Bayes
+# Bayes Example
+<space>
+
+- Recall Bayes Theorem: 
+  - $P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}$
+- A = event that email is spam  
+- B = event that "CASH" exists in the email  
+$P(spam \mid cash=yes) = P(cash=yes \mid spam) \times \frac{P(spam)}{P(cash=yes)}$<br>
+$P(cash = yes \mid spam) = \frac{10}{30}$<br>
+$P(spam) =  \frac{30}{100}$<br>
+$P(cash = yes) = \frac{13}{100}$<br>
+ = $\frac{10}{30} \times \frac{\frac{30}{100}}{\frac{13}{100}} = 0.769$ 
+
+----
+
+## Naive Bayes
+# Bayes Example
+<space>
+
+- Recall Bayes Theorem: 
+  - $P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}$
+- A = event that email is spam  
+- B = event that "CASH" exists in the email  
+$P(spam \mid cash=yes) = P(cash=yes \mid spam) \times \frac{P(spam)}{P(cash=yes)}$<br>
+$P(cash = yes \mid spam) = \frac{10}{30}$<br>
+$P(spam) =  \frac{30}{100}$<br>
+$P(cash = yes) = \frac{13}{100}$<br>
+ = $\frac{10}{30} \times \frac{\frac{30}{100}}{\frac{13}{100}} = 0.769$ 
+
+`Exercise:` $P(ham \mid cash = no)$ = ?
+
+
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
+- Assumes all features are independent and equally important
+- NB still performs very well out of the box
+```{r, bayes_ex_2, echo=FALSE,comment=""}
+bayes_ex_2 <- cbind(bayes_ex[,-3],
+                    furniture_yes=c(6,20,26),
+                    furniture_no=c(24,50,74),
+                    total=c(30,70,100))
+bayes_ex_2
+```
+
+$P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)}$
+
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
+- As features increase, formula becomes very expensive
+- Solution: assume each feature is independent of any other feature, given they are in the same class 
+  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
+  - Called "class conditional independence":<br>
+  - $P(spam \mid cash=yes \cap furniture=no) =$ 
+
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
+- As features increase, formula becomes very expensive
+- Solution: assume each feature is independent of any other feature, given they are in the same class 
+  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
+  - Called "class conditional independence":<br>
+  - $P(spam \mid cash=yes \cap furniture=no) =$ 
+  - $\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$
+
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
+- As features increase, formula becomes very expensive
+- Solution: assume each feature is independent of any other feature, given they are in the same class 
+  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
+  - Called "class conditional independence":<br>
+  - $P(spam \mid cash=yes \cap furniture=no) =$ 
+  - $\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =$
+  - $\frac{\frac{10}{30} \times \frac{24}{30}}{\frac{13}{100} \times \frac{74}{100}}$
+
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
+- As features increase, formula becomes very expensive
+- Solution: assume each feature is independent of any other feature, given they are in the same class 
+  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
+  - Called "class conditional independence":<br>
+  - $P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$
+  = $\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}$
+
+`Exercise`: $P(ham \mid cash=yes \cap furniture=no) = ?$
+
+----
+
+## Naive Bayes
+# The Laplace Estimator
+<space>
+
+```{r laplace_ex, echo=FALSE,comment=""}
+bayes_ex_3 <- cbind(bayes_ex_2[,-5],
+                    party_yes=c(3,0,3),
+                    party_no=c(27,70,97),
+                    total=c(30,70,100))
+bayes_ex_3
+```
+
+$P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = ?$
+
+----
+
+## Naive Bayes
+# The Laplace Estimator
+<space>
+
+```{r laplace_ex_2, echo=FALSE,comment=""}
+bayes_ex_3 <- cbind(bayes_ex_2[,-5],
+                    party_yes=c(3,0,3),
+                    party_no=c(27,70,97),
+                    total=c(30,70,100))
+bayes_ex_3
+```
+
+$P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = ?$
+$\frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0$
+
+- if party appears in an email, there's no chance it could be ham...really??
+
+----
+
+## Naive Bayes
+# The Laplace Estimator
+<space>
+
+$P(ham \mid cash=yes \cap party=yes) =$
+$\frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} =$
+$\frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0$
+
+- if party appears in an email, there's no chance it could be ham...really??
+- To get around 0's, apply Laplace estimator
+  - add 1 to every feature
+  
+----
+
+## Naive Bayes
+# Case Study: SMS spam filtering
+<space>
+
+```{r case_study_data,comment=""}
+sms_data  <- read.table('SMSSpamCollection.txt',stringsAsFactors=FALSE,sep='\t',quote="", col.names=c("type","text"))
+str(sms_data)
+sms_data$type <- factor(sms_data$type)
+```
+
+----
+
+## Naive Bayes
+# Case Study: SMS spam filtering
+<space>
+
+- Remove words like `and`, `the`, `or`
+```{r create_corpus,comment=""}
+library(tm)
+# create collection of text documents, a corpus
+sms_corpus <- Corpus(VectorSource(sms_data$text))
+sms_corpus
+```
+
+----
+
+## Naive Bayes
+# Case Study: SMS spam filtering
+<space>
+
+```{r inspect_messages,comment=""}
+# look at first few text messages
+for (i in 1:5){
+  print(sms_corpus[[i]])
+}
+```
+
+----
+
+## Naive Bayes
+# Case Study: SMS spam filtering
+<space>
+
+```{r clean_corpus}
+# clean the data using helpful functions
+corpus_clean <- tm_map(sms_corpus,tolower)
+corpus_clean <- tm_map(corpus_clean, removeWords, stopwords())
+corpus_clean <- tm_map(corpus_clean, removePunctuation)
+corpus_clean <- tm_map(corpus_clean, stripWhitespace)
+# now make each word in the corpus into it's own token
+# each row is a message and each column is a word. Cells are frequency counts.
+sms_dtm <- DocumentTermMatrix(corpus_clean)
+```
+
+----
+
+## Naive Bayes
+# Case Study: SMS spam filtering
+<space>
+
+```{r bayes_training_testing}
+# create training and testing set
+total_n <- nrow(sms_data)
+train_ind <- sample(total_n,total_n*2/3)
+dtm_train_set <- sms_dtm[train_ind,]
+dtm_test_set <- sms_dtm[-train_ind,]
+corpus_train_set <- corpus_clean[train_ind]
+corpus_test_set <- corpus_clean[-train_ind]
+raw_train_set <- sms_data[train_ind,1:2]
+raw_test_set <- sms_data[-train_ind,1:2]
+
+# remove infrequent terms - not useful for classification
+freq_terms <- c(findFreqTerms(dtm_train_set,7))
+corpus_train_set <- DocumentTermMatrix(corpus_train_set, list(dictionary = freq_terms))
+corpus_test_set <- DocumentTermMatrix(corpus_test_set, list(dictionary = freq_terms))
+```
+
+----
+
+## Naive Bayes
+# Case Study: SMS spam filtering
+<space>
+
+```{r convert_counts}
+# convert frequency counts to "yes" or "no"
+# implicitly weighing each term the same
+convert <- function(x) {
+  x <- ifelse(x > 0, 1, 0)
+  x <- factor(x, levels = c(0,1), labels=c('No','Yes'))
+  return(x)
+}
+
+corpus_train_set <- apply(corpus_train_set, MARGIN = 2 , FUN = convert)
+corpus_test_set <- apply(corpus_test_set, MARGIN = 2 , FUN = convert)
+```
+
+----
+
+## Naive Bayes
+# Case Study: SMS spam filtering
+<space>
+
+```{r naive_model,comment=""}
+# use naiveBayes() function from e1071 package
+library(e1071)
+
+naive_model <- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
+predict_naive <- predict(naive_model, corpus_test_set)
+
+naive_conf <- confusionMatrix(predict_naive,raw_test_set$type)$table
+naive_conf
+```
+
+----
+
+## Naive Bayes
+# Case Study: SMS spam filtering
+<space>
+
+```{r naive_model_exercise,comment=""}
+# use naiveBayes() function from e1071 package
+library(e1071)
+
+naive_model <- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
+predict_naive <- predict(naive_model, corpus_test_set)
+
+naive_conf <- confusionMatrix(predict_naive,raw_test_set$type)$table
+naive_conf
+```
+
+```
+Exercise:
+1) Calculate the true positive and false positive rate.  
+2) Calculate the error rate (hint: error rate = 1 - accuracy)  
+3) Set the Laplace = 1 and rerun the model and confustion matrix. Does this improve the model?
+```
+
+----
+
+## Naive Bayes
+# Summary
+<space>
+
+- Probabalistic approach
+- Naive Bayes assumes features are independent, conditioned on being in the same class
+- Useful for text classification
+- Strengths
+  - simple, fast
+  - Does well with noisy and missing data
+  - Doesn't need large training set
+- Weaknesses
+  - Assumes all features are independent and equally important
+  - Not well suited for numeric data sets
+
+
+----
+
+## Model Performance
+# Measuring performance
+<space>
+
+- Classification
+- Regression (more on this later)
+
+----
+
+## Model Performance
+# Classification problems
+<space>
+
+- Accuracy is not enough
+  - e.g. drug testing
+  - class imbalance
+- Best performance measure: Is classifier successful at intend purpose?
+
+----
+
+## Model Performance
+# Classification problems
+<space>
+
+- 3 types of data used for measuring performance
+  - actual values
+  - predicted value
+  - probability of prediction, i.e. confidence in prediction
+- most R packages have a `predict()` function 
+- confidence in predicted value matters
+  - all else equal, choose the model that is more confident in its predictions
+  - more confident + accuracy = better generalizer
+  - set a paramter in `predict()` to `probability`, `prob`, `raw`, ...
+
+----
+
+## Model Performance
+# Classification problems
+<space>
+
+```{r confidence, comment=""}
+# estimate a probability for each class
+confidence <- predict(naive_model, corpus_test_set, type='raw')
+as.data.frame(format(head(confidence),digits=2,scientific=FALSE))
+```
+
+----
+
+## Model Performance
+# Classification problems
+<space>
+
+```{r comparison, comment=""}
+# estimate a probability for each class
+spam_conf <- confidence[,2]
+comparison <- data.frame(predict=predict_naive,
+                         actual=raw_test_set[,1],
+                         prob_spam=spam_conf)
+comparison[,3] <- format(comparison[,3],digits=2,scientific=FALSE)
+head(comparison)
+```
+
+----
+
+## Model Performance
+# Classification problems
+<space>
+
+```{r avg_conf, comment=""}
+head(comparison[with(comparison,predict!=actual),])
+head(comparison[with(comparison,predict==actual),])
+
+mean(as.numeric(comparison[with(comparison,predict!='spam'),]$prob_spam))
+mean(as.numeric(comparison[with(comparison,predict=='spam'),]$prob_spam))
+```
+
+----
+
+## Model Performance
+# Confusion Matrix
+<space>
+
+- Categorize predictions on whether they match actual values or not
+- Can be more than two classes
+- Count the number of predictions falling on and off the diagonals
+
+```{r confusion, comment=""}
+predicted <- sample(c("A","B","C"),1000,TRUE)
+actual <- sample(c("A","B","C"),1000,TRUE)
+fabricated <- table(predicted,actual)
+
+# for our Naive Bayes classifier
+table(comparison$predict,comparison$actual)
+```
+
+----
+
+## Model Performance
+# Confusion Matrix
+<space>
+
+- True Positive (TP)
+- False Positive (FP)
+- True Negative (TN)
+- False Negative (FN)
+- $Accuracy = \frac{TN + TP}{TN + TP + FN + FP}$
+- $Error = 1 - Accuracy$
+
+----
+
+## Model Performance
+# Kappa
+<space>
+
+- Adjusts the accuracy by the probability of getting a correct prediction by chance alone
+- $k = \frac{P(A) - P(E)}{1 - P(E)}$
+  - Poor < 0.2
+  - Fair < 0.4
+  - Moderate < 0.6
+  - Good < 0.8
+  - Excellent > 0.8
+
+----
+
+## Model Performance
+# Kappa
+<space>
+
+- P(A) is the accuracy
+- P(E) is the proportion of results where actual = predicted
+  - $P(E) = P(E = class 1 ) + P(E = class 2)$
+  - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
+    - actual and predicted are independent so...
+
+----
+
+## Model Performance
+# Kappa
+<space>
+
+- P(A) is the accuracy
+- P(E) is the probability that actual = predicted, i.e. the proportion of each class
+  - $P(E) = P(E = class 1 ) + P(E = class 2)$
+  - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
+    - actual and predicted are independent so...
+  - $P(E = class 1) = P(actual = class 1 ) \times P(predicted = class 1)$    
+    - putting it all together... 
+
+----
+
+## Model Performance
+# Kappa
+<space>
+
+- P(A) is the accuracy
+- P(E) is the probability that actual = predicted, i.e. the proportion of each class
+  - $P(E) = P(E = class 1 ) + P(E = class 2)$
+  - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
+    - actual and predicted are independent so...
+  - $P(E = class 1) = P(actual = class 1 ) \times P(predicted = class 1)$    
+    - putting it all together...
+  - $P(E) = P(actual = class 1) \times P(predicted = class 1) + P(actual = class 2) \times P(predicted = class 2)$
+
+----
+
+## Model Performance
+# Kappa
+<space>
+
+- P(A) is the accuracy
+- P(E) is the probability that actual = predicted, i.e. the proportion of each class
+  - $P(E) = P(E = class 1 ) + P(E = class 2)$
+  - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
+    - actual and predicted are independent so...
+  - $P(E = class 1) = P(actual = class 1 ) \times P(predicted = class 1)$    
+    - putting it all together...
+  - $P(E) = P(actual = class 1) \times P(predicted = class 1) + P(actual = class 2) \times P(predicted = class 2)$
+  
+```Exercise: Calculate the kappa statistic for the naive classifier.```
+
+----
+
+## Model Performance
+# Specificity and Sensitivity
+<space>
+
+- Sensitivity: proportion of positive examples that were correctly classified (True Positive Rate)
+  - $sensitivity = \frac{TP}{TP + FN}$
+- Specificity: proportion of negative examples correctly classified (True Negative Rate)
+  - $specificity = \frac{TN}{FP + TN}$
+- Balance aggressiveness and conservativeness
+- Found in the confusion matrix
+- Values range from 0 to 1
+
+----
+
+## Model Performance
+# Precision and Recall
+<space>
+
+- Used in information retrieval: are the values retrieved useful or clouded by noise?
+- Precision: proportion of positives that are truly positive
+  - $precision = \frac{TP}{TP + FP}$
+  - Precise model only predicts positive when it is sure. Very trustworthy model.
+- Recall: proportion of true positives of all positives
+  - $recall = \frac{TP}{TP + FN}$
+  - High recall model will capture a large proportion of positives. Returns relevant results
+- Easy to have high recall (cast a wide net) or high precision (low hanging fruit) but hard to have both high
+
+----
+
+## Model Performance
+# Precision and Recall
+<space>
+
+- Used in information retrieval: are the values retrieved useful or clouded by noise?
+- Precision: proportion of positives that are truly positive
+  - $precision = \frac{TP}{TP + FP}$
+  - Precise model only predicts positive when it is sure. Very trustworthy model.
+- Recall: proportion of true positives of all positives
+  - $recall = \frac{TP}{TP + FN}$
+  - High recall model will capture a large proportion of positives. Returns relevant results
+- Easy to have high recall (cast a wide net) or high precision (low hanging fruit) but hard to have both high
+
+```Exercise: Find the specificity, sensitivity, precision and recall for the Naive classifier.```
+
+----
+
+## Model Performance
+# F-score
+<space>
+
+- Also called the F1-score, combines both precision and recall into 1 measure
+- $F_{1} = \frac{2 \times precision + recall}{precision + recall}$
+- Assumes equal weight to precision and recall
+
+----
+
+## Model Performance
+# F-score
+<space>
+
+- Also called the F1-score, combines both precision and recall into 1 measure
+- $F_{1} = \frac{2 \times precision + recall}{precision + recall}$
+- Assumes equal weight to precision and recall
+
+```Exercise: Calculate the F-score for the Naive classifier.```
+
+----
+
+## Model Performance
+# Visualizing performance: ROC
+<space>
+
+- ROC curves measure how well your classifier can discriminate between the positive and negative class
+- As threshold increases, tradeoff between TPR (sensitivity) and FPR (1 - specificity)
+
+```{r roc, comment=""}
+library(ROCR)
+# create a prediction function
+pred <- prediction(predictions = as.numeric(comparison$predict), labels= raw_test_set[,1])
+# create a performance function
+perf <- performance(pred,measure='tpr',x.measure='fpr')
+# create the ROC curve
+plot(perf, main = "ROC Curve for Naive classifier", col = 'blue', lwd = 3)
+abline(a = 0, b = 1, lwd = 2, lty = 2)
+text(0.75,0.4, labels = "<<<  Classifier with\n no predictive power")
+```
+
+----
+
+## Model Performance
+# Visualizing performance: ROC
+<space>
+
+- The area under the ROC curve is the AUC
+- Ranges from 0.5 (no predictive power) to 1.0 (perfect classifier)
+    - 0.9 – 1.0 = outstanding
+    - 0.8 – 0.9 = excellent 
+    - 0.7 – 0.8 = acceptable
+    - 0.6 – 0.7 = poor
+    - 0.5 – 0.6 = no discrimination
+```{r auc, comment=""}
+auc <- performance(pred, measure='auc')
+str(auc)
+auc@y.values
+```  
+
+----
+
+## Model Performance
+# Holdout method
+<space>
+
+- We cheated (kind of) in the kNN example
+
+----
+
+## Model Performance
+# Holdout method
+<space>
+
+- We cheated (kind of) in the kNN example
+  - Train model - 50% of data
+  - Tune parameters on validation set - 25% of data
+    - retrain final model on training and validation set (maximize data points)
+  - Test final model - 25% of data
+
+```{r create_partition,comment=""}
+library(caret)
+new_data <- createDataPartition(sms_data$type,p=0.1, list=FALSE)
+table(sms_data[new_data,1])
+```
+
+----
+
+## Model Performance
+# Holdout method
+<space>
+
+- k-fold Cross Validation
+   - Divide data into k random, equal sized partitions (k=10 is a commonly used)
+   - Train the classifier on the K-1 parts
+   - Test it on the Kth partition
+   - Repeat for every K
+   - Average the performance across all models - this is the Cross Validation Error
+   - All examples eventually used for training and testing
+   
+```{r folds, comment=""}
+folds <- createFolds(sms_data$type, k = 10)
+str(folds)
+```
+
+----
+
+## Regression
+# Understanding Regression
+<space>
+
+- predicting continuous value - not classification
+- concerned about relationship between independent and dependent variables
+- regressions can be linear, non-linear, using decision trees, etc...
+- linear and non-linear regressions are called generalized linear models
+
+----
+
+## Regression
+# Linear regression
+<space>
+
+- $Y = \alpha + \beta X$
+- $\alpha$ and $\beta$ are just estimates
+
+```{r best_fit, echo=FALSE,message=FALSE,fig.height=5,fig.width=5}
+library(ggplot2)
+x <- seq(1,100,1)
+y <- 2 + 4*x*rnorm(100,mean=4,sd=1)
+scatter = data.frame(x=x,y=y)
+model <- lm(y~x, scatter)
+alpha <- model$coef[1] 
+beta <- model$coef[2]
+ggplot(data = scatter, aes(x=x,y=y)) +  geom_point() +  geom_abline(intercept = alpha, slope = beta, color = 'red', size=1) + ggtitle("Line of best fit") + theme(plot.title = element_text(size=16,face="bold"))
+```
+
+----
+
+## Regression
+# Linear regression
+<space>
+
+- Distance between the line and each point is the error, or residual term
+- Line of best fit: $Y = \alpha + \beta X + \epsilon$. Assumes:
+  - $\epsilon$ ~ $N(0, \sigma^{2})$
+  - Each point is IID (independent and identically distributed)
+  - $\alpha$ is the intercept
+  - $\beta$ is the coefficient
+  - $X$ is the parameter
+  - Both are usually made up of multiple elements - matrices
+
+----
+
+## Regression
+# Linear regression
+<space>
+
+- Minimize $\epsilon$ by minimizing the mean squared error:
+  - $MSE = \sum_{i=1}^{n}\epsilon_{i}^{2} = \sum_{i=1}^{n}(y_{i} - \hat{y})^{2}$
+  - $y_{i}$ is the true/observed value
+  - $\hat{y}$ is the approximation to/prediction of the true $y$
+- Minimization of MSE yields an unbiased estimator with the least variance
+- 2 common ways to minimize MSE:
+  - analytical solution (e.g. `lm()` function does this)
+  - approximation (e.g. gradient descent)
+
+----
+
+## Regression
+# Gradient descent
+<space>
+
+- In Machine Learning, regression equation is called the hypothesis function
+  - Linear hypothesis function $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\beta$
+  
+----
+
+## Regression
+# Gradient descent
+<space>
+
+- In Machine Learning, regression equation is called the hypothesis function
+  - Linear hypothesis function $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\beta$
+- Goal remains the same: minimize MSE
+  - define a cost (aka objective) function
+  - $J(\theta_{0},\theta_{1}) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x_{i}) - y_{i})^2$
+  - $m$ is the number of examples
+
+----
+
+## Regression
+# Gradient descent
+<space>
+
+- In Machine Learning, regression equation is called the hypothesis function
+  - Linear hypothesis function $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\beta$
+- Goal remains the same: minimize MSE
+  - define a cost (aka objective) function
+  - $J(\theta_{0},\theta_{1}) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x_{i}) - y_{i})^2$
+  - $m$ is the number of examples
+- Find a value for theta that minimizes $J$
+  - can use calculus or...gradient descent
+
+----
+
+## Regression
+# Gradient descent
+<space>
+
+- given a starting value, take a step along the slope
+- continue taking a step until minimum is reached
+
+```{r, echo=FALSE,fig.height=5,fig.width=5}
+pwr <- function(x) x^2
+curve(pwr,from=-3,to=3,main="Curve with Global Minimum")
+points(-2,pwr(-2),col='red',pch=19)
+```
+
+----
+
+## Regression
+# Gradient descent
+<space>
+
+- given a starting value, take a step along the slope
+- continue taking a step until minimum is reached
+
+```{r, echo=FALSE,fig.height=5,fig.width=5}
+pwr <- function(x) x^2
+curve(pwr,from=-3,to=3,main="Curve with Global Minimum")
+points(-2,pwr(-2),col='red',pch=19)
+points(-1.2,pwr(-1.2),col='red',pch=19)
+```
+
+----
+
+## Regression
+# Gradient descent
+<space>
+
+- given a starting value, take a step along the slope
+- continue taking a step until minimum is reached
+
+```{r, echo=FALSE,fig.height=5,fig.width=5}
+pwr <- function(x) x^2
+curve(pwr,from=-3,to=3,main="Curve with Global Minimum")
+points(-2,pwr(-2),col='red',pch=19)
+points(-1.2,pwr(-1.2),col='red',pch=19)
+points(-0.6,pwr(-0.6),col='red',pch=19)
+```
+
+----
+
+## Regression
+# Gradient descent
+<space>
+
+- given a starting value, take a step along the slope
+- continue taking a step until minimum is reached
+
+```{r, echo=FALSE,fig.height=5,fig.width=5}
+pwr <- function(x) x^2
+curve(pwr,from=-3,to=3,main="Curve with Global Minimum")
+points(-2,pwr(-2),col='red',pch=19)
+points(-1.2,pwr(-1.2),col='red',pch=19)
+points(-0.6,pwr(-0.6),col='red',pch=19)
+points(-0.2,pwr(-0.2),col='red',pch=19)
+points(0,pwr(0),col='red',pch=19)
+```
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+- Start with a point (guess)
+- Repeat
+  - Determine a descent direction 
+  - Choose a step
+  - Update
+- Until stopping criterion is satisfied
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+- Start with a point (guess)    $x$
+- Repeat
+  - Determine a descent direction   $-f^\prime$
+  - Choose a step    $\alpha$
+  - Update    $x:=x - \alpha f^\prime$
+- Until stopping criterion is satisfied   $f^\prime ~ 0$
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+- update the value of $\theta$ by subtracting the first derivative of the cost function
+- $\theta_{j}$ := $\theta_{j} - \alpha \frac{\partial}{\partial \theta_{j}}J(\theta_{0},\theta_{1})$
+  - $j = 1, ..., p$ the number of coefficients, or features
+  - $\alpha$ is the step
+  - $\frac{\partial}{\partial \theta_{j}}J(\theta_{0},\theta_{1})$ is the gradient
+- repeat until $J(\theta)$ is minimized
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+- using math, it turns out that 
+- $\frac{\partial}{\partial \theta_{j}}J(\theta_{0},\theta_{1})$
+$=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{i}) - y^{i})(x^{i}_{j})$
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+- and gradient descent formula becomes:
+- $\theta_{j}$ := $\theta_{j} - \alpha\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{i}) - y^{i})(x_{j}^{i})^{2}$
+- repeating until the cost function is minimized
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+- choose the learning rate, alpha
+- choose the stopping point
+- local vs. global minimum
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+```{r grad_ex_plot,echo=FALSE,fig.height=5,fig.width=5}
+x <- seq(0,1,by=0.01)
+y <- 4 + 3*x*rnorm(length(x),2,sd=0.3)
+df <- data.frame(cbind(X=x,Y=y))
+
+## take a look at the data
+ggplot(data=df,aes(x=X,y=Y))+geom_point(size=2)
+```
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+```{r grad_formula,echo=TRUE}
+x <- cbind(1,x)  #Add ones to x  
+theta<- c(0,0)  # initalize theta vector 
+m <- nrow(x)  # Number of the observations 
+grad_cost <- function(X,y,theta) return(sum(((X%*%theta)- y)^2))
+```
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+```{r grad_function,echo=TRUE}
+gradDescent<-function(X,y,theta,iterations,alpha){
+  m <- length(y)
+  grad <- rep(0,length(theta))
+  cost.df <- data.frame(cost=0,theta=0)
+  
+  for (i in 1:iterations){
+    h <- X%*%theta
+    grad <-  (t(X)%*%(h - y))/m
+    theta <- theta - alpha * grad
+    cost.df <- rbind(cost.df,c(grad_cost(X,y,theta),theta))    
+  }  
+  
+  return(list(theta,cost.df))
+}
+```
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+```{r grad_vars,comment="",fig.height=5,fig.width=5}
+## initialize X, y and theta
+X1<-matrix(ncol=1,nrow=nrow(df),cbind(1,df$X))
+Y1<-matrix(ncol=1,nrow=nrow(df),df$Y)
+
+init_theta<-as.matrix(c(0))
+grad_cost(X1,Y1,init_theta)
+
+iterations = 10000
+alpha = 0.1
+results <- gradDescent(X1,Y1,init_theta,iterations,alpha)
+```
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+```{r grad_curve,fig.height=5,fig.width=5,echo=FALSE}
+theta <- results[1][[1]]
+cost.df <- results[2]
+cost.df <- as.data.frame(cost.df)[-1,]
+ggplot(cost.df,aes(x=cost.df$theta,y=cost.df$cost)) + geom_point()+
+  ylab("Cost")+xlab("Theta")+ggtitle("Cost curve")
+```
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+```{r pred,echo=TRUE,comment=""}
+grad_cost(X1,Y1,theta[[1]])
+## Make some predictions
+intercept <- df[df$X==0,]$Y
+pred <- function (x) return(intercept+c(x)%*%theta)
+new_points <- c(0.1,0.5,0.8,1.1)
+new_preds <- data.frame(X=new_points,Y=sapply(new_points,pred))
+```
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+```{r new_point,echo=TRUE,fig.height=5,fig.width=5}
+ggplot(data=df,aes(x=X,y=Y))+geom_point(size=2)
+ggplot(data=df,aes(x=X,y=Y))+geom_point()+geom_point(data=new_preds,aes(x=X,y=Y,color='red'),size=3)+scale_colour_discrete(guide = FALSE)
+```
+
+----
+
+## Regression example
+# Gradient descent - summary
+<space>
+
+- minimization algorithm
+- approximation, non-closed form solution
+- good for large number of examples
+- hard to select the right $\alpha$
+- traditional looping is slow - optimization algorithms are used in practice
+
+----
+
+## Learning Curves
+# How many parameters are too many?
+<space>
+
+```{r multi_plot,fig.height=5,fig.width=5,echo=FALSE}
+library(gridExtra)
+x <- seq(0,1,by=0.005)
+y <- sin(2.5*pi*x) + rnorm(length(x),0,0.1)
+df <- data.frame(X=x,Y=y)
+ggplot(df,aes(x=X,y=Y)) + geom_point()
+```
+
+----
+
+## Learning Curves
+# How many parameters are too many?
+<space>
+
+- a simple linear model won't fit
+
+```{r multi_plot_2,fig.height=5,fig.width=5,echo=FALSE,comment=""}
+ggplot(df,aes(x=X,y=Y)) + geom_point() + geom_smooth(method='lm',se=FALSE)
+summary(lm(Y~X,df))$adj.r.squared
+```
+
+----
+
+## Learning Curves
+# How many parameters are too many?
+<space>
+
+- let's add some features
+
+```{r more_features,comment="",echo=TRUE}
+df <- transform(df, X2=X^2, X3=X^3)
+summary(lm(Y~X+X2+X3,df))$coef[,1]
+summary(lm(Y~X + X2 + X3,df))$adj.r.squared
+```
+
+----
+
+## Learning Curves
+# How many parameters are too many?
+<space>
+
+- let's add even more features
+
+```{r, echo=FALSE,comment=""}
+df <- transform(df, X4=X^4, X5=X^5, X6=X^6, X7=X^7, X8=X^8, X9=X^9, X10=X^10, X11=X^11,X12=X^12, X13=X^13, X14=X^14,X15=X^15)
+line.fit <- lm(Y~X+X2+X3+X4+X5+X6+X7+X8+X9+X10+X11+X12+X13+X14+X15,df)
+summary(line.fit)$coef[,1]
+sqrt(mean((predict(line.fit)-df$Y)^2))
+```
+
+----
+
+## Learning Curves
+# How many parameters are too many?
+<space>
+
+- use orthogonal polynomials to avoid correlated features
+- `poly()` function
+
+```{r pol,comment=""}
+ortho.coefs <- with(df,cor(poly(X,degree=3)))
+sum(ortho.coefs[upper.tri(ortho.coefs)]) # polynomials are uncorrelated
+linear.fit <- lm(Y~poly(X,degree=15),df)
+summary(linear.fit)$coef[,1]
+summary(linear.fit)$adj.r.squared # R^2 is 98% and no errors
+sqrt(mean((predict(linear.fit)-df$Y)^2)) # RMSE = 0.472
+```
+----
+
+## Learning Curves
+# How many parameters are too many?
+<space>
+
+- when to stop adding othogonal features?
+
+```{r polt_2,echo=FALSE,comment="",fig.height=5,fig.width=5}
+fit1 <- predict(lm(Y~poly(X, degree=1),df))
+df <- transform(df, PredY1 = fit1)
+plot1 <- ggplot(df, aes(x=X,y=PredY1)) + geom_point()+geom_line()+ggtitle('degree = 1')+ylab('Y')
+
+fit3 <- predict(lm(Y~poly(X, degree=3),df))
+df <- transform(df, PredY3 = fit3)
+plot3 <- ggplot(df, aes(x=X,y=PredY3)) + geom_point()+geom_line()+ggtitle('degree = 3')+ylab('Y')
+
+fit5 <- predict(lm(Y~poly(X, degree=5),df))
+df <- transform(df, PredY5 = fit5)
+plot5 <- ggplot(df, aes(x=X,y=PredY5)) + geom_point()+geom_line()+ggtitle('degree = 5')+ylab('Y')
+
+fit25 <- predict(lm(Y~poly(X, degree=25),df))
+df <- transform(df, PredY25 = fit25)
+plot25 <- ggplot(df, aes(x=X,y=PredY25)) + geom_point()+geom_line()+ggtitle('degree = 25')+ylab('Y')
+
+grid.arrange(plot1,plot3,plot5,plot25)
+```
+
+----
+
+## Learning Curves
+# How many parameters are too many?
+<space>
+
+- use cross-validation to determine best degree
+
+```{r cross_val,comment=""}
+x <- seq(0,1,by=0.005)
+y <- sin(3*pi*x) + rnorm(length(x),0,0.1)
+
+indices <- sort(sample(1:length(x), round(0.5 * length(x))))
+training.x <- x[indices] 
+training.y <- y[indices]
+test.x <- x[-indices] 
+test.y <- y[-indices]
+training.df <- data.frame(X = training.x, Y = training.y) 
+test.df <- data.frame(X = test.x, Y = test.y)
+
+rmse <- function(y,h) return(sqrt(mean((y-h)^2)))
+```
+
+----
+
+## Learning Curves
+# How many parameters are too many?
+<space>
+
+```{r cross_val_func,comment="",fig.height=5,fig.width=5}
+performance <- data.frame()
+for (d in 1:20){
+  fits <- lm(Y~poly(X,degree=d),data=training.df)
+  performance <- rbind(performance, data.frame(Degree = d,
+                                               Data = 'Training',
+                                               RMSE = rmse(training.y, predict(fits))))
+  performance <- rbind(performance, data.frame(Degree = d,
+                                             Data = 'Test',
+                                             RMSE = rmse(test.y, predict(fits,
+                                                                         newdata = test.df))))
+}
+```
+
+----
+
+## Learning Curves
+# How many parameters are too many?
+<space>
+
+```{r,echo=FALSE}
+ggplot(performance, aes(x = Degree, y = RMSE, linetype = Data)) + geom_point() + geom_line()
+```
+
+----
+
+## Regression
+# Summary
+<space>
+
+- Minimize MSE of target function
+- Analytically vs. approximation
+- Gradient descent preferrable when lots of examples
+- Use learning curves to determine optimal number of parameters (or data points)
+
+----
+
+## Summary
+<space>
+
+- Machine learning overview and concepts
+- Exploring data using R
+- kNN algorithm and use case 
+- Naive Bayes
+  - Probability concepts
+  - Mobile Spam case study
+- Model performance measures
+- Regression
+
+----
+
+## Next Time
+<space>
+
+- Logistic regression
+- Decision Trees
+- Clustering
+- Dimensionality reduction (PCA, ICA)
+- Regularization
+
+----
+
+## Resources
+<space>
+
+- [Machine Learning with R](http://www.packtpub.com/machine-learning-with-r/book)
+- [Machine Learning for Hackers](http://shop.oreilly.com/product/0636920018483.do)
+- [Elements of Statistical Learning](http://web.stanford.edu/~hastie/local.ftp/Springer/OLD/ESLII_print4.pdf)
+
+----

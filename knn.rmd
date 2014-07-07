@@ -1,0 +1,747 @@
+---
+  title       : Machine Learning with R
+author      : Ilan Man
+job         : Business Intelligence @ Squarespace
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : mathjax       # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+  
+  ## Agenda 
+  <space>
+  
+  1. Machine Learning Overview
+2. Using R
+3. Nearest Neighbors
+4. Naive Bayes
+5. Linear Regression
+6. Measuring Performance
+
+----
+  
+  ## Machine Learning Overview
+  # What is it?
+  <space>
+  
+  - field of study interested in transforming data into intelligent actions
+- intersection of statistics, available data and computing power
+- it is NOT data mining
+- data mining is an exploratory exercise, whereas most machine learning has a known answer
+- data mining is a subset of machine learning (unsupervised)
+
+----
+  
+  ## Machine Learning Overview
+  # Uses
+  <space>
+  
+  - predict outcome of elections
+- email filtering - spam or not
+- credit fraud prediction
+- image processing
+- customer churn
+- customer subscription rates
+
+----
+  
+  ## Machine Learning Overview
+  # How do machine learn?
+  <space>
+  
+  - Data input 
+- provides a factual basis for reasoning
+- Abstraction 
+- Generalization 
+
+----
+  
+  ## Machine Learning Overview
+  # Abstraction
+  <space>
+  
+  - assign meaning to the data
+- formulas, graphs, logic, etc...
+- this is your model
+- fitting the model is called training
+
+----
+  
+  ## Machine Learning Overview
+  # Generalization
+  <space>
+  
+  - the process of turning abstracted knowledge into a form that can be utilized
+- the machine users heuristics - much like humans - since it cannot see every example
+- when hueristics are systematically wrong, the algorithm has a bias
+- very simple models tend to have a high bias
+- some bias is good - let's us ignore the noise
+
+----
+
+## Machine Learning Overview
+# Generalization
+<space>
+
+- after initial training, the model is tested on a new, unseen dataset
+- perfect generalization is exceedingly rare
+- partly due to noisiness of the data
+- measurement error
+- change in user behavior at certain points in time
+- incorrect data, erroneous values, etc...
+- fitting to closesly to the noise leads to overfitting, known as the high variance problem
+- if your model performs very well on the training data, but poorly on testing data then it's overfit to the training set and not generalizable
+- this is also common on very complex models (i.e. high degree poynomials)
+
+----
+  
+  ## Machine Learning Overview
+  # Steps to apply Machine Learning
+  <space>
+  
+  1. Collect data
+2. Explore and prepate the data 
+- majority of the time is spent in this stage
+3. Training the model
+- specific tasks will inform which algorithm is appropriate
+4. Evaluate model performance
+- this is dependent on the task - not one, single performance measure is best
+5. Improve model performance
+
+----
+  
+  ## Machine Learning Overview
+  # Choosing an algorithm
+  <space>
+  
+  - consider input data
+- an example is one data point (of many) that the machine is intended to learn 
+- a feature is a characteristic of the example, e.g. number of times the word "viagra" appears in an email
+- for classification problems, a label is the example's classification
+- most data should be processed into matrix format, with each row being an example, and each column being a feature of that example
+- features can be numeric, categorical/nominal or ordinal
+
+----
+
+## Machine Learning Overview
+# Types of algorithms
+<space>
+
+- Supervised
+- discover relationship between known, target feature and other features
+- predictive
+- classification and numeric prediction tasks
+- Unsupervised
+- unkown answer
+- descriptive
+- pattern discovery and clustering into groups
+- requires human intervention to interpret clusters
+
+----
+
+## Machine Learning Overview
+# Summary
+<space>
+
+1. Generalization and Abstraction
+2. Overfitting vs underfitting
+3. The right algorithm will be informed by the problem to be solved
+4. Terminology
+- training and testing, bias and variance, supervised and unsupervised
+
+----
+
+## Using R for Machine Learning
+# Exploring and understanding data
+<space>
+
+- load and explore the data
+
+```{r}
+data(iris)
+
+# inspect the structure of the dataset
+str(iris)
+```
+
+----
+
+## Using R for Machine Learning
+# Exploring and understanding data
+<space>
+
+```{r}
+# summarize the data  - five number summary
+summary(iris[,1:4])
+```
+
+----
+
+## Using R for Machine Learning
+# Exploring and understanding data
+<space>
+
+- measures of central tendency: mean and median
+- mean is sensitive to outliers
+- median is resistant
+
+```{r, echo=FALSE,fig.height=3, fig.width=3}
+N <- 10000; x <- rnbinom(N, 10, .5)
+hist(x, xlim=c(min(x),max(x)), probability=T, nclass=max(x)-min(x)+1, 
+col='lightblue', xlab=' ', ylab=' ', axes=F,main='Positive Skewed')
+lines(density(x,bw=1), col='red', lwd=3)
+```
+
+----
+
+## Using R for Machine Learning
+# Exploring and understanding data
+<space>
+
+- measures of dispersion
+- range is the `max()` - `min()`
+- interquartile range (IQR) is the Q3 - Q1
+- quantile
+
+```{r}
+quantile(iris$Sepal.Length, probs = c(0.10,0.50,0.99))
+median(iris$Sepal.Length)  ## [1] 5.8
+```
+
+----
+
+## Managing and Understanding Data
+# Visualizing data - boxplots
+<space>
+
+- boxplots let you see the spread in the data
+
+```{r, echo=FALSE}
+boxplot(iris$Sepal.Length, main="Boxplot of Sepal Length", ylab="Sepal Length")
+```
+
+----
+
+## Managing and Understanding Data
+# Visualizing data - histograms
+<space>
+
+- histograms are another way to see the spread in the data
+- each bar is called a bin, and the height of the bar is the frequency (count of) that bin
+- some distributions are normally distributed (bell shaped) or skewed (heavy tails)
+```{r, echo=FALSE,fig.height=2,fig.width=3}
+par(mfrow=c(1,2))
+hist(rbeta(1000,9,2), main = "Left Skewed", xlab = "", breaks=seq(0,1,0.025))
+hist(rbeta(1000,2,9), main = "Right Skewed", ylab = "", xlab = "", breaks=seq(0,1,0.025))
+```
+
+----
+
+## Managing and Understanding Data
+# Scatterplots
+<space>
+
+- scatterplots are useful for visualizing bivariate relationships (2 variables)
+
+```{r, echo=FALSE}
+plot(x=iris$Sepal.Length, y=iris$Petal.Length, main = "Sepal vs Petal Length")
+```
+
+----
+
+## Managing and Understanding Data
+# Summary
+<space>
+
+- measures of central tendency and dispersion
+- visualizing data using histograms, boxplots
+- skewed vs normally distributed data
+
+----
+
+## K-Nearest neighbors
+# Classification using kNN
+<space>
+
+- understanding the algorithm
+- case study: diagnosing breast cancer
+- summary
+
+----
+
+## K-Nearest neighbors
+# The Concept
+<space>
+
+- things that are similar are probably of the same class
+- good for: when it's difficult to define, but "you know it when you see it"
+- bad for: when a clear distinction doesn't exist
+
+----
+
+## K-Nearest neighbors
+# The Algorithm
+<space>
+
+```{r, echo=FALSE}
+library(plyr)
+df <- iris
+find_hull<-function(df) df[chull(df$Sepal.Length,df$Petal.Length),]
+hulls <- ddply(df, "Species", find_hull)
+ggplot(iris,aes(x=iris$Sepal.Length, y=iris$Petal.Length,color=iris$Species))+geom_point()
+```
+
+----
+
+## K-Nearest neighbors
+# The Algorithm
+<space>
+
+```{r, echo=FALSE}
+plot <- ggplot(data = df, aes(x = Sepal.Length, y = Petal.Length, colour=Species, fill = Species)) + geom_point() + geom_polygon(data = hulls, alpha = 0.5)
+plot
+```
+
+----
+
+## K-Nearest neighbors
+# The Algorithm
+<space>
+
+```{r, echo=FALSE}
+plot + geom_point(aes(x=7,y=4),color="black")
+```
+
+- Suppose we had a new point with Sepal Length of 7 and Petal Length of 4
+- Which species will it probably belong to?
+
+----
+
+## K-Nearest neighbors
+# The Algorithm
+<space>
+
+- Calculate its nearest neighbor
+- defined as the Euclidean distance
+- $dist(p,q) = \sqrt{(p_1-q_1)^2+(p_2-q_2)^2}$
+- Closest neighbor -> 1-NN
+- 3 closest neighbors -> 3-NN. 
+- Winner is the majority class of all neighbors
+- Why not just fit to all data points?
+
+----
+
+## K-Nearest neighbors
+# Bias vs. Variance
+<space>
+
+- Fitting to every point results in an overfit model
+- High variance problem.
+- Fitting to only 1 point results in an underfit model
+- High bias problem.
+- Choosing the right k is a balance between bias and variance
+- Rule of thumb: set k equal to the $\sqrt{N}$
+
+----
+
+## K-Nearest neighbors
+# data preparation
+<space>
+
+- say we are classifying houses based on prices and square footage
+
+```{r}
+price <- seq(300000,600000,by=10000)
+size <- price/1000 + rnorm(length(price),10,50)
+houses <- data.frame(price,size)
+ex <- ggplot(houses,aes(price,size))+geom_point()
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r, echo = FALSE}
+ex
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r,echo=FALSE}
+clus <- kmeans(as.matrix(houses),centers=3)
+center <- as.data.frame(clus$centers)
+center_plot <- ex + geom_point(data=center,aes(x=center$price,y=center$size),color='blue',size=4)
+center_plot
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r,echo=FALSE}
+new <- c(430000,300)
+new_plot <- center_plot+geom_point(aes(x=430000,y=300),color='red',size=3)
+new_plot
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r}
+# 1) using loops
+loop_dist<-0
+for(i in 1:nrow(houses)){
+loop_dist[i] <- sqrt(sum((new-houses[i,])^2))
+}
+# 2) vectorized
+vec_dist <- sqrt(rowSums(t(new-t(houses))^2))
+closest <- data.frame(houses[which.min(vec_dist),])
+print(closest)
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r,echo=FALSE}
+new_plot
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+```{r,echo=FALSE}
+new_plot + geom_point(data=closest,aes(x=price,y=size),color='green',size=3)
+```
+
+----
+
+## K-Nearest neighbors
+# Data Preparation
+<space>
+
+- Must scale the features. Two common approaches:
+- min-max normalization
+- $X_{new} = \frac{X-min(X)}{max(X) - min(X)}$
+- z-score standardization
+- $X_{new} = \frac{X-mean(X)}{stdDev(X)}$
+- Euclidean distance doesn't discriminate between important and noisy features
+- can add weights
+
+----
+  
+  ## K-Nearest neighbors
+  # Data Preparation
+  <space>
+  
+  ```{r}
+new_house <- scale(houses)
+new_new <- c((new[1]-mean(houses[,1]))/sd(houses[,1]),(new[2]-mean(houses[,2]))/sd(houses[,2]))
+
+vec_dist <- sqrt(rowSums(t(new_new-t(new_house))^2))
+which.min(vec_dist)
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Data Preparation
+  <space>
+  
+  ```{r, echo=FALSE}
+scale_closest <- data.frame(houses[which.min(vec_dist),])
+new_plot + geom_point(data=scale_closest,aes(x=price,y=size),color='green',size=3)
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Lazy learner
+  <space>
+  
+  - kNN doesn't actually learn anything!
+- Stores training data and applies it - verbatim - to new examples
+- Known as instance-based learning
+- non-parametric learning method
+- Harder for us to understand how the classifier is using the data
+- However kNN finds natural patterns 
+- don't need to fit aribtrarily to a model
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+data <- read.table('http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data', sep=',', stringsAsFactors=FALSE, header=FALSE)
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+# first column has the ID which is not useful
+data <- data[,-1]
+# names taken from the .names file online
+n<-c("radius","texture","perimeter","area","smoothness","compactness",
+     "concavity","concave_points","symmetry","fractal")
+ind<-c("mean","std","worst")
+
+headers<-as.character()
+for(i in ind){
+  headers<-c(headers,paste(n,i))
+}
+names(data)<-c("diagnosis",headers)
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+str(data)
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+# inspect remaining data more closely
+prop.table(table(data$diagnosis))
+head(data)[2:6]
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+# scale each numeric value
+scaled_data<-as.data.frame(lapply(data[,-1], scale))
+scaled_data<-cbind(diagnosis=data$diagnosis, scaled_data)
+head(scaled_data[2:6])
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+library(class)
+predict_1 <- knn(train = scaled_data[,2:31],
+                 test = scaled_data[,2:31],
+                 cl = scaled_data[,1],
+                 k = floor(sqrt(nrow(scaled_data))))                  
+predict_1
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+pred_B <- which(predict_1=="B")
+actual_B <- which(scaled_data[,1]=="B")
+pred_M <- which(predict_1=="M")
+actual_M <- which(scaled_data[,1]=="M")
+true_positive <- sum(pred_B %in% actual_B)
+true_negative <- sum(pred_M %in% actual_M)
+false_positive <- sum(pred_B %in% actual_M)
+false_negative <- sum(pred_M %in% actual_B)
+
+conf_mat<-matrix(c(true_positive,false_positive,false_negative,true_negative),nrow=2,ncol=2)
+
+acc <- sum(diag(conf_mat))/sum(conf_mat)
+tpr <- conf_mat[1,1]/sum(conf_mat[1,])
+tn <- conf_mat[2,2]/sum(conf_mat[2,])
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r,echo=FALSE}
+c(acc=acc,tpr=tpr,tn=tn)
+colnames(conf_mat)<-c('tp','fp')
+rownames(conf_mat)<-c('fn','tn')
+conf_mat
+``````
+
+- is that right?
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+# create randomized training and testing sets
+total_n <- nrow(scaled_data)
+
+# train on 2/3 of the data
+train_ind <- sample(total_n,total_n*2/3)
+train_labels <- scaled_data[train_ind,1]
+test_labels <- scaled_data[-train_ind,1]
+train_set <- scaled_data[train_ind,2:31]
+test_set <- scaled_data[-train_ind,2:31]
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+library(class)
+predict_1 <- knn(train = train_set,
+                 test = test_set,
+                 cl = train_labels,
+                 k = floor(sqrt(nrow(train_set))))                  
+predict_1
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+pred_B <- which(predict_1=="B")
+test_B <- which(test_labels=="B")
+pred_M <- which(predict_1=="M")
+test_M <- which(test_labels=="M")
+true_positive <- sum(pred_B %in% test_B)
+true_negative <- sum(pred_M %in% test_M)
+false_positive <- sum(pred_B %in% test_M)
+false_negative <- sum(pred_M %in% test_B)
+
+conf_mat<-matrix(c(true_positive,false_positive,false_negative,true_negative),nrow=2,ncol=2)
+
+acc <- sum(diag(conf_mat))/sum(conf_mat)
+tpr <- conf_mat[1,1]/sum(conf_mat[1,])
+tn <- conf_mat[2,2]/sum(conf_mat[2,])
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r,echo=FALSE}
+c(acc=acc,tpr=tpr,tn=tn)
+colnames(conf_mat)<-c('tp','fp')
+rownames(conf_mat)<-c('fn','tn')
+conf_mat
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+library(caret)
+confusionMatrix(predict_1,test_labels)$table
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+# let's try different values for k
+k_params <- c(1,3,5,10,15,20,25,30,40)
+perf_acc <- NULL
+perf_tp <- NULL
+perf_fp <- NULL
+perf_fn <- NULL
+perf_tn <- NULL
+
+for(i in k_params){
+  predictions <- knn(train = train_set,
+                     test = test_set,
+                     cl = train_labels,
+                     k = i)
+  conf <- confusionMatrix(predictions,test_labels)$table
+  perf_acc <- append(perf_acc,sum(diag(conf))/sum(conf))
+  perf_tp <- append(perf_tp, conf[1,1])
+  perf_fp <- append(perf_fp, conf[1,2])
+  perf_fn <- append(perf_fn, conf[2,1])
+  perf_tn <- append(perf_tn, conf[2,2])
+}
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Case study
+  <space>
+  
+  ```{r}
+performances <- data.frame(k=k_params,acc=perf_acc,
+                           tp=perf_tp,
+                           fp=perf_fp,
+                           tn=perf_tn,
+                           fn=perf_fn)
+performances
+```
+
+----
+  
+  ## K-Nearest neighbors
+  # Summary
+  <space>
+  
+  - kNN is a lazy learning algorithm
+- Assigns the majority class of the k data points closest to the new data
+- ensure all features are on the same scale
+- Pros
+- can be applied to data from any distribution
+- simple and intuitive
+- Cons
+- choosing k requires trial and error
+- testing step is computationally expensive (unlike parametric models)
+- needs a large number of training samples to be useful
+
+----
