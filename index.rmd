@@ -703,7 +703,10 @@ con_mat <- confusionMatrix(predict_1,test_labels)
 con_mat$table
 ```
 
-`Exercise:` Find the Accuracy for various value of k. What's the best value of k for your model?
+```
+Exercise:
+1) Find the Accuracy for various values of k. What's the best value of k for your model?
+```
 
 ----
 
@@ -747,14 +750,14 @@ print(tab, type='html',include.rownames=FALSE)
 <space>
   
 - kNN is a lazy learning algorithm
-  -Stores training data and applies it verbatim to new data
+  - Stores training data and applies it verbatim to new data
   - "instance-based" learning
 - Assigns the majority class of the k data points closest to the new data
   - Ensure all features are on the same scale
-- Pros
+- Strengths
   - Can be applied to data from any distribution
   - Simple and intuitive
-- Cons
+- Weaknesses
   - Choosing k requires trial and error
   - Testing step is computationally expensive (unlike parametric models)
   - Needs a large number of training samples to be useful
@@ -955,7 +958,10 @@ $P(spam) =  \frac{30}{100}$<br>
 $P(cash = yes) = \frac{13}{100}$<br>
  = $\frac{10}{30} \times \frac{\frac{30}{100}}{\frac{13}{100}} = 0.769$ 
 
-`Exercise:` $P(ham \mid cash = no)$ = ?
+```
+Exercise:
+1) What is the probability of a ham email given that the word CASH! does not exist?
+```
 
 ----
 
@@ -1019,6 +1025,21 @@ $P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \m
 $P(spam \mid cash=yes \cap furniture=no) =$<br>
 <br>
 
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
+- As features increase, formula becomes very expensive
+- Solution: assume each feature is independent of any other feature, given they are in the same class 
+  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
+  - Called "class conditional independence":<br>
+<br>
+$P(spam \mid cash=yes \cap furniture=no) =$<br>
+<br>
+$\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
+<br>
 
 ----
 
@@ -1035,24 +1056,8 @@ $P(spam \mid cash=yes \cap furniture=no) =$<br>
 <br>
 $\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
 <br>
-----
-
-## Naive Bayes
-# Why Naive?
-<space>
-
-- As features increase, formula becomes very expensive
-- Solution: assume each feature is independent of any other feature, given they are in the same class 
-  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
-  - Called "class conditional independence":<br>
+$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =$<br>
 <br>
-$P(spam \mid cash=yes \cap furniture=no) =$<br>
-<br>
-$\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
-<br>
-$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$<br>
-<br>
-
 
 ----
 
@@ -1069,7 +1074,7 @@ $P(spam \mid cash=yes \cap furniture=no) =$<br>
 <br>
 $\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
 <br>
-$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$<br>
+$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =$<br>
 <br>
 $\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}$<br>
 <br>
@@ -1089,12 +1094,15 @@ $P(spam \mid cash=yes \cap furniture=no) =$<br>
 <br>
 $\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
 <br>
-$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$<br>
+$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =$<br>
 <br>
 $\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}$<br>
 <br>
 
-`Exercise`: $P(ham \mid cash=yes \cap furniture=no) = ?$
+```
+Exercise:
+1) What is the probability of a ham email given that the word CASH! exists and the word furniture does not?
+```
 
 ----
 
@@ -1136,6 +1144,17 @@ $P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party
 # The Laplace Estimator
 <space>
 
+```{r laplace_ex_3, echo=FALSE,comment=""}
+bayes_ex_3 <- cbind(bayes_ex_2[,-5],
+                    party_yes=c(3,0,3),
+                    party_no=c(27,70,97),
+                    total=c(30,70,100))
+bayes_ex_3
+```
+<br>
+<br>
+$P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = \frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0$
+
 - To get around 0's, apply Laplace estimator
   - add 1 to every feature
 
@@ -1157,7 +1176,6 @@ sms_data$type <- factor(sms_data$type)
 # Case Study: SMS spam filtering
 <space>
 
-- Remove words like `and`, `the`, `or`
 ```{r create_corpus,comment=""}
 library(tm)
 # create collection of text documents, a corpus
@@ -1190,7 +1208,8 @@ corpus_clean <- tm_map(sms_corpus,tolower)
 corpus_clean <- tm_map(corpus_clean, removeWords, stopwords())
 corpus_clean <- tm_map(corpus_clean, removePunctuation)
 corpus_clean <- tm_map(corpus_clean, stripWhitespace)
-# now make each word in the corpus into it's own token
+
+# make each word in the corpus into it's own token
 # each row is a message and each column is a word. Cells are frequency counts.
 sms_dtm <- DocumentTermMatrix(corpus_clean)
 ```
@@ -1205,6 +1224,7 @@ sms_dtm <- DocumentTermMatrix(corpus_clean)
 # create training and testing set
 total_n <- nrow(sms_data)
 train_ind <- sample(total_n,total_n*2/3)
+
 dtm_train_set <- sms_dtm[train_ind,]
 dtm_test_set <- sms_dtm[-train_ind,]
 corpus_train_set <- corpus_clean[train_ind]
@@ -1260,6 +1280,8 @@ naive_conf
 <space>
 
 ```{r naive_model_exercise,comment=""}
+library(e1071)
+
 naive_model <- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
 predict_naive <- predict(naive_model, corpus_test_set)
 
@@ -1284,7 +1306,7 @@ Exercise:
 - Naive Bayes assumes features are independent, conditioned on being in the same class
 - Useful for text classification
 - Strengths
-  - simple, fast
+  - Simple, fast
   - Does well with noisy and missing data
   - Doesn't need large training set
 - Weaknesses
@@ -1362,12 +1384,20 @@ head(comparison)
 # Classification problems
 <space>
 
-```{r avg_conf, comment=""}
-head(comparison[with(comparison,predict!=actual),])
+```{r avg_conf_equal, comment=""}
 head(comparison[with(comparison,predict==actual),])
-
-mean(as.numeric(comparison[with(comparison,predict!='spam'),]$prob_spam))
 mean(as.numeric(comparison[with(comparison,predict=='spam'),]$prob_spam))
+```
+
+----
+
+## Model Performance
+# Classification problems
+<space>
+
+```{r avg_con_notequalf, comment=""}
+head(comparison[with(comparison,predict!=actual),])
+mean(as.numeric(comparison[with(comparison,predict!='spam'),]$prob_spam))
 ```
 
 ----
@@ -1381,11 +1411,6 @@ mean(as.numeric(comparison[with(comparison,predict=='spam'),]$prob_spam))
 - Count the number of predictions falling on and off the diagonals
 
 ```{r confusion, comment=""}
-predicted <- sample(c("A","B","C"),1000,TRUE)
-actual <- sample(c("A","B","C"),1000,TRUE)
-fabricated <- table(predicted,actual)
-
-# for our Naive Bayes classifier
 table(comparison$predict,comparison$actual)
 ```
 
@@ -1408,7 +1433,7 @@ table(comparison$predict,comparison$actual)
 # Kappa
 <space>
 
-- Adjusts the accuracy by the probability of getting a correct prediction by chance alone
+- Adjusts the accuracy by the probability of getting a correct prediction by chance
 - $k = \frac{P(A) - P(E)}{1 - P(E)}$
   - Poor < 0.2
   - Fair < 0.4
@@ -1435,7 +1460,7 @@ table(comparison$predict,comparison$actual)
 <space>
 
 - P(A) is the accuracy
-- P(E) is the probability that actual = predicted, i.e. the proportion of each class
+- P(E) is the proportion of results where actual = predicted
   - $P(E) = P(E = class 1 ) + P(E = class 2)$
   - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
     - actual and predicted are independent so...
@@ -1449,7 +1474,7 @@ table(comparison$predict,comparison$actual)
 <space>
 
 - P(A) is the accuracy
-- P(E) is the probability that actual = predicted, i.e. the proportion of each class
+- P(E) is the proportion of results where actual = predicted
   - $P(E) = P(E = class 1 ) + P(E = class 2)$
   - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
     - actual and predicted are independent so...
@@ -1464,7 +1489,7 @@ table(comparison$predict,comparison$actual)
 <space>
 
 - P(A) is the accuracy
-- P(E) is the probability that actual = predicted, i.e. the proportion of each class
+- P(E) is the proportion of results where actual = predicted
   - $P(E) = P(E = class 1 ) + P(E = class 2)$
   - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
     - actual and predicted are independent so...
@@ -1472,7 +1497,10 @@ table(comparison$predict,comparison$actual)
     - putting it all together...
   - $P(E) = P(actual = class 1) \times P(predicted = class 1) + P(actual = class 2) \times P(predicted = class 2)$
   
-```Exercise: Calculate the kappa statistic for the naive classifier.```
+```
+Exercise: 
+1) Calculate the kappa statistic for the naive classifier.
+```
 
 ----
 
@@ -1494,7 +1522,7 @@ table(comparison$predict,comparison$actual)
 # Precision and Recall
 <space>
 
-- Used in information retrieval: are the values retrieved useful or clouded by noise?
+- Originally used in information retrieval
 - Precision: proportion of positives that are truly positive
   - $precision = \frac{TP}{TP + FP}$
   - Precise model only predicts positive when it is sure. Very trustworthy model.
@@ -1509,7 +1537,7 @@ table(comparison$predict,comparison$actual)
 # Precision and Recall
 <space>
 
-- Used in information retrieval: are the values retrieved useful or clouded by noise?
+- Originally used in information retrieval
 - Precision: proportion of positives that are truly positive
   - $precision = \frac{TP}{TP + FP}$
   - Precise model only predicts positive when it is sure. Very trustworthy model.
@@ -1518,7 +1546,10 @@ table(comparison$predict,comparison$actual)
   - High recall model will capture a large proportion of positives. Returns relevant results
 - Easy to have high recall (cast a wide net) or high precision (low hanging fruit) but hard to have both high
 
-```Exercise: Find the specificity, sensitivity, precision and recall for the Naive classifier.```
+```
+Exercise: 
+1) Find the specificity, sensitivity, precision and recall for the Naive classifier.
+```
 
 ----
 
@@ -1527,7 +1558,7 @@ table(comparison$predict,comparison$actual)
 <space>
 
 - Also called the F1-score, combines both precision and recall into 1 measure
-- $F_{1} = \frac{2 \times precision + recall}{precision + recall}$
+- $F_{1} = 2 \times \frac{precision \times recall}{precision + recall}$
 - Assumes equal weight to precision and recall
 
 ----
@@ -1537,10 +1568,13 @@ table(comparison$predict,comparison$actual)
 <space>
 
 - Also called the F1-score, combines both precision and recall into 1 measure
-- $F_{1} = \frac{2 \times precision + recall}{precision + recall}$
+- $F_{1} = 2 \times \frac{precision \times recall}{precision + recall}$
 - Assumes equal weight to precision and recall
 
-```Exercise: Calculate the F-score for the Naive classifier.```
+```
+Exercise: 
+1) Calculate the F-score for the Naive classifier.
+```
 
 ----
 
@@ -1553,10 +1587,24 @@ table(comparison$predict,comparison$actual)
 
 ```{r roc, comment=""}
 library(ROCR)
+
 # create a prediction function
 pred <- prediction(predictions = as.numeric(comparison$predict), labels= raw_test_set[,1])
+
 # create a performance function
 perf <- performance(pred,measure='tpr',x.measure='fpr')
+```
+
+----
+
+## Model Performance
+# Visualizing performance: ROC
+<space>
+
+- ROC curves measure how well your classifier can discriminate between the positive and negative class
+- As threshold increases, tradeoff between TPR (sensitivity) and FPR (1 - specificity)
+
+```{r roc_plot, comment="",echo=FALSE}
 # create the ROC curve
 plot(perf, main = "ROC Curve for Naive classifier", col = 'blue', lwd = 3)
 abline(a = 0, b = 1, lwd = 2, lty = 2)
@@ -1576,9 +1624,15 @@ text(0.75,0.4, labels = "<<<  Classifier with\n no predictive power")
     - 0.7 – 0.8 = acceptable
     - 0.6 – 0.7 = poor
     - 0.5 – 0.6 = no discrimination
+
+----
+
+## Model Performance
+# Visualizing performance: ROC
+<space>
+
 ```{r auc, comment=""}
 auc <- performance(pred, measure='auc')
-str(auc)
 auc@y.values
 ```  
 
@@ -1588,7 +1642,7 @@ auc@y.values
 # Holdout method
 <space>
 
-- We cheated (kind of) in the kNN example
+- In the kNN `Exercise`, we cheated...kind of
 
 ----
 
@@ -1596,14 +1650,14 @@ auc@y.values
 # Holdout method
 <space>
 
-- We cheated (kind of) in the kNN example
+- In the kNN `Exercise`, we cheated...kind of
   - Train model - 50% of data
   - Tune parameters on validation set - 25% of data
-    - retrain final model on training and validation set (maximize data points)
+      - (optionally) retrain final model on training and validation set (maximize data points)
   - Test final model - 25% of data
 
 ```{r create_partition,comment=""}
-new_data <- createDataPartition(sms_data$type,p=0.1, list=FALSE)
+new_data <- createDataPartition(sms_data$type, p=0.1, list=FALSE) # from caret package
 table(sms_data[new_data,1])
 ```
 
@@ -1620,9 +1674,10 @@ table(sms_data[new_data,1])
    - Repeat for every K
    - Average the performance across all models - this is the Cross Validation Error
    - All examples eventually used for training and testing
+   - Variance is reduced as k increases
    
 ```{r folds, comment=""}
-folds <- createFolds(sms_data$type, k = 10)
+folds <- createFolds(sms_data$type, k = 10) # from caret package
 str(folds)
 ```
 
@@ -1632,10 +1687,10 @@ str(folds)
 # Understanding Regression
 <space>
 
-- predicting continuous value - not classification
-- concerned about relationship between independent and dependent variables
-- regressions can be linear, non-linear, using decision trees, etc...
-- linear and non-linear regressions are called generalized linear models
+- Predicting continuous value
+- Concerned about relationship between independent and dependent variables
+- Can be linear, non-linear, use decision trees, etc...
+- Linear and non-linear regressions are called Generalized Minear Models
 
 ----
 
@@ -1643,8 +1698,8 @@ str(folds)
 # Linear regression
 <space>
 
-- $Y = \alpha + \beta X$
-- $\alpha$ and $\beta$ are just estimates
+- $Y = \hat{\alpha} + \hat{\beta} X$
+- $\hat{\alpha}$ and $\hat{\beta}$ are just estimates
 
 ```{r best_fit, echo=FALSE,message=FALSE,fig.height=5,fig.width=5}
 x <- seq(1,100,1)
@@ -1663,13 +1718,13 @@ ggplot(data = scatter, aes(x=x,y=y)) +  geom_point() +  geom_abline(intercept = 
 <space>
 
 - Distance between the line and each point is the error, or residual term
-- Line of best fit: $Y = \alpha + \beta X + \epsilon$. Assumes:
+- Line of best fit: $Y = \alpha + \beta X + \epsilon$. &nbsp;&nbsp;&nbsp;Assumes:
   - $\epsilon$ ~ $N(0, \sigma^{2})$
   - Each point is IID (independent and identically distributed)
   - $\alpha$ is the intercept
   - $\beta$ is the coefficient
   - $X$ is the parameter
-  - Both are usually made up of multiple elements - matrices
+  - Both $\beta$ and $X$ are usually matrices
 
 ----
 
@@ -1678,12 +1733,12 @@ ggplot(data = scatter, aes(x=x,y=y)) +  geom_point() +  geom_abline(intercept = 
 <space>
 
 - Minimize $\epsilon$ by minimizing the mean squared error:
-  - $MSE = \sum_{i=1}^{n}\epsilon_{i}^{2} = \sum_{i=1}^{n}(y_{i} - \hat{y})^{2}$
+  - $MSE = \frac{1}{n} \sum_{i=1}^{n}\epsilon_{i}^{2} = \frac{1}{n} \sum_{i=1}^{n}(\hat{y_{i}} - y_{i})^{2}$
   - $y_{i}$ is the true/observed value
-  - $\hat{y}$ is the approximation to/prediction of the true $y$
+  - $\hat{y_{i}}$ is the approximation to/prediction of the true $y_{i}$
 - Minimization of MSE yields an unbiased estimator with the least variance
 - 2 common ways to minimize MSE:
-  - analytical solution (e.g. `lm()` function does this)
+  - analytical, closed form solution (e.g. `lm()` function does this)
   - approximation (e.g. gradient descent)
 
 ----
@@ -1693,9 +1748,9 @@ ggplot(data = scatter, aes(x=x,y=y)) +  geom_point() +  geom_abline(intercept = 
 <space>
 
 - In Machine Learning, regression equation is called the hypothesis function
-  - Linear hypothesis function $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\beta$
-  
+  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+
 ----
 
 ## Regression
@@ -1703,10 +1758,26 @@ ggplot(data = scatter, aes(x=x,y=y)) +  geom_point() +  geom_abline(intercept = 
 <space>
 
 - In Machine Learning, regression equation is called the hypothesis function
-  - Linear hypothesis function $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\beta$
+  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+  - $X = \{x_{0}, x_{1}\}$
+  - Make $x_{0}$ = 1
+  - $h_{\theta}(x) = \beta \times t(X)$
+
+----
+
+## Regression
+# Gradient descent
+<space>
+
+- In Machine Learning, regression equation is called the hypothesis function
+  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+  - $X = \{x_{0}, x_{1}\}$
+  - Make $x_{0}$ = 1
+  - $h_{\theta}(x) = \beta \times t(X)$
 - Goal remains the same: minimize MSE
-  - define a cost (aka objective) function
+  - define a cost (aka objective) function, $J(\theta_{0},\theta_{1})$
   - $J(\theta_{0},\theta_{1}) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x_{i}) - y_{i})^2$
   - $m$ is the number of examples
 
@@ -1717,14 +1788,16 @@ ggplot(data = scatter, aes(x=x,y=y)) +  geom_point() +  geom_abline(intercept = 
 <space>
 
 - In Machine Learning, regression equation is called the hypothesis function
-  - Linear hypothesis function $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\beta$
+  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+  - $X = \{x_{0}, x_{1}\}$  
+  - Make $x_{0}$ = 1
+  - $h_{\theta}(x) = \beta \times t(X)$
 - Goal remains the same: minimize MSE
-  - define a cost (aka objective) function
+  - define a cost (aka objective) function, $J(\theta_{0},\theta_{1})$
   - $J(\theta_{0},\theta_{1}) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x_{i}) - y_{i})^2$
   - $m$ is the number of examples
 - Find a value for theta that minimizes $J$
-  - can use calculus or...gradient descent
 
 ----
 
@@ -1732,8 +1805,8 @@ ggplot(data = scatter, aes(x=x,y=y)) +  geom_point() +  geom_abline(intercept = 
 # Gradient descent
 <space>
 
-- given a starting value, take a step along the slope
-- continue taking a step until minimum is reached
+- Given a starting value, take a step along the slope
+- Continue taking a step until minimum is reached
 
 ```{r grad_power, echo=FALSE,fig.height=5,fig.width=5}
 pwr <- function(x) x^2
@@ -1747,8 +1820,8 @@ points(-2,pwr(-2),col='red',pch=19)
 # Gradient descent
 <space>
 
-- given a starting value, take a step along the slope
-- continue taking a step until minimum is reached
+- Given a starting value, take a step along the slope
+- Continue taking a step until minimum is reached
 
 ```{r grad_power_2, echo=FALSE,fig.height=5,fig.width=5}
 pwr <- function(x) x^2
@@ -1763,8 +1836,8 @@ points(-1.2,pwr(-1.2),col='red',pch=19)
 # Gradient descent
 <space>
 
-- given a starting value, take a step along the slope
-- continue taking a step until minimum is reached
+- Given a starting value, take a step along the slope
+- Continue taking a step until minimum is reached
 
 ```{r grad_power_3, echo=FALSE,fig.height=5,fig.width=5}
 pwr <- function(x) x^2
@@ -1780,8 +1853,8 @@ points(-0.6,pwr(-0.6),col='red',pch=19)
 # Gradient descent
 <space>
 
-- given a starting value, take a step along the slope
-- continue taking a step until minimum is reached
+- Given a starting value, take a step along the slope
+- Continue taking a step until minimum is reached
 
 ```{r grad_power_4, echo=FALSE,fig.height=5,fig.width=5}
 pwr <- function(x) x^2
@@ -1795,72 +1868,80 @@ points(0,pwr(0),col='red',pch=19)
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
 - Start with a point (guess)
-- Repeat
+- Repeat {
   - Determine a descent direction 
-  - Choose a step
+  - Choose a step size
   - Update
-- Until stopping criterion is satisfied
+  }
+- Until minimum is reached (or stopping criteria)
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- Start with a point (guess)    $x$
-- Repeat
-  - Determine a descent direction   $-f^\prime$
-  - Choose a step    $\alpha$
-  - Update    $x:=x - \alpha f^\prime$
-- Until stopping criterion is satisfied   $f^\prime ~ 0$
+- Start with a point (guess) &nbsp;&nbsp; &nbsp;  $x$
+- Repeat {
+  - Determine a descent direction &nbsp;&nbsp;&nbsp;  $-f^\prime$
+  - Choose a step size &nbsp;&nbsp;&nbsp;  $\alpha$ (not the intercept!)
+  - Update  &nbsp;&nbsp; &nbsp; $x:=x - \alpha f^\prime$
+  }
+- Until minimum is reached (or stopping criteria) &nbsp;&nbsp; &nbsp; $f^\prime ~ 0$
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- update the value of $\theta$ by subtracting the first derivative of the cost function
+- Update the value of $\theta$ by subtracting the first derivative of the cost function
 - $\theta_{j}$ := $\theta_{j} - \alpha \frac{\partial}{\partial \theta_{j}}J(\theta_{0},\theta_{1})$
-  - $j = 1, ..., p$ the number of coefficients, or features
+  - $j = 1, ..., p$ &nbsp;&nbsp; is the number of coefficients, or features
   - $\alpha$ is the step
   - $\frac{\partial}{\partial \theta_{j}}J(\theta_{0},\theta_{1})$ is the gradient
-- repeat until $J(\theta)$ is minimized
+- Repeat until $J(\theta)$ is minimized
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- using math, it turns out that 
+- Using some calculus, we can show that
+<br>
 - $\frac{\partial}{\partial \theta_{j}}J(\theta_{0},\theta_{1})$
 $=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{i}) - y^{i})(x^{i}_{j})$
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- and gradient descent formula becomes:
+- And gradient descent formula becomes:
+<br>
 - $\theta_{j}$ := $\theta_{j} - \alpha\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{i}) - y^{i})(x_{j}^{i})^{2}$
-- repeating until the cost function is minimized
+<br>
+- Repeat until the cost function is minimized
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- choose the learning rate, alpha
-- choose the stopping point
-- local vs. global minimum
+- Things to note
+  - Choose the learning rate, alpha
+  - Choose the stopping point
+  - Local vs. global minimum
+<br>
+- Let's see it in action
 
 ----
 
@@ -1903,9 +1984,9 @@ gradDescent<-function(X,y,theta,iterations,alpha){
   cost.df <- data.frame(cost=0,theta=0)
   
   for (i in 1:iterations){
-    h <- X%*%theta
+    h <- X%*%theta  # Linear hypothesis function
     grad <-  (t(X)%*%(h - y))/m
-    theta <- theta - alpha * grad
+    theta <- theta - alpha * grad # Update theta
     cost.df <- rbind(cost.df,c(grad_cost(X,y,theta),theta))    
   }  
   
@@ -1956,7 +2037,7 @@ ggplot(cost.df,aes(x=cost.df$theta,y=cost.df$cost)) + geom_point()+
 grad_cost(X1,Y1,theta[[1]])
 ## Make some predictions
 intercept <- df[df$X==0,]$Y
-pred <- function (x) return(intercept+c(x)%*%theta)
+pred <- function (x) return(intercept+x%*%theta)
 new_points <- c(0.1,0.5,0.8,1.1)
 new_preds <- data.frame(X=new_points,Y=sapply(new_points,pred))
 ```
@@ -1969,24 +2050,34 @@ new_preds <- data.frame(X=new_points,Y=sapply(new_points,pred))
 
 ```{r new_point,echo=TRUE,fig.height=5,fig.width=5}
 ggplot(data=df,aes(x=X,y=Y))+geom_point(size=2)
+```
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
+```{r new_point_2,echo=TRUE,fig.height=5,fig.width=5}
 ggplot(data=df,aes(x=X,y=Y))+geom_point()+geom_point(data=new_preds,aes(x=X,y=Y,color='red'),size=3)+scale_colour_discrete(guide = FALSE)
 ```
 
 ----
 
 ## Regression example
-# Gradient descent - summary
+# Gradient descent - Summary
 <space>
 
-- minimization algorithm
-- approximation, non-closed form solution
-- good for large number of examples
-- hard to select the right $\alpha$
-- traditional looping is slow - optimization algorithms are used in practice
+- Minimization algorithm
+- Approximation, non-closed form solution
+- Good for large number of examples
+- Hard to select the right $\alpha$
+- Finds local not global minimum
+- Traditional looping is slow - optimization algorithms are used in practice
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
@@ -2000,24 +2091,22 @@ ggplot(df,aes(x=X,y=Y)) + geom_point()
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- a simple linear model won't fit
-
-```{r multi_plot_2,fig.height=5,fig.width=5,echo=FALSE,comment=""}
+```{r multi_plot_2,fig.height=5,fig.width=5,echo=TRUE,comment=""}
 ggplot(df,aes(x=X,y=Y)) + geom_point() + geom_smooth(method='lm',se=FALSE)
-summary(lm(Y~X,df))$adj.r.squared
+summary(lm(Y~X,df))$adj.r.squared  # low R^2 - simple linear model won't fit
 ```
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- let's add some features
+- Let's add some features
 
 ```{r more_features,comment="",echo=TRUE}
 df <- transform(df, X2=X^2, X3=X^3)
@@ -2027,45 +2116,45 @@ summary(lm(Y~X + X2 + X3,df))$adj.r.squared
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- let's add even more features
+- Let's add even more features
 
-```{r learning, echo=FALSE,comment=""}
-df <- transform(df, X4=X^4, X5=X^5, X6=X^6, X7=X^7, X8=X^8, X9=X^9, X10=X^10, X11=X^11,X12=X^12, X13=X^13, X14=X^14,X15=X^15)
-line.fit <- lm(Y~X+X2+X3+X4+X5+X6+X7+X8+X9+X10+X11+X12+X13+X14+X15,df)
-summary(line.fit)$coef[,1]
-sqrt(mean((predict(line.fit)-df$Y)^2))
+```{r learning, echo=TRUE,comment=""}
+df <- transform(df, X4=X^4, X5=X^5, X6=X^6, X7=X^7, X8=X^8, X9=X^9, X10=X^10, X11=X^11,X12=X^12, X13=X^13, X14=X^14,X15=X^15,X16=X^16,X17=X^17,X18=X^18,X19=X^19,X20=X^20)
+line.fit <- lm(Y~X+X2+X3+X4+X5+X6+X7+X8+X9+X10+X11+X12+X13+X14+X15+X16+X17+X18+X19+X20,df)
+head(summary(line.fit)$coef[,1])
+sqrt(mean((predict(line.fit)-df$Y)^2))  # Root MSE
 ```
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- use orthogonal polynomials to avoid correlated features
+- Use orthogonal polynomials to avoid correlated features
 - `poly()` function
 
 ```{r pol,comment=""}
 ortho.coefs <- with(df,cor(poly(X,degree=3)))
 sum(ortho.coefs[upper.tri(ortho.coefs)]) # polynomials are uncorrelated
-linear.fit <- lm(Y~poly(X,degree=15),df)
-summary(linear.fit)$coef[,1]
-summary(linear.fit)$adj.r.squared # R^2 is 98% and no errors
-sqrt(mean((predict(linear.fit)-df$Y)^2)) # RMSE = 0.472
+linear.fit <- lm(Y~poly(X,degree=20),df)
+summary(linear.fit)$adj.r.squared
+sqrt(mean((predict(linear.fit)-df$Y)^2))
 ```
+
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- when to stop adding othogonal features?
+- When to stop adding othogonal features?
 
-```{r polt_2,echo=FALSE,comment="",fig.height=5,fig.width=5}
+```{r polt_2,echo=FALSE,comment="",fig.height=6,fig.width=6}
 fit1 <- predict(lm(Y~poly(X, degree=1),df))
 df <- transform(df, PredY1 = fit1)
 plot1 <- ggplot(df, aes(x=X,y=PredY1)) + geom_point()+geom_line()+ggtitle('degree = 1')+ylab('Y')
@@ -2087,21 +2176,24 @@ grid.arrange(plot1,plot3,plot5,plot25)
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- use cross-validation to determine best degree
+- Use cross-validation to determine best degree
 
 ```{r cross_val,comment=""}
 x <- seq(0,1,by=0.005)
 y <- sin(3*pi*x) + rnorm(length(x),0,0.1)
 
-indices <- sort(sample(1:length(x), round(0.5 * length(x))))
+indices <- sort(sample(length(x), round(0.5 * length(x))))
+
 training.x <- x[indices] 
 training.y <- y[indices]
+
 test.x <- x[-indices] 
 test.y <- y[-indices]
+
 training.df <- data.frame(X = training.x, Y = training.y) 
 test.df <- data.frame(X = test.x, Y = test.y)
 
@@ -2110,13 +2202,14 @@ rmse <- function(y,h) return(sqrt(mean((y-h)^2)))
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
 ```{r cross_val_func,comment="",fig.height=5,fig.width=5}
 performance <- data.frame()
-for (d in 1:20){
+degrees <- 1:20
+for (d in degrees){
   fits <- lm(Y~poly(X,degree=d),data=training.df)
   performance <- rbind(performance, data.frame(Degree = d,
                                                Data = 'Training',
@@ -2130,12 +2223,12 @@ for (d in 1:20){
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
 ```{r learning_plot,echo=FALSE}
-ggplot(performance, aes(x = Degree, y = RMSE, linetype = Data)) + geom_point() + geom_line()
+ggplot(performance, aes(x = Degree, y = RMSE, linetype = Data)) + geom_point() + geom_line()+ggtitle("Cross Validation plot")
 ```
 
 ----
@@ -2147,16 +2240,17 @@ ggplot(performance, aes(x = Degree, y = RMSE, linetype = Data)) + geom_point() +
 - Minimize MSE of target function
 - Analytically vs. approximation
 - Gradient descent preferrable when lots of examples
-- Use learning curves to determine optimal number of parameters (or data points)
+- Use Cross Validation plot to determine optimal number of parameters
 
 ----
 
 ## Summary
+# 
 <space>
 
 - Machine learning overview and concepts
-- Exploring data using R
-- kNN algorithm and use case 
+- Visualizing Data
+- kNN algorithm
 - Naive Bayes
   - Probability concepts
   - Mobile Spam case study
@@ -2166,6 +2260,7 @@ ggplot(performance, aes(x = Degree, y = RMSE, linetype = Data)) + geom_point() +
 ----
 
 ## Next Time
+# 
 <space>
 
 - Logistic regression

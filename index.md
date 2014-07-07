@@ -440,8 +440,8 @@ print(closest)
 ```
 
 ```
-   price size
-11 4e+05  486
+   price  size
+11 4e+05 323.8
 ```
 
 
@@ -720,7 +720,7 @@ prop.table(table(predict_1))
 ```
 predict_1
      B      M 
-0.5842 0.4158 
+0.6789 0.3211 
 ```
 
 
@@ -760,13 +760,13 @@ tn <- conf_mat[2, 2]/sum(conf_mat[2, ])
 
 ```
    acc    tpr     tn 
-0.9789 0.9640 1.0000 
+0.9579 0.9380 1.0000 
 ```
 
 ```
        Actual B Actual M
-Pred B      107        4
-Pred M        0       79
+Pred B      121        8
+Pred M        0       61
 ```
 
 
@@ -786,8 +786,8 @@ con_mat$table
 ```
           Reference
 Prediction   B   M
-         B 107   4
-         M   0  79
+         B 121   8
+         M   0  61
 ```
 
 
@@ -808,12 +808,15 @@ con_mat$table
 ```
           Reference
 Prediction   B   M
-         B 107   4
-         M   0  79
+         B 121   8
+         M   0  61
 ```
 
 
-`Exercise:` Find the Accuracy for various value of k. What's the best value of k for your model?
+```
+Exercise:
+1) Find the Accuracy for various values of k. What's the best value of k for your model?
+```
 
 ----
 
@@ -843,18 +846,18 @@ for (i in k_params) {
 <space>
 
 <!-- html table generated in R 3.0.3 by xtable 1.7-3 package -->
-<!-- Mon Jul 07 16:21:10 2014 -->
+<!-- Mon Jul 07 19:28:56 2014 -->
 <TABLE border=1>
 <TR> <TH> K </TH> <TH> Acc </TH> <TH> TP </TH> <TH> FP </TH> <TH> FN </TH> <TH> TN </TH>  </TR>
-  <TR> <TD align="right"> 1.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 103.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 79.00 </TD> </TR>
-  <TR> <TD align="right"> 3.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 106.00 </TD> <TD align="right"> 3.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 80.00 </TD> </TR>
-  <TR> <TD align="right"> 5.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 3.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 80.00 </TD> </TR>
-  <TR> <TD align="right"> 10.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 79.00 </TD> </TR>
-  <TR> <TD align="right"> 15.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 79.00 </TD> </TR>
-  <TR> <TD align="right"> 20.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 79.00 </TD> </TR>
-  <TR> <TD align="right"> 25.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 6.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 77.00 </TD> </TR>
-  <TR> <TD align="right"> 30.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 6.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 77.00 </TD> </TR>
-  <TR> <TD align="right"> 40.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 6.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 77.00 </TD> </TR>
+  <TR> <TD align="right"> 1.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 118.00 </TD> <TD align="right"> 2.00 </TD> <TD align="right"> 3.00 </TD> <TD align="right"> 67.00 </TD> </TR>
+  <TR> <TD align="right"> 3.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 120.00 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 64.00 </TD> </TR>
+  <TR> <TD align="right"> 5.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 64.00 </TD> </TR>
+  <TR> <TD align="right"> 10.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
+  <TR> <TD align="right"> 15.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
+  <TR> <TD align="right"> 20.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 60.00 </TD> </TR>
+  <TR> <TD align="right"> 25.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
+  <TR> <TD align="right"> 30.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
+  <TR> <TD align="right"> 40.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 60.00 </TD> </TR>
    </TABLE>
 
 
@@ -865,14 +868,14 @@ for (i in k_params) {
 <space>
   
 - kNN is a lazy learning algorithm
-  -Stores training data and applies it verbatim to new data
+  - Stores training data and applies it verbatim to new data
   - "instance-based" learning
 - Assigns the majority class of the k data points closest to the new data
   - Ensure all features are on the same scale
-- Pros
+- Strengths
   - Can be applied to data from any distribution
   - Simple and intuitive
-- Cons
+- Weaknesses
   - Choosing k requires trial and error
   - Testing step is computationally expensive (unlike parametric models)
   - Needs a large number of training samples to be useful
@@ -1082,7 +1085,10 @@ $P(spam) =  \frac{30}{100}$<br>
 $P(cash = yes) = \frac{13}{100}$<br>
  = $\frac{10}{30} \times \frac{\frac{30}{100}}{\frac{13}{100}} = 0.769$ 
 
-`Exercise:` $P(ham \mid cash = no)$ = ?
+```
+Exercise:
+1) What is the probability of a ham email given that the word CASH! does not exist?
+```
 
 ----
 
@@ -1148,6 +1154,21 @@ $P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \m
 $P(spam \mid cash=yes \cap furniture=no) =$<br>
 <br>
 
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
+- As features increase, formula becomes very expensive
+- Solution: assume each feature is independent of any other feature, given they are in the same class 
+  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
+  - Called "class conditional independence":<br>
+<br>
+$P(spam \mid cash=yes \cap furniture=no) =$<br>
+<br>
+$\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
+<br>
 
 ----
 
@@ -1164,24 +1185,8 @@ $P(spam \mid cash=yes \cap furniture=no) =$<br>
 <br>
 $\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
 <br>
-----
-
-## Naive Bayes
-# Why Naive?
-<space>
-
-- As features increase, formula becomes very expensive
-- Solution: assume each feature is independent of any other feature, given they are in the same class 
-  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
-  - Called "class conditional independence":<br>
+$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =$<br>
 <br>
-$P(spam \mid cash=yes \cap furniture=no) =$<br>
-<br>
-$\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
-<br>
-$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$<br>
-<br>
-
 
 ----
 
@@ -1198,7 +1203,7 @@ $P(spam \mid cash=yes \cap furniture=no) =$<br>
 <br>
 $\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
 <br>
-$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$<br>
+$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =$<br>
 <br>
 $\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}$<br>
 <br>
@@ -1218,12 +1223,15 @@ $P(spam \mid cash=yes \cap furniture=no) =$<br>
 <br>
 $\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
 <br>
-$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$<br>
+$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =$<br>
 <br>
 $\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}$<br>
 <br>
 
-`Exercise`: $P(ham \mid cash=yes \cap furniture=no) = ?$
+```
+Exercise:
+1) What is the probability of a ham email given that the word CASH! exists and the word furniture does not?
+```
 
 ----
 
@@ -1267,6 +1275,18 @@ $P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party
 # The Laplace Estimator
 <space>
 
+
+```
+      cash_yes cash_no furniture_yes furniture_no party_yes party_no total
+spam        10      20             6           24         3       27    30
+ham          3      67            20           50         0       70    70
+total       13      87            26           74         3       97   100
+```
+
+<br>
+<br>
+$P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = \frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0$
+
 - To get around 0's, apply Laplace estimator
   - add 1 to every feature
 
@@ -1300,7 +1320,6 @@ sms_data$type <- factor(sms_data$type)
 # Case Study: SMS spam filtering
 <space>
 
-- Remove words like `and`, `the`, `or`
 
 ```r
 library(tm)
@@ -1350,8 +1369,9 @@ corpus_clean <- tm_map(sms_corpus, tolower)
 corpus_clean <- tm_map(corpus_clean, removeWords, stopwords())
 corpus_clean <- tm_map(corpus_clean, removePunctuation)
 corpus_clean <- tm_map(corpus_clean, stripWhitespace)
-# now make each word in the corpus into it's own token each row is a message
-# and each column is a word. Cells are frequency counts.
+
+# make each word in the corpus into it's own token each row is a message and
+# each column is a word. Cells are frequency counts.
 sms_dtm <- DocumentTermMatrix(corpus_clean)
 ```
 
@@ -1367,6 +1387,7 @@ sms_dtm <- DocumentTermMatrix(corpus_clean)
 # create training and testing set
 total_n <- nrow(sms_data)
 train_ind <- sample(total_n, total_n * 2/3)
+
 dtm_train_set <- sms_dtm[train_ind, ]
 dtm_test_set <- sms_dtm[-train_ind, ]
 corpus_train_set <- corpus_clean[train_ind]
@@ -1422,8 +1443,8 @@ naive_conf
 ```
           Reference
 Prediction  ham spam
-      ham  1601   30
-      spam    5  222
+      ham  1607   44
+      spam    7  200
 ```
 
 
@@ -1435,6 +1456,8 @@ Prediction  ham spam
 
 
 ```r
+library(e1071)
+
 naive_model <- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
 predict_naive <- predict(naive_model, corpus_test_set)
 
@@ -1445,8 +1468,8 @@ naive_conf
 ```
           Reference
 Prediction  ham spam
-      ham  1601   30
-      spam    5  222
+      ham  1607   44
+      spam    7  200
 ```
 
 
@@ -1467,7 +1490,7 @@ Exercise:
 - Naive Bayes assumes features are independent, conditioned on being in the same class
 - Useful for text classification
 - Strengths
-  - simple, fast
+  - Simple, fast
   - Does well with noisy and missing data
   - Doesn't need large training set
 - Weaknesses
@@ -1525,13 +1548,13 @@ as.data.frame(format(head(confidence), digits = 2, scientific = FALSE))
 ```
 
 ```
-        ham      spam
-1 0.9999958 0.0000042
-2 0.9999529 0.0000471
-3 0.9946660 0.0053340
-4 0.9998784 0.0001216
-5 0.3280006 0.6719994
-6 0.9999952 0.0000048
+             ham           spam
+1 0.969265077228 0.030734922772
+2 0.000000000272 0.999999999728
+3 0.999999987545 0.000000012455
+4 0.000000000003 0.999999999997
+5 0.999999274158 0.000000725842
+6 0.997483049798 0.002516950202
 ```
 
 
@@ -1552,13 +1575,43 @@ head(comparison)
 ```
 
 ```
-  predict actual          prob_spam
-1     ham    ham 0.0000041542884430
-2     ham    ham 0.0000471084206757
-3     ham    ham 0.0053339632208271
-4     ham    ham 0.0001215522037056
-5    spam   spam 0.6719994318320414
-6     ham    ham 0.0000048005412025
+  predict actual           prob_spam
+1     ham    ham 0.03073492277184106
+2    spam   spam 0.99999999972755882
+3     ham    ham 0.00000001245462555
+4    spam   spam 0.99999999999695421
+5     ham    ham 0.00000072584174971
+6     ham    ham 0.00251695020244934
+```
+
+
+----
+
+## Model Performance
+# Classification problems
+<space>
+
+
+```r
+head(comparison[with(comparison, predict == actual), ])
+```
+
+```
+  predict actual           prob_spam
+1     ham    ham 0.03073492277184106
+2    spam   spam 0.99999999972755882
+3     ham    ham 0.00000001245462555
+4    spam   spam 0.99999999999695421
+5     ham    ham 0.00000072584174971
+6     ham    ham 0.00251695020244934
+```
+
+```r
+mean(as.numeric(comparison[with(comparison, predict == "spam"), ]$prob_spam))
+```
+
+```
+[1] 0.9827
 ```
 
 
@@ -1574,44 +1627,21 @@ head(comparison[with(comparison, predict != actual), ])
 ```
 
 ```
-    predict actual          prob_spam
-27     spam    ham 0.5222688649567696
-71      ham   spam 0.0007779366178242
-144     ham   spam 0.4795597109606518
-176     ham   spam 0.0008353358818201
-232     ham   spam 0.0000749191390672
-237     ham   spam 0.2792813366882133
+    predict actual           prob_spam
+70      ham   spam 0.32261195298564260
+142     ham   spam 0.22348642626700724
+181     ham   spam 0.00074384650893715
+226     ham   spam 0.00052525521655908
+232     ham   spam 0.23899356386596546
+248     ham   spam 0.00240698897952186
 ```
 
 ```r
-head(comparison[with(comparison, predict == actual), ])
-```
-
-```
-  predict actual          prob_spam
-1     ham    ham 0.0000041542884430
-2     ham    ham 0.0000471084206757
-3     ham    ham 0.0053339632208271
-4     ham    ham 0.0001215522037056
-5    spam   spam 0.6719994318320414
-6     ham    ham 0.0000048005412025
-```
-
-```r
-
 mean(as.numeric(comparison[with(comparison, predict != "spam"), ]$prob_spam))
 ```
 
 ```
-[1] 0.004696
-```
-
-```r
-mean(as.numeric(comparison[with(comparison, predict == "spam"), ]$prob_spam))
-```
-
-```
-[1] 0.9687
+[1] 0.006759
 ```
 
 
@@ -1627,19 +1657,14 @@ mean(as.numeric(comparison[with(comparison, predict == "spam"), ]$prob_spam))
 
 
 ```r
-predicted <- sample(c("A", "B", "C"), 1000, TRUE)
-actual <- sample(c("A", "B", "C"), 1000, TRUE)
-fabricated <- table(predicted, actual)
-
-# for our Naive Bayes classifier
 table(comparison$predict, comparison$actual)
 ```
 
 ```
       
         ham spam
-  ham  1601   30
-  spam    5  222
+  ham  1607   44
+  spam    7  200
 ```
 
 
@@ -1662,7 +1687,7 @@ table(comparison$predict, comparison$actual)
 # Kappa
 <space>
 
-- Adjusts the accuracy by the probability of getting a correct prediction by chance alone
+- Adjusts the accuracy by the probability of getting a correct prediction by chance
 - $k = \frac{P(A) - P(E)}{1 - P(E)}$
   - Poor < 0.2
   - Fair < 0.4
@@ -1689,7 +1714,7 @@ table(comparison$predict, comparison$actual)
 <space>
 
 - P(A) is the accuracy
-- P(E) is the probability that actual = predicted, i.e. the proportion of each class
+- P(E) is the proportion of results where actual = predicted
   - $P(E) = P(E = class 1 ) + P(E = class 2)$
   - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
     - actual and predicted are independent so...
@@ -1703,7 +1728,7 @@ table(comparison$predict, comparison$actual)
 <space>
 
 - P(A) is the accuracy
-- P(E) is the probability that actual = predicted, i.e. the proportion of each class
+- P(E) is the proportion of results where actual = predicted
   - $P(E) = P(E = class 1 ) + P(E = class 2)$
   - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
     - actual and predicted are independent so...
@@ -1718,7 +1743,7 @@ table(comparison$predict, comparison$actual)
 <space>
 
 - P(A) is the accuracy
-- P(E) is the probability that actual = predicted, i.e. the proportion of each class
+- P(E) is the proportion of results where actual = predicted
   - $P(E) = P(E = class 1 ) + P(E = class 2)$
   - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
     - actual and predicted are independent so...
@@ -1726,7 +1751,10 @@ table(comparison$predict, comparison$actual)
     - putting it all together...
   - $P(E) = P(actual = class 1) \times P(predicted = class 1) + P(actual = class 2) \times P(predicted = class 2)$
   
-```Exercise: Calculate the kappa statistic for the naive classifier.```
+```
+Exercise: 
+1) Calculate the kappa statistic for the naive classifier.
+```
 
 ----
 
@@ -1748,7 +1776,7 @@ table(comparison$predict, comparison$actual)
 # Precision and Recall
 <space>
 
-- Used in information retrieval: are the values retrieved useful or clouded by noise?
+- Originally used in information retrieval
 - Precision: proportion of positives that are truly positive
   - $precision = \frac{TP}{TP + FP}$
   - Precise model only predicts positive when it is sure. Very trustworthy model.
@@ -1763,7 +1791,7 @@ table(comparison$predict, comparison$actual)
 # Precision and Recall
 <space>
 
-- Used in information retrieval: are the values retrieved useful or clouded by noise?
+- Originally used in information retrieval
 - Precision: proportion of positives that are truly positive
   - $precision = \frac{TP}{TP + FP}$
   - Precise model only predicts positive when it is sure. Very trustworthy model.
@@ -1772,7 +1800,10 @@ table(comparison$predict, comparison$actual)
   - High recall model will capture a large proportion of positives. Returns relevant results
 - Easy to have high recall (cast a wide net) or high precision (low hanging fruit) but hard to have both high
 
-```Exercise: Find the specificity, sensitivity, precision and recall for the Naive classifier.```
+```
+Exercise: 
+1) Find the specificity, sensitivity, precision and recall for the Naive classifier.
+```
 
 ----
 
@@ -1781,7 +1812,7 @@ table(comparison$predict, comparison$actual)
 <space>
 
 - Also called the F1-score, combines both precision and recall into 1 measure
-- $F_{1} = \frac{2 \times precision + recall}{precision + recall}$
+- $F_{1} = 2 \times \frac{precision \times recall}{precision + recall}$
 - Assumes equal weight to precision and recall
 
 ----
@@ -1791,10 +1822,13 @@ table(comparison$predict, comparison$actual)
 <space>
 
 - Also called the F1-score, combines both precision and recall into 1 measure
-- $F_{1} = \frac{2 \times precision + recall}{precision + recall}$
+- $F_{1} = 2 \times \frac{precision \times recall}{precision + recall}$
 - Assumes equal weight to precision and recall
 
-```Exercise: Calculate the F-score for the Naive classifier.```
+```
+Exercise: 
+1) Calculate the F-score for the Naive classifier.
+```
 
 ----
 
@@ -1808,18 +1842,26 @@ table(comparison$predict, comparison$actual)
 
 ```r
 library(ROCR)
+
 # create a prediction function
 pred <- prediction(predictions = as.numeric(comparison$predict), labels = raw_test_set[, 
     1])
+
 # create a performance function
 perf <- performance(pred, measure = "tpr", x.measure = "fpr")
-# create the ROC curve
-plot(perf, main = "ROC Curve for Naive classifier", col = "blue", lwd = 3)
-abline(a = 0, b = 1, lwd = 2, lty = 2)
-text(0.75, 0.4, labels = "<<<  Classifier with\n no predictive power")
 ```
 
-![plot of chunk roc](figure/roc.png) 
+
+----
+
+## Model Performance
+# Visualizing performance: ROC
+<space>
+
+- ROC curves measure how well your classifier can discriminate between the positive and negative class
+- As threshold increases, tradeoff between TPR (sensitivity) and FPR (1 - specificity)
+
+![plot of chunk roc_plot](figure/roc_plot.png) 
 
 
 ----
@@ -1836,29 +1878,21 @@ text(0.75, 0.4, labels = "<<<  Classifier with\n no predictive power")
     - 0.6 – 0.7 = poor
     - 0.5 – 0.6 = no discrimination
 
+----
+
+## Model Performance
+# Visualizing performance: ROC
+<space>
+
+
 ```r
 auc <- performance(pred, measure = "auc")
-str(auc)
-```
-
-```
-Formal class 'performance' [package "ROCR"] with 6 slots
-  ..@ x.name      : chr "None"
-  ..@ y.name      : chr "Area under the ROC curve"
-  ..@ alpha.name  : chr "none"
-  ..@ x.values    : list()
-  ..@ y.values    :List of 1
-  .. ..$ : num 0.939
-  ..@ alpha.values: list()
-```
-
-```r
 auc@y.values
 ```
 
 ```
 [[1]]
-[1] 0.9389
+[1] 0.9077
 ```
 
 
@@ -1868,7 +1902,7 @@ auc@y.values
 # Holdout method
 <space>
 
-- We cheated (kind of) in the kNN example
+- In the kNN `Exercise`, we cheated...kind of
 
 ----
 
@@ -1876,15 +1910,15 @@ auc@y.values
 # Holdout method
 <space>
 
-- We cheated (kind of) in the kNN example
+- In the kNN `Exercise`, we cheated...kind of
   - Train model - 50% of data
   - Tune parameters on validation set - 25% of data
-    - retrain final model on training and validation set (maximize data points)
+      - (optionally) retrain final model on training and validation set (maximize data points)
   - Test final model - 25% of data
 
 
 ```r
-new_data <- createDataPartition(sms_data$type, p = 0.1, list = FALSE)
+new_data <- createDataPartition(sms_data$type, p = 0.1, list = FALSE)  # from caret package
 table(sms_data[new_data, 1])
 ```
 
@@ -1908,25 +1942,26 @@ table(sms_data[new_data, 1])
    - Repeat for every K
    - Average the performance across all models - this is the Cross Validation Error
    - All examples eventually used for training and testing
+   - Variance is reduced as k increases
    
 
 ```r
-folds <- createFolds(sms_data$type, k = 10)
+folds <- createFolds(sms_data$type, k = 10)  # from caret package
 str(folds)
 ```
 
 ```
 List of 10
- $ Fold01: int [1:558] 1 13 18 22 42 62 63 123 138 145 ...
- $ Fold02: int [1:558] 9 14 19 24 27 29 30 32 33 35 ...
- $ Fold03: int [1:558] 12 20 25 79 91 97 98 103 133 135 ...
- $ Fold04: int [1:558] 10 40 48 57 59 71 82 94 109 117 ...
- $ Fold05: int [1:557] 7 28 49 50 54 88 101 102 121 127 ...
- $ Fold06: int [1:557] 16 21 23 31 34 36 72 81 93 95 ...
- $ Fold07: int [1:558] 8 17 41 44 51 52 64 69 73 74 ...
- $ Fold08: int [1:557] 3 4 6 11 37 38 46 47 53 61 ...
- $ Fold09: int [1:557] 2 15 45 66 68 76 77 84 87 92 ...
- $ Fold10: int [1:556] 5 26 39 43 56 58 60 120 128 139 ...
+ $ Fold01: int [1:558] 24 61 64 75 85 90 97 122 126 130 ...
+ $ Fold02: int [1:557] 6 10 21 46 47 53 74 94 101 104 ...
+ $ Fold03: int [1:557] 7 14 15 17 20 25 29 36 41 49 ...
+ $ Fold04: int [1:558] 33 40 66 68 89 102 134 142 143 145 ...
+ $ Fold05: int [1:556] 5 9 19 37 39 45 48 56 59 63 ...
+ $ Fold06: int [1:558] 4 11 27 30 73 77 100 138 148 160 ...
+ $ Fold07: int [1:558] 8 22 26 32 34 35 60 71 72 79 ...
+ $ Fold08: int [1:557] 23 28 38 43 51 54 67 99 103 111 ...
+ $ Fold09: int [1:558] 12 13 16 50 62 84 88 91 98 110 ...
+ $ Fold10: int [1:557] 1 2 3 18 31 42 44 57 58 69 ...
 ```
 
 
@@ -1936,10 +1971,10 @@ List of 10
 # Understanding Regression
 <space>
 
-- predicting continuous value - not classification
-- concerned about relationship between independent and dependent variables
-- regressions can be linear, non-linear, using decision trees, etc...
-- linear and non-linear regressions are called generalized linear models
+- Predicting continuous value
+- Concerned about relationship between independent and dependent variables
+- Can be linear, non-linear, use decision trees, etc...
+- Linear and non-linear regressions are called Generalized Minear Models
 
 ----
 
@@ -1947,8 +1982,8 @@ List of 10
 # Linear regression
 <space>
 
-- $Y = \alpha + \beta X$
-- $\alpha$ and $\beta$ are just estimates
+- $Y = \hat{\alpha} + \hat{\beta} X$
+- $\hat{\alpha}$ and $\hat{\beta}$ are just estimates
 
 ![plot of chunk best_fit](figure/best_fit.png) 
 
@@ -1960,13 +1995,13 @@ List of 10
 <space>
 
 - Distance between the line and each point is the error, or residual term
-- Line of best fit: $Y = \alpha + \beta X + \epsilon$. Assumes:
+- Line of best fit: $Y = \alpha + \beta X + \epsilon$. &nbsp;&nbsp;&nbsp;Assumes:
   - $\epsilon$ ~ $N(0, \sigma^{2})$
   - Each point is IID (independent and identically distributed)
   - $\alpha$ is the intercept
   - $\beta$ is the coefficient
   - $X$ is the parameter
-  - Both are usually made up of multiple elements - matrices
+  - Both $\beta$ and $X$ are usually matrices
 
 ----
 
@@ -1975,12 +2010,12 @@ List of 10
 <space>
 
 - Minimize $\epsilon$ by minimizing the mean squared error:
-  - $MSE = \sum_{i=1}^{n}\epsilon_{i}^{2} = \sum_{i=1}^{n}(y_{i} - \hat{y})^{2}$
+  - $MSE = \frac{1}{n} \sum_{i=1}^{n}\epsilon_{i}^{2} = \frac{1}{n} \sum_{i=1}^{n}(\hat{y_{i}} - y_{i})^{2}$
   - $y_{i}$ is the true/observed value
-  - $\hat{y}$ is the approximation to/prediction of the true $y$
+  - $\hat{y_{i}}$ is the approximation to/prediction of the true $y_{i}$
 - Minimization of MSE yields an unbiased estimator with the least variance
 - 2 common ways to minimize MSE:
-  - analytical solution (e.g. `lm()` function does this)
+  - analytical, closed form solution (e.g. `lm()` function does this)
   - approximation (e.g. gradient descent)
 
 ----
@@ -1990,9 +2025,9 @@ List of 10
 <space>
 
 - In Machine Learning, regression equation is called the hypothesis function
-  - Linear hypothesis function $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\beta$
-  
+  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+
 ----
 
 ## Regression
@@ -2000,10 +2035,26 @@ List of 10
 <space>
 
 - In Machine Learning, regression equation is called the hypothesis function
-  - Linear hypothesis function $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\beta$
+  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+  - $X = \{x_{0}, x_{1}\}$
+  - Make $x_{0}$ = 1
+  - $h_{\theta}(x) = \beta \times t(X)$
+
+----
+
+## Regression
+# Gradient descent
+<space>
+
+- In Machine Learning, regression equation is called the hypothesis function
+  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+  - $X = \{x_{0}, x_{1}\}$
+  - Make $x_{0}$ = 1
+  - $h_{\theta}(x) = \beta \times t(X)$
 - Goal remains the same: minimize MSE
-  - define a cost (aka objective) function
+  - define a cost (aka objective) function, $J(\theta_{0},\theta_{1})$
   - $J(\theta_{0},\theta_{1}) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x_{i}) - y_{i})^2$
   - $m$ is the number of examples
 
@@ -2014,14 +2065,16 @@ List of 10
 <space>
 
 - In Machine Learning, regression equation is called the hypothesis function
-  - Linear hypothesis function $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\beta$
+  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+  - $X = \{x_{0}, x_{1}\}$  
+  - Make $x_{0}$ = 1
+  - $h_{\theta}(x) = \beta \times t(X)$
 - Goal remains the same: minimize MSE
-  - define a cost (aka objective) function
+  - define a cost (aka objective) function, $J(\theta_{0},\theta_{1})$
   - $J(\theta_{0},\theta_{1}) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x_{i}) - y_{i})^2$
   - $m$ is the number of examples
 - Find a value for theta that minimizes $J$
-  - can use calculus or...gradient descent
 
 ----
 
@@ -2029,8 +2082,8 @@ List of 10
 # Gradient descent
 <space>
 
-- given a starting value, take a step along the slope
-- continue taking a step until minimum is reached
+- Given a starting value, take a step along the slope
+- Continue taking a step until minimum is reached
 
 ![plot of chunk grad_power](figure/grad_power.png) 
 
@@ -2041,8 +2094,8 @@ List of 10
 # Gradient descent
 <space>
 
-- given a starting value, take a step along the slope
-- continue taking a step until minimum is reached
+- Given a starting value, take a step along the slope
+- Continue taking a step until minimum is reached
 
 ![plot of chunk grad_power_2](figure/grad_power_2.png) 
 
@@ -2053,8 +2106,8 @@ List of 10
 # Gradient descent
 <space>
 
-- given a starting value, take a step along the slope
-- continue taking a step until minimum is reached
+- Given a starting value, take a step along the slope
+- Continue taking a step until minimum is reached
 
 ![plot of chunk grad_power_3](figure/grad_power_3.png) 
 
@@ -2065,80 +2118,88 @@ List of 10
 # Gradient descent
 <space>
 
-- given a starting value, take a step along the slope
-- continue taking a step until minimum is reached
+- Given a starting value, take a step along the slope
+- Continue taking a step until minimum is reached
 
 ![plot of chunk grad_power_4](figure/grad_power_4.png) 
 
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
 - Start with a point (guess)
-- Repeat
+- Repeat {
   - Determine a descent direction 
-  - Choose a step
+  - Choose a step size
   - Update
-- Until stopping criterion is satisfied
+  }
+- Until minimum is reached (or stopping criteria)
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- Start with a point (guess)    $x$
-- Repeat
-  - Determine a descent direction   $-f^\prime$
-  - Choose a step    $\alpha$
-  - Update    $x:=x - \alpha f^\prime$
-- Until stopping criterion is satisfied   $f^\prime ~ 0$
+- Start with a point (guess) &nbsp;&nbsp; &nbsp;  $x$
+- Repeat {
+  - Determine a descent direction &nbsp;&nbsp;&nbsp;  $-f^\prime$
+  - Choose a step size &nbsp;&nbsp;&nbsp;  $\alpha$ (not the intercept!)
+  - Update  &nbsp;&nbsp; &nbsp; $x:=x - \alpha f^\prime$
+  }
+- Until minimum is reached (or stopping criteria) &nbsp;&nbsp; &nbsp; $f^\prime ~ 0$
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- update the value of $\theta$ by subtracting the first derivative of the cost function
+- Update the value of $\theta$ by subtracting the first derivative of the cost function
 - $\theta_{j}$ := $\theta_{j} - \alpha \frac{\partial}{\partial \theta_{j}}J(\theta_{0},\theta_{1})$
-  - $j = 1, ..., p$ the number of coefficients, or features
+  - $j = 1, ..., p$ &nbsp;&nbsp; is the number of coefficients, or features
   - $\alpha$ is the step
   - $\frac{\partial}{\partial \theta_{j}}J(\theta_{0},\theta_{1})$ is the gradient
-- repeat until $J(\theta)$ is minimized
+- Repeat until $J(\theta)$ is minimized
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- using math, it turns out that 
+- Using some calculus, we can show that
+<br>
 - $\frac{\partial}{\partial \theta_{j}}J(\theta_{0},\theta_{1})$
 $=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{i}) - y^{i})(x^{i}_{j})$
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- and gradient descent formula becomes:
+- And gradient descent formula becomes:
+<br>
 - $\theta_{j}$ := $\theta_{j} - \alpha\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{i}) - y^{i})(x_{j}^{i})^{2}$
-- repeating until the cost function is minimized
+<br>
+- Repeat until the cost function is minimized
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent
 <space>
 
-- choose the learning rate, alpha
-- choose the stopping point
-- local vs. global minimum
+- Things to note
+  - Choose the learning rate, alpha
+  - Choose the stopping point
+  - Local vs. global minimum
+<br>
+- Let's see it in action
 
 ----
 
@@ -2178,9 +2239,9 @@ gradDescent <- function(X, y, theta, iterations, alpha) {
     cost.df <- data.frame(cost = 0, theta = 0)
     
     for (i in 1:iterations) {
-        h <- X %*% theta
+        h <- X %*% theta  # Linear hypothesis function
         grad <- (t(X) %*% (h - y))/m
-        theta <- theta - alpha * grad
+        theta <- theta - alpha * grad  # Update theta
         cost.df <- rbind(cost.df, c(grad_cost(X, y, theta), theta))
     }
     
@@ -2206,7 +2267,7 @@ grad_cost(X1, Y1, init_theta)
 ```
 
 ```
-[1] 5344
+[1] 5282
 ```
 
 ```r
@@ -2223,10 +2284,7 @@ results <- gradDescent(X1, Y1, init_theta, iterations, alpha)
 # Gradient descent
 <space>
 
-
-```
-## Error: object 'cost.df' not found
-```
+![plot of chunk grad_curve](figure/grad_curve.png) 
 
 
 ----
@@ -2241,13 +2299,13 @@ grad_cost(X1, Y1, theta[[1]])
 ```
 
 ```
-[1] 347.7
+[1] 339.5
 ```
 
 ```r
 ## Make some predictions
 intercept <- df[df$X == 0, ]$Y
-pred <- function(x) return(intercept + c(x) %*% theta)
+pred <- function(x) return(intercept + x %*% theta)
 new_points <- c(0.1, 0.5, 0.8, 1.1)
 new_preds <- data.frame(X = new_points, Y = sapply(new_points, pred))
 ```
@@ -2264,31 +2322,40 @@ new_preds <- data.frame(X = new_points, Y = sapply(new_points, pred))
 ggplot(data = df, aes(x = X, y = Y)) + geom_point(size = 2)
 ```
 
-![plot of chunk new_point](figure/new_point1.png) 
+![plot of chunk new_point](figure/new_point.png) 
+
+
+----
+
+## Regression example
+# Gradient descent
+<space>
+
 
 ```r
 ggplot(data = df, aes(x = X, y = Y)) + geom_point() + geom_point(data = new_preds, 
     aes(x = X, y = Y, color = "red"), size = 3) + scale_colour_discrete(guide = FALSE)
 ```
 
-![plot of chunk new_point](figure/new_point2.png) 
+![plot of chunk new_point_2](figure/new_point_2.png) 
 
 
 ----
 
 ## Regression example
-# Gradient descent - summary
+# Gradient descent - Summary
 <space>
 
-- minimization algorithm
-- approximation, non-closed form solution
-- good for large number of examples
-- hard to select the right $\alpha$
-- traditional looping is slow - optimization algorithms are used in practice
+- Minimization algorithm
+- Approximation, non-closed form solution
+- Good for large number of examples
+- Hard to select the right $\alpha$
+- Finds local not global minimum
+- Traditional looping is slow - optimization algorithms are used in practice
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
@@ -2297,26 +2364,33 @@ ggplot(data = df, aes(x = X, y = Y)) + geom_point() + geom_point(data = new_pred
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- a simple linear model won't fit
+
+```r
+ggplot(df, aes(x = X, y = Y)) + geom_point() + geom_smooth(method = "lm", se = FALSE)
+```
 
 ![plot of chunk multi_plot_2](figure/multi_plot_2.png) 
 
+```r
+summary(lm(Y ~ X, df))$adj.r.squared  # low R^2 - simple linear model won't fit
 ```
-[1] 0.05431
+
+```
+[1] 0.0529
 ```
 
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- let's add some features
+- Let's add some features
 
 
 ```r
@@ -2326,7 +2400,7 @@ summary(lm(Y ~ X + X2 + X3, df))$coef[, 1]
 
 ```
 (Intercept)           X          X2          X3 
-     0.2889      6.8761    -27.3598     22.0761 
+     0.3363      6.5690    -26.9982     22.0071 
 ```
 
 ```r
@@ -2334,40 +2408,49 @@ summary(lm(Y ~ X + X2 + X3, df))$adj.r.squared
 ```
 
 ```
-[1] 0.8157
+[1] 0.8082
 ```
 
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- let's add even more features
+- Let's add even more features
 
+
+```r
+df <- transform(df, X4 = X^4, X5 = X^5, X6 = X^6, X7 = X^7, X8 = X^8, X9 = X^9, 
+    X10 = X^10, X11 = X^11, X12 = X^12, X13 = X^13, X14 = X^14, X15 = X^15, 
+    X16 = X^16, X17 = X^17, X18 = X^18, X19 = X^19, X20 = X^20)
+line.fit <- lm(Y ~ X + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + 
+    X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20, df)
+head(summary(line.fit)$coef[, 1])
+```
 
 ```
 (Intercept)           X          X2          X3          X4          X5 
-  8.742e-03   1.033e+01  -1.425e+02   3.268e+03  -4.154e+04   3.029e+05 
-         X6          X7          X8          X9         X10         X11 
- -1.390e+06   4.203e+06  -8.549e+06   1.170e+07  -1.049e+07   5.730e+06 
-        X12         X14 
- -1.532e+06   6.756e+04 
+  8.297e-03   1.842e+01  -7.101e+02   1.986e+04  -3.064e+05   2.903e+06 
+```
+
+```r
+sqrt(mean((predict(line.fit) - df$Y)^2))  # Root MSE
 ```
 
 ```
-[1] 0.1026
+[1] 0.08925
 ```
 
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- use orthogonal polynomials to avoid correlated features
+- Use orthogonal polynomials to avoid correlated features
 - `poly()` function
 
 
@@ -2381,70 +2464,55 @@ sum(ortho.coefs[upper.tri(ortho.coefs)])  # polynomials are uncorrelated
 ```
 
 ```r
-linear.fit <- lm(Y ~ poly(X, degree = 15), df)
-summary(linear.fit)$coef[, 1]
+linear.fit <- lm(Y ~ poly(X, degree = 20), df)
+summary(linear.fit)$adj.r.squared
 ```
 
 ```
-           (Intercept)  poly(X, degree = 15)1  poly(X, degree = 15)2 
-               0.13082               -2.39444                6.14134 
- poly(X, degree = 15)3  poly(X, degree = 15)4  poly(X, degree = 15)5 
-               6.00294               -3.49001               -1.73733 
- poly(X, degree = 15)6  poly(X, degree = 15)7  poly(X, degree = 15)8 
-               0.48506                0.18690               -0.11713 
- poly(X, degree = 15)9 poly(X, degree = 15)10 poly(X, degree = 15)11 
-              -0.03000               -0.01293               -0.06498 
-poly(X, degree = 15)12 poly(X, degree = 15)13 poly(X, degree = 15)14 
-               0.06926                0.12933                0.05248 
-poly(X, degree = 15)15 
-               0.03935 
+[1] 0.9828
 ```
 
 ```r
-summary(linear.fit)$adj.r.squared  # R^2 is 98% and no errors
+sqrt(mean((predict(linear.fit) - df$Y)^2))
 ```
 
 ```
-[1] 0.9765
+[1] 0.08859
 ```
 
-```r
-sqrt(mean((predict(linear.fit) - df$Y)^2))  # RMSE = 0.472
-```
-
-```
-[1] 0.1025
-```
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- when to stop adding othogonal features?
+- When to stop adding othogonal features?
 
 ![plot of chunk polt_2](figure/polt_2.png) 
 
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
-- use cross-validation to determine best degree
+- Use cross-validation to determine best degree
 
 
 ```r
 x <- seq(0, 1, by = 0.005)
 y <- sin(3 * pi * x) + rnorm(length(x), 0, 0.1)
 
-indices <- sort(sample(1:length(x), round(0.5 * length(x))))
+indices <- sort(sample(length(x), round(0.5 * length(x))))
+
 training.x <- x[indices]
 training.y <- y[indices]
+
 test.x <- x[-indices]
 test.y <- y[-indices]
+
 training.df <- data.frame(X = training.x, Y = training.y)
 test.df <- data.frame(X = test.x, Y = test.y)
 
@@ -2454,14 +2522,15 @@ rmse <- function(y, h) return(sqrt(mean((y - h)^2)))
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
 
 ```r
 performance <- data.frame()
-for (d in 1:20) {
+degrees <- 1:20
+for (d in degrees) {
     fits <- lm(Y ~ poly(X, degree = d), data = training.df)
     performance <- rbind(performance, data.frame(Degree = d, Data = "Training", 
         RMSE = rmse(training.y, predict(fits))))
@@ -2473,7 +2542,7 @@ for (d in 1:20) {
 
 ----
 
-## Learning Curves
+## CV Error
 # How many parameters are too many?
 <space>
 
@@ -2489,16 +2558,17 @@ for (d in 1:20) {
 - Minimize MSE of target function
 - Analytically vs. approximation
 - Gradient descent preferrable when lots of examples
-- Use learning curves to determine optimal number of parameters (or data points)
+- Use Cross Validation plot to determine optimal number of parameters
 
 ----
 
 ## Summary
+# 
 <space>
 
 - Machine learning overview and concepts
-- Exploring data using R
-- kNN algorithm and use case 
+- Visualizing Data
+- kNN algorithm
 - Naive Bayes
   - Probability concepts
   - Mobile Spam case study
@@ -2508,6 +2578,7 @@ for (d in 1:20) {
 ----
 
 ## Next Time
+# 
 <space>
 
 - Logistic regression
