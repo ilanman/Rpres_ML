@@ -292,7 +292,7 @@ ggplot(iris,aes(x=iris$Sepal.Length, y=iris$Petal.Length))+
 # The Algorithm
 <space>
 
-```{r, echo=FALSE,fig.height=5,fig.width=5,message=FALSE,warning=FALSE}
+```{r knn_polygon_plot, echo=FALSE,fig.height=5,fig.width=5,message=FALSE,warning=FALSE}
 library(plyr)
 df <- iris
 find_hull<-function(df) df[chull(df$Sepal.Length,df$Petal.Length),]
@@ -444,7 +444,7 @@ print(closest)
 # Data Preparation
 <space>
 
-```{r,echo=FALSE,fig.height=6,fig.width=6}
+```{r knn_repeat_plot,echo=FALSE,fig.height=6,fig.width=6}
 new_plot
 ```
 
@@ -454,7 +454,7 @@ new_plot
 # Data Preparation
 <space>
 
-```{r,echo=FALSE,fig.height=6,fig.width=6}
+```{r closest_knn,echo=FALSE,fig.height=6,fig.width=6}
 new_plot + geom_point(data=closest,aes(x=price,y=size),color='green',size=3)+ggtitle("Closest neighbor?")
 ```
 
@@ -464,11 +464,12 @@ new_plot + geom_point(data=closest,aes(x=price,y=size),color='green',size=3)+ggt
 # Data Preparation
 <space>
 
-- Feature scaling. Two common approaches:
-- min-max normalization
-  - $X_{new} = \frac{X-min(X)}{max(X) - min(X)}$
-- z-score standardization
-  - $X_{new} = \frac{X-mean(X)}{sd(X)}$
+- Feature scaling. Level the playing field.
+- Two common approaches:
+  - min-max normalization
+    - $X_{new} = \frac{X-min(X)}{max(X) - min(X)}$
+  - z-score standardization
+    - $X_{new} = \frac{X-mean(X)}{sd(X)}$
 - Euclidean distance doesn't discriminate between important and noisy features
   - can add weights
 
@@ -480,10 +481,10 @@ new_plot + geom_point(data=closest,aes(x=price,y=size),color='green',size=3)+ggt
 
 ```{r calc_distance,comment=""}
 new_house <- scale(houses)
-new_new <- c((new[1]-mean(houses[,1]))/sd(houses[,1]),(new[2]-mean(houses[,2]))/sd(houses[,2]))
+new_new <- c((new_p[1]-mean(houses[,1]))/sd(houses[,1]),(new_p[2]-mean(houses[,2]))/sd(houses[,2]))
 
 vec_dist <- sqrt(rowSums(t(new_new-t(new_house))^2))
-which.min(vec_dist)
+scale_closest <- data.frame(houses[which.min(vec_dist),])
 ```
 
 ----
@@ -493,23 +494,8 @@ which.min(vec_dist)
 <space>
 
 ```{r scale_closest_plot, echo=FALSE,fig.height=6,fig.width=6}
-scale_closest <- data.frame(houses[which.min(vec_dist),])
-new_plot + geom_point(data=scale_closest,aes(x=price,y=size),color='green',size=3)
+new_plot + geom_point(data=scale_closest,aes(x=price,y=size),color='green',size=3)+ggtitle("Closest neighbor")
 ```
-
-----
-
-## K-Nearest Neighbors
-# Lazy learner
-<space>
-
-- kNN doesn't actually learn anything!
-- Stores training data and applies it - verbatim - to new examples
-- Known as instance-based learning
-- Non-parametric learning method
-- Harder for us to understand how the classifier is using the data
-- However kNN finds natural patterns 
-- Don't need to fit aribtrarily to a model
 
 ----
 
@@ -522,6 +508,7 @@ data <- read.table('http://archive.ics.uci.edu/ml/machine-learning-databases/bre
 
 # first column has the ID which is not useful
 data <- data[,-1]
+
 # names taken from the .names file online
 n <- c("radius","texture","perimeter","area","smoothness","compactness",
    "concavity","concave_points","symmetry","fractal")
@@ -551,8 +538,8 @@ str(data[,1:10])
 <space>
 
 ```{r inspect_knn,comment=""}
-# inspect remaining data more closely
-prop.table(table(data$diagnosis)); head(data)[2:6]
+prop.table(table(data$diagnosis)) # Balanced data set?
+head(data)[2:6] # inspect features more closely
 ```
 
 ----
@@ -561,7 +548,7 @@ prop.table(table(data$diagnosis)); head(data)[2:6]
 # Case study
 <space>
 
-```{r,comment=""}
+```{r knn_scale,comment=""}
 # scale each numeric value
 scaled_data <- as.data.frame(lapply(data[,-1], scale))
 scaled_data <- cbind(diagnosis=data$diagnosis, scaled_data)
@@ -576,10 +563,11 @@ head(scaled_data[2:6])
 
 ```{r knn_classifier,comment=""}
 library(class)  # get k-NN classifier
-predict_1 <- knn(train = scaled_data[,2:31], test = scaled_data[,2:31],
+predict_1 <- knn(train = scaled_data[,2:31], 
+                 test = scaled_data[,2:31],
                  cl = scaled_data[,1],
                  k = floor(sqrt(nrow(scaled_data))))                  
-table(predict_1)
+prop.table(table(predict_1))
 ```
 
 ----
@@ -593,6 +581,7 @@ pred_B <- which(predict_1=="B")
 actual_B <- which(scaled_data[,1]=="B")
 pred_M <- which(predict_1=="M")
 actual_M <- which(scaled_data[,1]=="M")
+
 true_positive <- sum(pred_B %in% actual_B)
 true_negative <- sum(pred_M %in% actual_M)
 false_positive <- sum(pred_B %in% actual_M)
@@ -613,8 +602,8 @@ tn <- conf_mat[2,2]/sum(conf_mat[2,])
 
 ```{r knn_conf_results,echo=FALSE,comment=""}
 c(acc=acc,tpr=tpr,tn=tn)
-colnames(conf_mat) <- c('tp','fp')
-rownames(conf_mat) <- c('fn','tn')
+colnames(conf_mat) <- c('Actual B','Actual M')
+rownames(conf_mat) <- c('Pred B','Pred M')
 conf_mat
 ```
 
@@ -632,8 +621,10 @@ total_n <- nrow(scaled_data)
 
 # train on 2/3 of the data
 train_ind <- sample(total_n,total_n*2/3)
+
 train_labels <- scaled_data[train_ind,1]
 test_labels <- scaled_data[-train_ind,1]
+
 train_set <- scaled_data[train_ind,2:31]
 test_set <- scaled_data[-train_ind,2:31]
 ```
@@ -645,10 +636,9 @@ test_set <- scaled_data[-train_ind,2:31]
 <space>
 
 ```{r knn_repredict,comment=""}
-library(class)
 predict_1 <- knn(train = train_set, test = test_set, cl = train_labels,
                  k = floor(sqrt(nrow(train_set))))                  
-table(predict_1)
+prop.table(table(predict_1))
 ```
 
 ----
@@ -662,6 +652,7 @@ pred_B <- which(predict_1=="B")
 test_B <- which(test_labels=="B")
 pred_M <- which(predict_1=="M")
 test_M <- which(test_labels=="M")
+
 true_positive <- sum(pred_B %in% test_B)
 true_negative <- sum(pred_M %in% test_M)
 false_positive <- sum(pred_B %in% test_M)
@@ -694,9 +685,11 @@ conf_mat
 <space>
 
 ```{r caret_conf,comment=""}
-library(caret)
-confusionMatrix(predict_1,test_labels)$table
+library(caret)   # Classification and Regression Training
+con_mat <- confusionMatrix(predict_1,test_labels)
+con_mat$table
 ```
+
 
 ----
 
@@ -704,10 +697,13 @@ confusionMatrix(predict_1,test_labels)$table
 # Case study
 <space>
 
+```{r caret_conf_ex,comment=""}
+library(caret)   # Classification and Regression Training
+con_mat <- confusionMatrix(predict_1,test_labels)
+con_mat$table
 ```
-Exercise: Find the Accuracy for various value of k.
-Hint 1 - look at the `knn` function parameters
-```
+
+`Exercise:` Find the Accuracy for various value of k. What's the best value of k for your model?
 
 ----
 
@@ -739,9 +735,9 @@ for(i in k_params){
 ```{r xtable, echo=FALSE, results='asis'}
 library(xtable)
 performances <- data.frame(per)
-names(performances)<-c("K","Acc","TP","FP","FN","TN")
+names(performances) <- c("K","Acc","TP","FP","FN","TN")
 tab <- xtable(performances)
-print(tab,type='html')
+print(tab, type='html',include.rownames=FALSE)
 ```
 
 ----
@@ -751,6 +747,8 @@ print(tab,type='html')
 <space>
   
 - kNN is a lazy learning algorithm
+  -Stores training data and applies it verbatim to new data
+  - "instance-based" learning
 - Assigns the majority class of the k data points closest to the new data
   - Ensure all features are on the same scale
 - Pros
@@ -760,7 +758,6 @@ print(tab,type='html')
   - Choosing k requires trial and error
   - Testing step is computationally expensive (unlike parametric models)
   - Needs a large number of training samples to be useful
-
 
 ----
 
@@ -786,7 +783,7 @@ print(tab,type='html')
 - The set of all events is $\{X_{1},X_{2},...,X_{n}\}$
 - The probability of an event is the frequency of its occurrence
   + $0 \leq P(X) \leq 1$
-  + $P(\sum_{i=1}^{n} X_{i}) = \sum_{i=1}^{n} P(X_{i})$
+  + $P(\sum_{i=1}^{n} X_{i}) = \sum_{i=1}^{n} P(X_{i})$   (for mutually excluse $X_{i}$)
 
 ----
 
@@ -794,10 +791,11 @@ print(tab,type='html')
 # Probability and Bayes Theorem
 <space>
 
-- $A \cap B$ is "A and B"
+- "A and B" is $A \cap B$ (intersect)
 - Independent events
   - $P(A \cap B) = P(A) \times P(B)$
-- $A \mid B$ is "A given B"
+<space>
+- "A given B" is $A \mid B$
 - Conditional probability
   - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
 
@@ -807,12 +805,28 @@ print(tab,type='html')
 # Probability and Bayes Theorem
 <space>
 
+- "A and B" is $A \cap B$ (intersect)
 - Independent events
-  - $A \cap B$ is "A and B"
   - $P(A \cap B) = P(A) \times P(B)$
+<space>
+- "A given B" is $A \mid B$
 - Conditional probability
-  - $A \mid B$ is "A given B"
   - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ 
+  - $P(B \mid A) = \frac{P(B \cap A)}{P(A)}$
+
+----
+
+## Naive Bayes
+# Probability and Bayes Theorem
+<space>
+
+- "A and B" is $A \cap B$ (intersect)
+- Independent events
+  - $P(A \cap B) = P(A) \times P(B)$
+<space>
+- "A given B" is $A \mid B$
+- Conditional probability
+  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
   - $P(B \mid A) = \frac{P(B \cap A)}{P(A)}$
   - $P(B \mid A) \times P(A) = P(B \cap A)$
 
@@ -822,32 +836,52 @@ print(tab,type='html')
 # Probability and Bayes Theorem
 <space>
 
+- "A and B" is $A \cap B$ (intersect)
 - Independent events
-  - $A \cap B$ is "A and B"
   - $P(A \cap B) = P(A) \times P(B)$
+<space>
+- "A given B" is $A \mid B$
 - Conditional probability
-  - $A \mid B$ is "A given B"
-  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ 
+  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
   - $P(B \mid A) = \frac{P(B \cap A)}{P(A)}$
   - $P(B \mid A) \times P(A) = P(B \cap A)$
-  - but... $P(B \cap A) = P(A \cap B)$
-  
+  + but $P(B \cap A) = P(A \cap B)$
+
 ----
 
 ## Naive Bayes
 # Probability and Bayes Theorem
 <space>
 
+- "A and B" is $A \cap B$ (intersect)
 - Independent events
-  - $A \cap B$ is "A and B"
   - $P(A \cap B) = P(A) \times P(B)$
+<space>
+- "A given B" is $A \mid B$
 - Conditional probability
-  - $A \mid B$ is "A given B"
-  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ 
+  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
   - $P(B \mid A) = \frac{P(B \cap A)}{P(A)}$
   - $P(B \mid A) \times P(A) = P(B \cap A)$
-  - but... $P(B \cap A) = P(A \cap B)$
-  - so.... $P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}$ <-- *Bayes Theorem!*
+  + but $P(B \cap A) = P(A \cap B)$
+  + so $P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}$
+
+----
+
+## Naive Bayes
+# Probability and Bayes Theorem
+<space>
+
+- "A and B" is $A \cap B$ (intersect)
+- Independent events
+  - $P(A \cap B) = P(A) \times P(B)$
+<space>
+- "A given B" is $A \mid B$
+- Conditional probability
+  - $P(A \mid B) = \frac{P(A \cap B)}{P(B)}$
+  - $P(B \mid A) = \frac{P(B \cap A)}{P(A)}$
+  - $P(B \mid A) \times P(A) = P(B \cap A)$
+  + but $P(B \cap A) = P(A \cap B)$
+  + so $P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}$ &nbsp;&nbsp;<-  &nbsp; Bayes theorem
 
 ----
 
@@ -860,7 +894,8 @@ print(tab,type='html')
 - Example: Email filtering
   - spam and non-spam (AKA ham)
   - classify emails depending on what words they contain
-  - $P(spam \mid CASH!)$ = ?
+  - spam emails are more likely to contain certain words
+  - $P(spam \mid CASH!)$
 
 ----
 
@@ -868,11 +903,9 @@ print(tab,type='html')
 # Bayes Example
 <space>
 
-```{r, bayes_ex,comment=""}
+```{r bayes_ex, comment=""}
 # data frame with frequency of emails with the word "cash"
-bayes_ex <- data.frame(cash_yes=c(10,3,13),
-                      cash_no=c(20,67,87),
-                      total=c(30,70,100),
+bayes_ex <- data.frame(cash_yes=c(10,3,13),cash_no=c(20,67,87),total=c(30,70,100),
                       row.names=c('spam','ham','total'))
 bayes_ex
 ```
@@ -887,6 +920,7 @@ bayes_ex
   - $P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}$
 - A = event that email is spam  
 - B = event that "CASH" exists in the email  
+<space>
 $P(spam \mid cash=yes) = P(cash=yes \mid spam) \times \frac{P(spam)}{P(cash=yes)}$
 
 ----
@@ -923,16 +957,13 @@ $P(cash = yes) = \frac{13}{100}$<br>
 
 `Exercise:` $P(ham \mid cash = no)$ = ?
 
-
 ----
 
 ## Naive Bayes
 # Why Naive?
 <space>
 
-- Assumes all features are independent and equally important
-- NB still performs very well out of the box
-```{r, bayes_ex_2, echo=FALSE,comment=""}
+```{r bayes_ex_2, echo=FALSE,comment=""}
 bayes_ex_2 <- cbind(bayes_ex[,-3],
                     furniture_yes=c(6,20,26),
                     furniture_no=c(24,50,74),
@@ -948,11 +979,31 @@ $P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \m
 # Why Naive?
 <space>
 
+```{r bayes_ex_3, echo=FALSE,comment=""}
+bayes_ex_2 <- cbind(bayes_ex[,-3],
+                    furniture_yes=c(6,20,26),
+                    furniture_no=c(24,50,74),
+                    total=c(30,70,100))
+bayes_ex_2
+```
+
+$P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)}$
+
+- Need $cash=yes \cap furniture=no$
+  - $cash=yes \cap furniture=yes$
+  - $cash=no \cap furniture=no$
+  - $cash=no \cap furniture=yes$
+
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
 - As features increase, formula becomes very expensive
 - Solution: assume each feature is independent of any other feature, given they are in the same class 
   - Independence formula: $P(A \cap B) = P(A) \times P(B)$
-  - Called "class conditional independence":<br>
-  - $P(spam \mid cash=yes \cap furniture=no) =$ 
+  - Called "class conditional independence"
 
 ----
 
@@ -964,8 +1015,10 @@ $P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \m
 - Solution: assume each feature is independent of any other feature, given they are in the same class 
   - Independence formula: $P(A \cap B) = P(A) \times P(B)$
   - Called "class conditional independence":<br>
-  - $P(spam \mid cash=yes \cap furniture=no) =$ 
-  - $\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$
+<br>
+$P(spam \mid cash=yes \cap furniture=no) =$<br>
+<br>
+
 
 ----
 
@@ -977,9 +1030,29 @@ $P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \m
 - Solution: assume each feature is independent of any other feature, given they are in the same class 
   - Independence formula: $P(A \cap B) = P(A) \times P(B)$
   - Called "class conditional independence":<br>
-  - $P(spam \mid cash=yes \cap furniture=no) =$ 
-  - $\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =$
-  - $\frac{\frac{10}{30} \times \frac{24}{30}}{\frac{13}{100} \times \frac{74}{100}}$
+<br>
+$P(spam \mid cash=yes \cap furniture=no) =$<br>
+<br>
+$\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
+<br>
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
+- As features increase, formula becomes very expensive
+- Solution: assume each feature is independent of any other feature, given they are in the same class 
+  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
+  - Called "class conditional independence":<br>
+<br>
+$P(spam \mid cash=yes \cap furniture=no) =$<br>
+<br>
+$\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
+<br>
+$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$<br>
+<br>
+
 
 ----
 
@@ -991,8 +1064,35 @@ $P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \m
 - Solution: assume each feature is independent of any other feature, given they are in the same class 
   - Independence formula: $P(A \cap B) = P(A) \times P(B)$
   - Called "class conditional independence":<br>
-  - $P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$
-  = $\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}$
+<br>
+$P(spam \mid cash=yes \cap furniture=no) =$<br>
+<br>
+$\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
+<br>
+$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$<br>
+<br>
+$\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}$<br>
+<br>
+
+----
+
+## Naive Bayes
+# Why Naive?
+<space>
+
+- As features increase, formula becomes very expensive
+- Solution: assume each feature is independent of any other feature, given they are in the same class 
+  - Independence formula: $P(A \cap B) = P(A) \times P(B)$
+  - Called "class conditional independence":<br>
+<br>
+$P(spam \mid cash=yes \cap furniture=no) =$<br>
+<br>
+$\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =$<br> 
+<br>
+$\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}$<br>
+<br>
+$\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}$<br>
+<br>
 
 `Exercise`: $P(ham \mid cash=yes \cap furniture=no) = ?$
 
@@ -1009,7 +1109,8 @@ bayes_ex_3 <- cbind(bayes_ex_2[,-5],
                     total=c(30,70,100))
 bayes_ex_3
 ```
-
+<br>
+<br>
 $P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = ?$
 
 ----
@@ -1025,11 +1126,9 @@ bayes_ex_3 <- cbind(bayes_ex_2[,-5],
                     total=c(30,70,100))
 bayes_ex_3
 ```
-
-$P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = ?$
-$\frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0$
-
-- if party appears in an email, there's no chance it could be ham...really??
+<br>
+<br>
+$P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = \frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0$
 
 ----
 
@@ -1037,14 +1136,9 @@ $\frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \t
 # The Laplace Estimator
 <space>
 
-$P(ham \mid cash=yes \cap party=yes) =$
-$\frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} =$
-$\frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0$
-
-- if party appears in an email, there's no chance it could be ham...really??
 - To get around 0's, apply Laplace estimator
   - add 1 to every feature
-  
+
 ----
 
 ## Naive Bayes
@@ -1150,7 +1244,6 @@ corpus_test_set <- apply(corpus_test_set, MARGIN = 2 , FUN = convert)
 <space>
 
 ```{r naive_model,comment=""}
-# use naiveBayes() function from e1071 package
 library(e1071)
 
 naive_model <- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
@@ -1167,9 +1260,6 @@ naive_conf
 <space>
 
 ```{r naive_model_exercise,comment=""}
-# use naiveBayes() function from e1071 package
-library(e1071)
-
 naive_model <- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
 predict_naive <- predict(naive_model, corpus_test_set)
 
@@ -1513,7 +1603,6 @@ auc@y.values
   - Test final model - 25% of data
 
 ```{r create_partition,comment=""}
-library(caret)
 new_data <- createDataPartition(sms_data$type,p=0.1, list=FALSE)
 table(sms_data[new_data,1])
 ```
@@ -1558,7 +1647,6 @@ str(folds)
 - $\alpha$ and $\beta$ are just estimates
 
 ```{r best_fit, echo=FALSE,message=FALSE,fig.height=5,fig.width=5}
-library(ggplot2)
 x <- seq(1,100,1)
 y <- 2 + 4*x*rnorm(100,mean=4,sd=1)
 scatter = data.frame(x=x,y=y)
@@ -1647,7 +1735,7 @@ ggplot(data = scatter, aes(x=x,y=y)) +  geom_point() +  geom_abline(intercept = 
 - given a starting value, take a step along the slope
 - continue taking a step until minimum is reached
 
-```{r, echo=FALSE,fig.height=5,fig.width=5}
+```{r grad_power, echo=FALSE,fig.height=5,fig.width=5}
 pwr <- function(x) x^2
 curve(pwr,from=-3,to=3,main="Curve with Global Minimum")
 points(-2,pwr(-2),col='red',pch=19)
@@ -1662,7 +1750,7 @@ points(-2,pwr(-2),col='red',pch=19)
 - given a starting value, take a step along the slope
 - continue taking a step until minimum is reached
 
-```{r, echo=FALSE,fig.height=5,fig.width=5}
+```{r grad_power_2, echo=FALSE,fig.height=5,fig.width=5}
 pwr <- function(x) x^2
 curve(pwr,from=-3,to=3,main="Curve with Global Minimum")
 points(-2,pwr(-2),col='red',pch=19)
@@ -1678,7 +1766,7 @@ points(-1.2,pwr(-1.2),col='red',pch=19)
 - given a starting value, take a step along the slope
 - continue taking a step until minimum is reached
 
-```{r, echo=FALSE,fig.height=5,fig.width=5}
+```{r grad_power_3, echo=FALSE,fig.height=5,fig.width=5}
 pwr <- function(x) x^2
 curve(pwr,from=-3,to=3,main="Curve with Global Minimum")
 points(-2,pwr(-2),col='red',pch=19)
@@ -1695,7 +1783,7 @@ points(-0.6,pwr(-0.6),col='red',pch=19)
 - given a starting value, take a step along the slope
 - continue taking a step until minimum is reached
 
-```{r, echo=FALSE,fig.height=5,fig.width=5}
+```{r grad_power_4, echo=FALSE,fig.height=5,fig.width=5}
 pwr <- function(x) x^2
 curve(pwr,from=-3,to=3,main="Curve with Global Minimum")
 points(-2,pwr(-2),col='red',pch=19)
@@ -1945,7 +2033,7 @@ summary(lm(Y~X + X2 + X3,df))$adj.r.squared
 
 - let's add even more features
 
-```{r, echo=FALSE,comment=""}
+```{r learning, echo=FALSE,comment=""}
 df <- transform(df, X4=X^4, X5=X^5, X6=X^6, X7=X^7, X8=X^8, X9=X^9, X10=X^10, X11=X^11,X12=X^12, X13=X^13, X14=X^14,X15=X^15)
 line.fit <- lm(Y~X+X2+X3+X4+X5+X6+X7+X8+X9+X10+X11+X12+X13+X14+X15,df)
 summary(line.fit)$coef[,1]
@@ -2046,7 +2134,7 @@ for (d in 1:20){
 # How many parameters are too many?
 <space>
 
-```{r,echo=FALSE}
+```{r learning_plot,echo=FALSE}
 ggplot(performance, aes(x = Degree, y = RMSE, linetype = Data)) + geom_point() + geom_line()
 ```
 

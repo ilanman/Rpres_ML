@@ -352,8 +352,8 @@ str(iris)
 
 <p><space></p>
 
-<pre><code class="r"># summarize the data  - five number summary
-summary(iris[,1:4])
+<pre><code class="r"># summarize the data - five number summary
+summary(iris[, 1:4])
 </code></pre>
 
 <pre><code>##   Sepal.Length   Sepal.Width    Petal.Length   Petal.Width 
@@ -413,7 +413,7 @@ summary(iris[,1:4])
 </ul></li>
 </ul>
 
-<pre><code class="r">quantile(iris$Sepal.Length, probs = c(0.10,0.50,0.99))
+<pre><code class="r">quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
 </code></pre>
 
 <pre><code>10% 50% 99% 
@@ -477,8 +477,7 @@ summary(iris[,1:4])
 <li>Useful for visualizing bivariate relationships (2 variables)</li>
 </ul>
 
-<pre><code>## Error: could not find function &quot;ggplot&quot;
-</code></pre>
+<p><img src="figure/scatterplot.png" title="plot of chunk scatterplot" alt="plot of chunk scatterplot" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -551,11 +550,7 @@ summary(iris[,1:4])
 
 <p><space></p>
 
-<pre><code>## Warning: package &#39;plyr&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code>## Error: could not find function &quot;ggplot&quot;
-</code></pre>
+<p><img src="figure/knn_polygon_plot.png" alt="plot of chunk knn_polygon_plot"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -570,14 +565,7 @@ summary(iris[,1:4])
 
 <p><space></p>
 
-<pre><code>## Error: could not find function &quot;ggplot&quot;
-</code></pre>
-
-<pre><code>## function (x, y, ...) 
-## UseMethod(&quot;plot&quot;)
-## &lt;bytecode: 0x7ff9423da2d8&gt;
-## &lt;environment: namespace:graphics&gt;
-</code></pre>
+<p><img src="figure/shaded_plot.png" alt="plot of chunk shaded plot"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -592,8 +580,7 @@ summary(iris[,1:4])
 
 <p><space></p>
 
-<pre><code>## Error: could not find function &quot;geom_point&quot;
-</code></pre>
+<p><img src="figure/new_point.png" title="plot of chunk new point" alt="plot of chunk new point" style="display: block; margin: auto auto auto 0;" /></p>
 
 <ul>
 <li>Suppose we had a new point with Sepal Length of 7 and Petal Length of 4</li>
@@ -697,19 +684,11 @@ summary(iris[,1:4])
 </ul>
 
 <pre><code class="r">library(scales)  # format ggplot() axis
-</code></pre>
-
-<pre><code>## Warning: package &#39;scales&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code class="r">price &lt;- seq(300000,600000,by=10000)
-size &lt;- price/1000 + rnorm(length(price),10,50)
-houses &lt;- data.frame(price,size)
-ex &lt;- ggplot(houses,aes(price,size))+geom_point()+scale_x_continuous(labels = comma)+
-  xlab(&quot;Price&quot;)+ylab(&quot;Size&quot;)+ggtitle(&quot;Square footage vs Price&quot;)
-</code></pre>
-
-<pre><code>## Error: could not find function &quot;ggplot&quot;
+price &lt;- seq(3e+05, 6e+05, by = 10000)
+size &lt;- price/1000 + rnorm(length(price), 10, 50)
+houses &lt;- data.frame(price, size)
+ex &lt;- ggplot(houses, aes(price, size)) + geom_point() + scale_x_continuous(labels = comma) + 
+    xlab(&quot;Price&quot;) + ylab(&quot;Size&quot;) + ggtitle(&quot;Square footage vs Price&quot;)
 </code></pre>
 
   </article>
@@ -725,8 +704,7 @@ ex &lt;- ggplot(houses,aes(price,size))+geom_point()+scale_x_continuous(labels =
 
 <p><space></p>
 
-<pre><code>## Error: object &#39;ex&#39; not found
-</code></pre>
+<p><img src="figure/house_price_plot.png" alt="plot of chunk house price plot"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -741,11 +719,7 @@ ex &lt;- ggplot(houses,aes(price,size))+geom_point()+scale_x_continuous(labels =
 
 <p><space></p>
 
-<pre><code>## Error: object &#39;ex&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;center_plot&#39; not found
-</code></pre>
+<p><img src="figure/clusters.png" alt="plot of chunk clusters"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -760,11 +734,7 @@ ex &lt;- ggplot(houses,aes(price,size))+geom_point()+scale_x_continuous(labels =
 
 <p><space></p>
 
-<pre><code>## Error: object &#39;center_plot&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;new_plot&#39; not found
-</code></pre>
+<p><img src="figure/new_cluster_plot.png" alt="plot of chunk new cluster plot"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -781,18 +751,18 @@ ex &lt;- ggplot(houses,aes(price,size))+geom_point()+scale_x_continuous(labels =
 
 <pre><code class="r"># 1) using loops
 loop_dist &lt;- 0
-for(i in 1:nrow(houses)){
-  loop_dist[i] &lt;- sqrt(sum((new_p-houses[i,])^2))
-  }
+for (i in 1:nrow(houses)) {
+    loop_dist[i] &lt;- sqrt(sum((new_p - houses[i, ])^2))
+}
 
 # 2) vectorized
-vec_dist &lt;- sqrt(rowSums(t(new_p-t(houses))^2))
-closest &lt;- data.frame(houses[which.min(vec_dist),])
+vec_dist &lt;- sqrt(rowSums(t(new_p - t(houses))^2))
+closest &lt;- data.frame(houses[which.min(vec_dist), ])
 print(closest)
 </code></pre>
 
-<pre><code>   price  size
-11 4e+05 441.8
+<pre><code>   price size
+11 4e+05  486
 </code></pre>
 
   </article>
@@ -808,8 +778,7 @@ print(closest)
 
 <p><space></p>
 
-<pre><code>## Error: object &#39;new_plot&#39; not found
-</code></pre>
+<p><img src="figure/knn_repeat_plot.png" alt="plot of chunk knn_repeat_plot"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -824,8 +793,7 @@ print(closest)
 
 <p><space></p>
 
-<pre><code>## Error: object &#39;new_plot&#39; not found
-</code></pre>
+<p><img src="figure/closest_knn.png" alt="plot of chunk closest_knn"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -841,15 +809,13 @@ print(closest)
 <p><space></p>
 
 <ul>
-<li>Feature scaling. Two common approaches:</li>
-<li>min-max normalization
+<li>Feature scaling. Level the playing field.</li>
+<li>Two common approaches:
 
 <ul>
+<li>min-max normalization</li>
 <li>\(X_{new} = \frac{X-min(X)}{max(X) - min(X)}\)</li>
-</ul></li>
-<li>z-score standardization
-
-<ul>
+<li>z-score standardization</li>
 <li>\(X_{new} = \frac{X-mean(X)}{sd(X)}\)</li>
 </ul></li>
 <li>Euclidean distance doesn&#39;t discriminate between important and noisy features
@@ -873,22 +839,11 @@ print(closest)
 <p><space></p>
 
 <pre><code class="r">new_house &lt;- scale(houses)
-new_new &lt;- c((new[1]-mean(houses[,1]))/sd(houses[,1]),(new[2]-mean(houses[,2]))/sd(houses[,2]))
-</code></pre>
+new_new &lt;- c((new_p[1] - mean(houses[, 1]))/sd(houses[, 1]), (new_p[2] - mean(houses[, 
+    2]))/sd(houses[, 2]))
 
-<pre><code>Error: object of type &#39;closure&#39; is not subsettable
-</code></pre>
-
-<pre><code class="r">vec_dist &lt;- sqrt(rowSums(t(new_new-t(new_house))^2))
-</code></pre>
-
-<pre><code>Error: object &#39;new_new&#39; not found
-</code></pre>
-
-<pre><code class="r">which.min(vec_dist)
-</code></pre>
-
-<pre><code>[1] 11
+vec_dist &lt;- sqrt(rowSums(t(new_new - t(new_house))^2))
+scale_closest &lt;- data.frame(houses[which.min(vec_dist), ])
 </code></pre>
 
   </article>
@@ -904,8 +859,7 @@ new_new &lt;- c((new[1]-mean(houses[,1]))/sd(houses[,1]),(new[2]-mean(houses[,2]
 
 <p><space></p>
 
-<pre><code>## Error: object &#39;new_plot&#39; not found
-</code></pre>
+<p><img src="figure/scale_closest_plot.png" alt="plot of chunk scale_closest_plot"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -916,19 +870,27 @@ new_new &lt;- c((new[1]-mean(houses[,1]))/sd(houses[,1]),(new[2]-mean(houses[,2]
     <h2>K-Nearest Neighbors</h2>
   </hgroup>
   <article>
-    <h1>Lazy learner</h1>
+    <h1>Case study</h1>
 
 <p><space></p>
 
-<ul>
-<li>kNN doesn&#39;t actually learn anything!</li>
-<li>Stores training data and applies it - verbatim - to new examples</li>
-<li>Known as instance-based learning</li>
-<li>Non-parametric learning method</li>
-<li>Harder for us to understand how the classifier is using the data</li>
-<li>However kNN finds natural patterns </li>
-<li>Don&#39;t need to fit aribtrarily to a model</li>
-</ul>
+<pre><code class="r">data &lt;- read.table(&quot;http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data&quot;, 
+    sep = &quot;,&quot;, stringsAsFactors = FALSE, header = FALSE)
+
+# first column has the ID which is not useful
+data &lt;- data[, -1]
+
+# names taken from the .names file online
+n &lt;- c(&quot;radius&quot;, &quot;texture&quot;, &quot;perimeter&quot;, &quot;area&quot;, &quot;smoothness&quot;, &quot;compactness&quot;, 
+    &quot;concavity&quot;, &quot;concave_points&quot;, &quot;symmetry&quot;, &quot;fractal&quot;)
+ind &lt;- c(&quot;mean&quot;, &quot;std&quot;, &quot;worst&quot;)
+
+headers &lt;- as.character()
+for (i in ind) {
+    headers &lt;- c(headers, paste(n, i))
+}
+names(data) &lt;- c(&quot;diagnosis&quot;, headers)
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -943,36 +905,7 @@ new_new &lt;- c((new[1]-mean(houses[,1]))/sd(houses[,1]),(new[2]-mean(houses[,2]
 
 <p><space></p>
 
-<pre><code class="r">data &lt;- read.table(&#39;http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data&#39;, sep=&#39;,&#39;, stringsAsFactors=FALSE, header=FALSE)
-
-# first column has the ID which is not useful
-data &lt;- data[,-1]
-# names taken from the .names file online
-n &lt;- c(&quot;radius&quot;,&quot;texture&quot;,&quot;perimeter&quot;,&quot;area&quot;,&quot;smoothness&quot;,&quot;compactness&quot;,
-   &quot;concavity&quot;,&quot;concave_points&quot;,&quot;symmetry&quot;,&quot;fractal&quot;)
-ind &lt;- c(&quot;mean&quot;,&quot;std&quot;,&quot;worst&quot;)
-
-headers&lt;-as.character()
-for(i in ind){
-  headers&lt;-c(headers,paste(n,i))
-  }
-names(data)&lt;-c(&quot;diagnosis&quot;,headers)
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-40" style="background:;">
-  <hgroup>
-    <h2>K-Nearest Neighbors</h2>
-  </hgroup>
-  <article>
-    <h1>Case study</h1>
-
-<p><space></p>
-
-<pre><code class="r">str(data[,1:10])
+<pre><code class="r">str(data[, 1:10])
 </code></pre>
 
 <pre><code>&#39;data.frame&#39;:   569 obs. of  10 variables:
@@ -992,7 +925,7 @@ names(data)&lt;-c(&quot;diagnosis&quot;,headers)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-41" style="background:;">
+      <slide class="" id="slide-40" style="background:;">
   <hgroup>
     <h2>K-Nearest Neighbors</h2>
   </hgroup>
@@ -1001,13 +934,15 @@ names(data)&lt;-c(&quot;diagnosis&quot;,headers)
 
 <p><space></p>
 
-<pre><code class="r"># inspect remaining data more closely
-prop.table(table(data$diagnosis)); head(data)[2:6]
+<pre><code class="r">prop.table(table(data$diagnosis))  # Balanced data set?
 </code></pre>
 
 <pre><code>
      B      M 
 0.6274 0.3726 
+</code></pre>
+
+<pre><code class="r">head(data)[2:6]  # inspect features more closely
 </code></pre>
 
 <pre><code>  radius mean texture mean perimeter mean area mean smoothness mean
@@ -1023,7 +958,7 @@ prop.table(table(data$diagnosis)); head(data)[2:6]
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-42" style="background:;">
+      <slide class="" id="slide-41" style="background:;">
   <hgroup>
     <h2>K-Nearest Neighbors</h2>
   </hgroup>
@@ -1033,8 +968,8 @@ prop.table(table(data$diagnosis)); head(data)[2:6]
 <p><space></p>
 
 <pre><code class="r"># scale each numeric value
-scaled_data &lt;- as.data.frame(lapply(data[,-1], scale))
-scaled_data &lt;- cbind(diagnosis=data$diagnosis, scaled_data)
+scaled_data &lt;- as.data.frame(lapply(data[, -1], scale))
+scaled_data &lt;- cbind(diagnosis = data$diagnosis, scaled_data)
 head(scaled_data[2:6])
 </code></pre>
 
@@ -1051,7 +986,7 @@ head(scaled_data[2:6])
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-43" style="background:;">
+      <slide class="" id="slide-42" style="background:;">
   <hgroup>
     <h2>K-Nearest Neighbors</h2>
   </hgroup>
@@ -1061,20 +996,45 @@ head(scaled_data[2:6])
 <p><space></p>
 
 <pre><code class="r">library(class)  # get k-NN classifier
-</code></pre>
-
-<pre><code>Warning: package &#39;class&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code class="r">predict_1 &lt;- knn(train = scaled_data[,2:31], test = scaled_data[,2:31],
-                 cl = scaled_data[,1],
-                 k = floor(sqrt(nrow(scaled_data))))                  
-table(predict_1)
+predict_1 &lt;- knn(train = scaled_data[, 2:31], test = scaled_data[, 2:31], cl = scaled_data[, 
+    1], k = floor(sqrt(nrow(scaled_data))))
+prop.table(table(predict_1))
 </code></pre>
 
 <pre><code>predict_1
-  B   M 
-378 191 
+     B      M 
+0.6643 0.3357 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-43" style="background:;">
+  <hgroup>
+    <h2>K-Nearest Neighbors</h2>
+  </hgroup>
+  <article>
+    <h1>Case study</h1>
+
+<p><space></p>
+
+<pre><code class="r">pred_B &lt;- which(predict_1 == &quot;B&quot;)
+actual_B &lt;- which(scaled_data[, 1] == &quot;B&quot;)
+pred_M &lt;- which(predict_1 == &quot;M&quot;)
+actual_M &lt;- which(scaled_data[, 1] == &quot;M&quot;)
+
+true_positive &lt;- sum(pred_B %in% actual_B)
+true_negative &lt;- sum(pred_M %in% actual_M)
+false_positive &lt;- sum(pred_B %in% actual_M)
+false_negative &lt;- sum(pred_M %in% actual_B)
+
+conf_mat &lt;- matrix(c(true_positive, false_positive, false_negative, true_negative), 
+    nrow = 2, ncol = 2)
+
+acc &lt;- sum(diag(conf_mat))/sum(conf_mat)
+tpr &lt;- conf_mat[1, 1]/sum(conf_mat[1, ])
+tn &lt;- conf_mat[2, 2]/sum(conf_mat[2, ])
 </code></pre>
 
   </article>
@@ -1090,21 +1050,18 @@ table(predict_1)
 
 <p><space></p>
 
-<pre><code class="r">pred_B &lt;- which(predict_1==&quot;B&quot;)
-actual_B &lt;- which(scaled_data[,1]==&quot;B&quot;)
-pred_M &lt;- which(predict_1==&quot;M&quot;)
-actual_M &lt;- which(scaled_data[,1]==&quot;M&quot;)
-true_positive &lt;- sum(pred_B %in% actual_B)
-true_negative &lt;- sum(pred_M %in% actual_M)
-false_positive &lt;- sum(pred_B %in% actual_M)
-false_negative &lt;- sum(pred_M %in% actual_B)
-
-conf_mat &lt;- matrix(c(true_positive,false_positive,false_negative,true_negative),nrow=2,ncol=2)
-
-acc &lt;- sum(diag(conf_mat))/sum(conf_mat)
-tpr &lt;- conf_mat[1,1]/sum(conf_mat[1,])
-tn &lt;- conf_mat[2,2]/sum(conf_mat[2,])
+<pre><code>   acc    tpr     tn 
+0.9596 0.9972 0.8962 
 </code></pre>
+
+<pre><code>       Actual B Actual M
+Pred B      356        1
+Pred M       22      190
+</code></pre>
+
+<ul>
+<li>Is that right?</li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -1119,18 +1076,18 @@ tn &lt;- conf_mat[2,2]/sum(conf_mat[2,])
 
 <p><space></p>
 
-<pre><code>   acc    tpr     tn 
-0.9596 0.9972 0.8962 
-</code></pre>
+<pre><code class="r"># create randomized training and testing sets
+total_n &lt;- nrow(scaled_data)
 
-<pre><code>    tp  fp
-fn 356   1
-tn  22 190
-</code></pre>
+# train on 2/3 of the data
+train_ind &lt;- sample(total_n, total_n * 2/3)
 
-<ul>
-<li>Is that right?</li>
-</ul>
+train_labels &lt;- scaled_data[train_ind, 1]
+test_labels &lt;- scaled_data[-train_ind, 1]
+
+train_set &lt;- scaled_data[train_ind, 2:31]
+test_set &lt;- scaled_data[-train_ind, 2:31]
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -1145,15 +1102,13 @@ tn  22 190
 
 <p><space></p>
 
-<pre><code class="r"># create randomized training and testing sets
-total_n &lt;- nrow(scaled_data)
+<pre><code class="r">predict_1 &lt;- knn(train = train_set, test = test_set, cl = train_labels, k = floor(sqrt(nrow(train_set))))
+prop.table(table(predict_1))
+</code></pre>
 
-# train on 2/3 of the data
-train_ind &lt;- sample(total_n,total_n*2/3)
-train_labels &lt;- scaled_data[train_ind,1]
-test_labels &lt;- scaled_data[-train_ind,1]
-train_set &lt;- scaled_data[train_ind,2:31]
-test_set &lt;- scaled_data[-train_ind,2:31]
+<pre><code>predict_1
+     B      M 
+0.5842 0.4158 
 </code></pre>
 
   </article>
@@ -1169,15 +1124,22 @@ test_set &lt;- scaled_data[-train_ind,2:31]
 
 <p><space></p>
 
-<pre><code class="r">library(class)
-predict_1 &lt;- knn(train = train_set, test = test_set, cl = train_labels,
-                 k = floor(sqrt(nrow(train_set))))                  
-table(predict_1)
-</code></pre>
+<pre><code class="r">pred_B &lt;- which(predict_1 == &quot;B&quot;)
+test_B &lt;- which(test_labels == &quot;B&quot;)
+pred_M &lt;- which(predict_1 == &quot;M&quot;)
+test_M &lt;- which(test_labels == &quot;M&quot;)
 
-<pre><code>predict_1
-  B   M 
-129  61 
+true_positive &lt;- sum(pred_B %in% test_B)
+true_negative &lt;- sum(pred_M %in% test_M)
+false_positive &lt;- sum(pred_B %in% test_M)
+false_negative &lt;- sum(pred_M %in% test_B)
+
+conf_mat &lt;- matrix(c(true_positive, false_negative, false_positive, true_negative), 
+    nrow = 2, ncol = 2)
+
+acc &lt;- sum(diag(conf_mat))/sum(conf_mat)
+tpr &lt;- conf_mat[1, 1]/sum(conf_mat[1, ])
+tn &lt;- conf_mat[2, 2]/sum(conf_mat[2, ])
 </code></pre>
 
   </article>
@@ -1193,20 +1155,13 @@ table(predict_1)
 
 <p><space></p>
 
-<pre><code class="r">pred_B &lt;- which(predict_1==&quot;B&quot;)
-test_B &lt;- which(test_labels==&quot;B&quot;)
-pred_M &lt;- which(predict_1==&quot;M&quot;)
-test_M &lt;- which(test_labels==&quot;M&quot;)
-true_positive &lt;- sum(pred_B %in% test_B)
-true_negative &lt;- sum(pred_M %in% test_M)
-false_positive &lt;- sum(pred_B %in% test_M)
-false_negative &lt;- sum(pred_M %in% test_B)
+<pre><code>   acc    tpr     tn 
+0.9789 0.9640 1.0000 
+</code></pre>
 
-conf_mat &lt;- matrix(c(true_positive,false_negative,false_positive,true_negative),nrow=2,ncol=2)
-
-acc &lt;- sum(diag(conf_mat))/sum(conf_mat)
-tpr &lt;- conf_mat[1,1]/sum(conf_mat[1,])
-tn &lt;- conf_mat[2,2]/sum(conf_mat[2,])
+<pre><code>       Actual B Actual M
+Pred B      107        4
+Pred M        0       79
 </code></pre>
 
   </article>
@@ -1222,13 +1177,15 @@ tn &lt;- conf_mat[2,2]/sum(conf_mat[2,])
 
 <p><space></p>
 
-<pre><code>   acc    tpr     tn 
-0.9526 0.9380 0.9836 
+<pre><code class="r">library(caret)  # Classification and Regression Training
+con_mat &lt;- confusionMatrix(predict_1, test_labels)
+con_mat$table
 </code></pre>
 
-<pre><code>       Actual B Actual M
-Pred B      121        8
-Pred M        1       60
+<pre><code>          Reference
+Prediction   B   M
+         B 107   4
+         M   0  79
 </code></pre>
 
   </article>
@@ -1244,35 +1201,18 @@ Pred M        1       60
 
 <p><space></p>
 
-<pre><code class="r">library(caret)
-</code></pre>
-
-<pre><code>Warning: package &#39;caret&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code>Loading required package: lattice
-</code></pre>
-
-<pre><code>Warning: package &#39;lattice&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code>Loading required package: ggplot2
-</code></pre>
-
-<pre><code>Warning: package &#39;ggplot2&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code class="r">confusionMatrix(predict_1,test_labels)$table
-</code></pre>
-
-<pre><code>Warning: package &#39;e1071&#39; was built under R version 3.0.2
+<pre><code class="r">library(caret)  # Classification and Regression Training
+con_mat &lt;- confusionMatrix(predict_1, test_labels)
+con_mat$table
 </code></pre>
 
 <pre><code>          Reference
 Prediction   B   M
-         B 121   8
-         M   1  60
+         B 107   4
+         M   0  79
 </code></pre>
+
+<p><code>Exercise:</code> Find the Accuracy for various value of k. What&#39;s the best value of k for your model?</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -1287,8 +1227,16 @@ Prediction   B   M
 
 <p><space></p>
 
-<pre><code>Exercise: Find the Accuracy for various value of k.
-Hint 1 - look at the `knn` function parameters
+<pre><code class="r">k_params &lt;- c(1, 3, 5, 10, 15, 20, 25, 30, 40)
+perf_acc &lt;- NULL
+per &lt;- NULL
+for (i in k_params) {
+    predictions &lt;- knn(train = train_set, test = test_set, cl = train_labels, 
+        k = i)
+    conf &lt;- confusionMatrix(predictions, test_labels)$table
+    perf_acc &lt;- sum(diag(conf))/sum(conf)
+    per &lt;- rbind(per, c(i, perf_acc, conf[[1]], conf[[3]], conf[[2]], conf[[4]]))
+}
 </code></pre>
 
   </article>
@@ -1304,19 +1252,22 @@ Hint 1 - look at the `knn` function parameters
 
 <p><space></p>
 
-<pre><code class="r">k_params &lt;- c(1,3,5,10,15,20,25,30,40)
-perf_acc &lt;- NULL
-per &lt;- NULL
-for(i in k_params){
-  predictions &lt;- knn(train = train_set,
-                     test = test_set,
-                     cl = train_labels,
-                     k = i)
-  conf &lt;- confusionMatrix(predictions,test_labels)$table
-  perf_acc &lt;- sum(diag(conf))/sum(conf)
-  per &lt;- rbind(per,c(i, perf_acc,conf[[1]],conf[[3]],conf[[2]],conf[[4]]))
-}
-</code></pre>
+<!-- html table generated in R 3.0.3 by xtable 1.7-3 package -->
+
+<!-- Mon Jul 07 16:21:10 2014 -->
+
+<TABLE border=1>
+<TR> <TH> K </TH> <TH> Acc </TH> <TH> TP </TH> <TH> FP </TH> <TH> FN </TH> <TH> TN </TH>  </TR>
+  <TR> <TD align="right"> 1.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 103.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 79.00 </TD> </TR>
+  <TR> <TD align="right"> 3.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 106.00 </TD> <TD align="right"> 3.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 80.00 </TD> </TR>
+  <TR> <TD align="right"> 5.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 3.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 80.00 </TD> </TR>
+  <TR> <TD align="right"> 10.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 79.00 </TD> </TR>
+  <TR> <TD align="right"> 15.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 79.00 </TD> </TR>
+  <TR> <TD align="right"> 20.00 </TD> <TD align="right"> 0.98 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 4.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 79.00 </TD> </TR>
+  <TR> <TD align="right"> 25.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 6.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 77.00 </TD> </TR>
+  <TR> <TD align="right"> 30.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 6.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 77.00 </TD> </TR>
+  <TR> <TD align="right"> 40.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 107.00 </TD> <TD align="right"> 6.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 77.00 </TD> </TR>
+   </TABLE>
 
   </article>
   <!-- Presenter Notes -->
@@ -1327,45 +1278,17 @@ for(i in k_params){
     <h2>K-Nearest Neighbors</h2>
   </hgroup>
   <article>
-    <h1>Case study</h1>
-
-<p><space></p>
-
-<pre><code>## Warning: package &#39;xtable&#39; was built under R version 3.0.2
-</code></pre>
-
-<!-- html table generated in R 3.0.1 by xtable 1.7-3 package -->
-
-<!-- Sun Jul  6 21:54:12 2014 -->
-
-<TABLE border=1>
-<TR> <TH>  </TH> <TH> K </TH> <TH> Acc </TH> <TH> TP </TH> <TH> FP </TH> <TH> FN </TH> <TH> TN </TH>  </TR>
-  <TR> <TD align="right"> 1 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 119.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 3.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 2 </TD> <TD align="right"> 3.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 6.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 62.00 </TD> </TR>
-  <TR> <TD align="right"> 3 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 120.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 2.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 4 </TD> <TD align="right"> 10.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 120.00 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 2.00 </TD> <TD align="right"> 63.00 </TD> </TR>
-  <TR> <TD align="right"> 5 </TD> <TD align="right"> 15.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 6 </TD> <TD align="right"> 20.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 60.00 </TD> </TR>
-  <TR> <TD align="right"> 7 </TD> <TD align="right"> 25.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 60.00 </TD> </TR>
-  <TR> <TD align="right"> 8 </TD> <TD align="right"> 30.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 122.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 9 </TD> <TD align="right"> 40.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 122.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 60.00 </TD> </TR>
-   </TABLE>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-54" style="background:;">
-  <hgroup>
-    <h2>K-Nearest Neighbors</h2>
-  </hgroup>
-  <article>
     <h1>Summary</h1>
 
 <p><space></p>
 
 <ul>
-<li>kNN is a lazy learning algorithm</li>
+<li>kNN is a lazy learning algorithm
+-Stores training data and applies it verbatim to new data
+
+<ul>
+<li>&quot;instance-based&quot; learning</li>
+</ul></li>
 <li>Assigns the majority class of the k data points closest to the new data
 
 <ul>
@@ -1390,7 +1313,7 @@ for(i in k_params){
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-55" style="background:;">
+      <slide class="" id="slide-54" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1409,7 +1332,7 @@ for(i in k_params){
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-56" style="background:;">
+      <slide class="" id="slide-55" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1432,7 +1355,36 @@ for(i in k_params){
 
 <ul>
 <li>\(0 \leq P(X) \leq 1\)</li>
-<li>\(P(\sum_{i=1}^{n} X_{i}) = \sum_{i=1}^{n} P(X_{i})\)</li>
+<li>\(P(\sum_{i=1}^{n} X_{i}) = \sum_{i=1}^{n} P(X_{i})\)   (for mutually excluse \(X_{i}\))</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-56" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Probability and Bayes Theorem</h1>
+
+<p><space></p>
+
+<ul>
+<li>&quot;A and B&quot; is \(A \cap B\) (intersect)</li>
+<li>Independent events
+
+<ul>
+<li>\(P(A \cap B) = P(A) \times P(B)\)
+<space></li>
+</ul></li>
+<li>&quot;A given B&quot; is \(A \mid B\)</li>
+<li>Conditional probability
+
+<ul>
+<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</li>
 </ul></li>
 </ul>
 
@@ -1450,17 +1402,19 @@ for(i in k_params){
 <p><space></p>
 
 <ul>
-<li>\(A \cap B\) is &quot;A and B&quot;</li>
+<li>&quot;A and B&quot; is \(A \cap B\) (intersect)</li>
 <li>Independent events
 
 <ul>
-<li>\(P(A \cap B) = P(A) \times P(B)\)</li>
+<li>\(P(A \cap B) = P(A) \times P(B)\)
+<space></li>
 </ul></li>
-<li>\(A \mid B\) is &quot;A given B&quot;</li>
+<li>&quot;A given B&quot; is \(A \mid B\)</li>
 <li>Conditional probability
 
 <ul>
-<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</li>
+<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\) </li>
+<li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
 </ul></li>
 </ul>
 
@@ -1478,17 +1432,18 @@ for(i in k_params){
 <p><space></p>
 
 <ul>
+<li>&quot;A and B&quot; is \(A \cap B\) (intersect)</li>
 <li>Independent events
 
 <ul>
-<li>\(A \cap B\) is &quot;A and B&quot;</li>
-<li>\(P(A \cap B) = P(A) \times P(B)\)</li>
+<li>\(P(A \cap B) = P(A) \times P(B)\)
+<space></li>
 </ul></li>
+<li>&quot;A given B&quot; is \(A \mid B\)</li>
 <li>Conditional probability
 
 <ul>
-<li>\(A \mid B\) is &quot;A given B&quot;</li>
-<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\) </li>
+<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</li>
 <li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
 <li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
 </ul></li>
@@ -1508,47 +1463,21 @@ for(i in k_params){
 <p><space></p>
 
 <ul>
+<li>&quot;A and B&quot; is \(A \cap B\) (intersect)</li>
 <li>Independent events
 
 <ul>
-<li>\(A \cap B\) is &quot;A and B&quot;</li>
-<li>\(P(A \cap B) = P(A) \times P(B)\)</li>
+<li>\(P(A \cap B) = P(A) \times P(B)\)
+<space></li>
 </ul></li>
+<li>&quot;A given B&quot; is \(A \mid B\)</li>
 <li>Conditional probability
 
 <ul>
-<li>\(A \mid B\) is &quot;A given B&quot;</li>
-<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\) </li>
+<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</li>
 <li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
 <li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
-<li>but... \(P(B \cap A) = P(A \cap B)\)</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2>Naive Bayes</h2>
-
-<h1>Probability and Bayes Theorem</h1>
-
-<p><space></p>
-
-<ul>
-<li>Independent events
-
-<ul>
-<li>\(A \cap B\) is &quot;A and B&quot;</li>
-<li>\(P(A \cap B) = P(A) \times P(B)\)</li>
-</ul></li>
-<li>Conditional probability
-
-<ul>
-<li>\(A \mid B\) is &quot;A given B&quot;</li>
-<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\) </li>
-<li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
-<li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
-<li>but... \(P(B \cap A) = P(A \cap B)\)</li>
-<li>so.... \(P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}\) &lt;-- <em>Bayes Theorem!</em></li>
+<li>but \(P(B \cap A) = P(A \cap B)\)</li>
 </ul></li>
 </ul>
 
@@ -1557,6 +1486,72 @@ for(i in k_params){
 </slide>
 
       <slide class="" id="slide-60" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Probability and Bayes Theorem</h1>
+
+<p><space></p>
+
+<ul>
+<li>&quot;A and B&quot; is \(A \cap B\) (intersect)</li>
+<li>Independent events
+
+<ul>
+<li>\(P(A \cap B) = P(A) \times P(B)\)
+<space></li>
+</ul></li>
+<li>&quot;A given B&quot; is \(A \mid B\)</li>
+<li>Conditional probability
+
+<ul>
+<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</li>
+<li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
+<li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
+<li>but \(P(B \cap A) = P(A \cap B)\)</li>
+<li>so \(P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}\)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-61" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Probability and Bayes Theorem</h1>
+
+<p><space></p>
+
+<ul>
+<li>&quot;A and B&quot; is \(A \cap B\) (intersect)</li>
+<li>Independent events
+
+<ul>
+<li>\(P(A \cap B) = P(A) \times P(B)\)
+<space></li>
+</ul></li>
+<li>&quot;A given B&quot; is \(A \mid B\)</li>
+<li>Conditional probability
+
+<ul>
+<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</li>
+<li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
+<li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
+<li>but \(P(B \cap A) = P(A \cap B)\)</li>
+<li>so \(P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}\) &nbsp;&nbsp;&lt;-  &nbsp; Bayes theorem</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-62" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1576,7 +1571,8 @@ for(i in k_params){
 <ul>
 <li>spam and non-spam (AKA ham)</li>
 <li>classify emails depending on what words they contain</li>
-<li>\(P(spam \mid CASH!)\) = ?</li>
+<li>spam emails are more likely to contain certain words</li>
+<li>\(P(spam \mid CASH!)\)</li>
 </ul></li>
 </ul>
 
@@ -1584,7 +1580,7 @@ for(i in k_params){
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-61" style="background:;">
+      <slide class="" id="slide-63" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1593,11 +1589,9 @@ for(i in k_params){
 
 <p><space></p>
 
-<pre><code class="r"># data frame with frequency of emails with the word &quot;cash&quot;
-bayes_ex &lt;- data.frame(cash_yes=c(10,3,13),
-                      cash_no=c(20,67,87),
-                      total=c(30,70,100),
-                      row.names=c(&#39;spam&#39;,&#39;ham&#39;,&#39;total&#39;))
+<pre><code class="r"># data frame with frequency of emails with the word &#39;cash&#39;
+bayes_ex &lt;- data.frame(cash_yes = c(10, 3, 13), cash_no = c(20, 67, 87), total = c(30, 
+    70, 100), row.names = c(&quot;spam&quot;, &quot;ham&quot;, &quot;total&quot;))
 bayes_ex
 </code></pre>
 
@@ -1611,7 +1605,7 @@ total       13      87   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-62" style="background:;">
+      <slide class="" id="slide-64" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1628,6 +1622,7 @@ total       13      87   100
 </ul></li>
 <li>A = event that email is spam<br></li>
 <li>B = event that &quot;CASH&quot; exists in the email<br>
+<space>
 \(P(spam \mid cash=yes) = P(cash=yes \mid spam) \times \frac{P(spam)}{P(cash=yes)}\)</li>
 </ul>
 
@@ -1635,7 +1630,7 @@ total       13      87   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-63" style="background:;">
+      <slide class="" id="slide-65" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1663,7 +1658,7 @@ total       13      87   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-64" style="background:;">
+      <slide class="" id="slide-66" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1693,56 +1688,6 @@ total       13      87   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-65" style="background:;">
-  <hgroup>
-    <h2>Naive Bayes</h2>
-  </hgroup>
-  <article>
-    <h1>Why Naive?</h1>
-
-<p><space></p>
-
-<ul>
-<li>Assumes all features are independent and equally important</li>
-<li>NB still performs very well out of the box</li>
-</ul>
-
-<pre><code>      cash_yes cash_no furniture_yes furniture_no total
-spam        10      20             6           24    30
-ham          3      67            20           50    70
-total       13      87            26           74   100
-</code></pre>
-
-<p>\(P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)}\)</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-66" style="background:;">
-  <hgroup>
-    <h2>Naive Bayes</h2>
-  </hgroup>
-  <article>
-    <h1>Why Naive?</h1>
-
-<p><space></p>
-
-<ul>
-<li>As features increase, formula becomes very expensive</li>
-<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
-
-<ul>
-<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
-<li>Called &quot;class conditional independence&quot;:<br></li>
-<li>\(P(spam \mid cash=yes \cap furniture=no) =\) </li>
-</ul></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
       <slide class="" id="slide-67" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
@@ -1752,17 +1697,13 @@ total       13      87            26           74   100
 
 <p><space></p>
 
-<ul>
-<li>As features increase, formula becomes very expensive</li>
-<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
+<pre><code>      cash_yes cash_no furniture_yes furniture_no total
+spam        10      20             6           24    30
+ham          3      67            20           50    70
+total       13      87            26           74   100
+</code></pre>
 
-<ul>
-<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
-<li>Called &quot;class conditional independence&quot;:<br></li>
-<li>\(P(spam \mid cash=yes \cap furniture=no) =\) </li>
-<li>\(\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}\)</li>
-</ul></li>
-</ul>
+<p>\(P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)}\)</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -1777,16 +1718,21 @@ total       13      87            26           74   100
 
 <p><space></p>
 
-<ul>
-<li>As features increase, formula becomes very expensive</li>
-<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
+<pre><code>      cash_yes cash_no furniture_yes furniture_no total
+spam        10      20             6           24    30
+ham          3      67            20           50    70
+total       13      87            26           74   100
+</code></pre>
+
+<p>\(P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)}\)</p>
 
 <ul>
-<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
-<li>Called &quot;class conditional independence&quot;:<br></li>
-<li>\(P(spam \mid cash=yes \cap furniture=no) =\) </li>
-<li>\(\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =\)</li>
-<li>\(\frac{\frac{10}{30} \times \frac{24}{30}}{\frac{13}{100} \times \frac{74}{100}}\)</li>
+<li>Need \(cash=yes \cap furniture=no\)
+
+<ul>
+<li>\(cash=yes \cap furniture=yes\)</li>
+<li>\(cash=no \cap furniture=no\)</li>
+<li>\(cash=no \cap furniture=yes\)</li>
 </ul></li>
 </ul>
 
@@ -1809,13 +1755,9 @@ total       13      87            26           74   100
 
 <ul>
 <li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
-<li>Called &quot;class conditional independence&quot;:<br></li>
-<li>\(P(spam \mid cash=yes \cap furniture=no) = \frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}\)
-= \(\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}\)</li>
+<li>Called &quot;class conditional independence&quot;</li>
 </ul></li>
 </ul>
-
-<p><code>Exercise</code>: \(P(ham \mid cash=yes \cap furniture=no) = ?\)</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -1826,17 +1768,22 @@ total       13      87            26           74   100
     <h2>Naive Bayes</h2>
   </hgroup>
   <article>
-    <h1>The Laplace Estimator</h1>
+    <h1>Why Naive?</h1>
 
 <p><space></p>
 
-<pre><code>      cash_yes cash_no furniture_yes furniture_no party_yes party_no total
-spam        10      20             6           24         3       27    30
-ham          3      67            20           50         0       70    70
-total       13      87            26           74         3       97   100
-</code></pre>
+<ul>
+<li>As features increase, formula becomes very expensive</li>
+<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
 
-<p>\(P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = ?\)</p>
+<ul>
+<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
+<li>Called &quot;class conditional independence&quot;:<br>
+<br>
+\(P(spam \mid cash=yes \cap furniture=no) =\)<br>
+<br></li>
+</ul></li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -1847,21 +1794,47 @@ total       13      87            26           74         3       97   100
     <h2>Naive Bayes</h2>
   </hgroup>
   <article>
-    <h1>The Laplace Estimator</h1>
+    <h1>Why Naive?</h1>
 
 <p><space></p>
 
-<pre><code>      cash_yes cash_no furniture_yes furniture_no party_yes party_no total
-spam        10      20             6           24         3       27    30
-ham          3      67            20           50         0       70    70
-total       13      87            26           74         3       97   100
-</code></pre>
-
-<p>\(P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = ?\)
-\(\frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0\)</p>
+<ul>
+<li>As features increase, formula becomes very expensive</li>
+<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
 
 <ul>
-<li>if party appears in an email, there&#39;s no chance it could be ham...really??</li>
+<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
+<li>Called &quot;class conditional independence&quot;:<br>
+<br>
+\(P(spam \mid cash=yes \cap furniture=no) =\)<br>
+<br>
+\(\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =\)<br> 
+<br>
+----</li>
+</ul></li>
+</ul>
+
+<h2>Naive Bayes</h2>
+
+<h1>Why Naive?</h1>
+
+<p><space></p>
+
+<ul>
+<li>As features increase, formula becomes very expensive</li>
+<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
+
+<ul>
+<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
+<li>Called &quot;class conditional independence&quot;:<br>
+<br>
+\(P(spam \mid cash=yes \cap furniture=no) =\)<br>
+<br>
+\(\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =\)<br> 
+<br>
+\(\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}\)<br>
+<br></li>
+</ul></li>
 </ul>
 
   </article>
@@ -1873,52 +1846,28 @@ total       13      87            26           74         3       97   100
     <h2>Naive Bayes</h2>
   </hgroup>
   <article>
-    <h1>The Laplace Estimator</h1>
+    <h1>Why Naive?</h1>
 
 <p><space></p>
 
-<p>\(P(ham \mid cash=yes \cap party=yes) =\)
-\(\frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} =\)
-\(\frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0\)</p>
+<ul>
+<li>As features increase, formula becomes very expensive</li>
+<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
 
 <ul>
-<li>if party appears in an email, there&#39;s no chance it could be ham...really??</li>
-<li>To get around 0&#39;s, apply Laplace estimator
-
-<ul>
-<li>add 1 to every feature</li>
+<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
+<li>Called &quot;class conditional independence&quot;:<br>
+<br>
+\(P(spam \mid cash=yes \cap furniture=no) =\)<br>
+<br>
+\(\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =\)<br> 
+<br>
+\(\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}\)<br>
+<br>
+\(\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}\)<br>
+<br></li>
 </ul></li>
 </ul>
-
-<hr>
-
-<h2>Naive Bayes</h2>
-
-<h1>Case Study: SMS spam filtering</h1>
-
-<p><space></p>
-
-<pre><code class="r">sms_data  &lt;- read.table(&#39;SMSSpamCollection.txt&#39;,stringsAsFactors=FALSE,sep=&#39;\t&#39;,quote=&quot;&quot;, col.names=c(&quot;type&quot;,&quot;text&quot;))
-</code></pre>
-
-<pre><code>Warning: cannot open file &#39;SMSSpamCollection.txt&#39;: No such file or
-directory
-</code></pre>
-
-<pre><code>Error: cannot open the connection
-</code></pre>
-
-<pre><code class="r">str(sms_data)
-</code></pre>
-
-<pre><code>Error: object &#39;sms_data&#39; not found
-</code></pre>
-
-<pre><code class="r">sms_data$type &lt;- factor(sms_data$type)
-</code></pre>
-
-<pre><code>Error: object &#39;sms_data&#39; not found
-</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -1929,32 +1878,30 @@ directory
     <h2>Naive Bayes</h2>
   </hgroup>
   <article>
-    <h1>Case Study: SMS spam filtering</h1>
+    <h1>Why Naive?</h1>
 
 <p><space></p>
 
 <ul>
-<li>Remove words like <code>and</code>, <code>the</code>, <code>or</code></li>
+<li>As features increase, formula becomes very expensive</li>
+<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
+
+<ul>
+<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
+<li>Called &quot;class conditional independence&quot;:<br>
+<br>
+\(P(spam \mid cash=yes \cap furniture=no) =\)<br>
+<br>
+\(\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =\)<br> 
+<br>
+\(\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)}\)<br>
+<br>
+\(\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}\)<br>
+<br></li>
+</ul></li>
 </ul>
 
-<pre><code class="r">library(tm)
-</code></pre>
-
-<pre><code>Warning: package &#39;tm&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code class="r"># create collection of text documents, a corpus
-sms_corpus &lt;- Corpus(VectorSource(sms_data$text))
-</code></pre>
-
-<pre><code>Error: object &#39;sms_data&#39; not found
-</code></pre>
-
-<pre><code class="r">sms_corpus
-</code></pre>
-
-<pre><code>Error: object &#39;sms_corpus&#39; not found
-</code></pre>
+<p><code>Exercise</code>: \(P(ham \mid cash=yes \cap furniture=no) = ?\)</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -1965,18 +1912,19 @@ sms_corpus &lt;- Corpus(VectorSource(sms_data$text))
     <h2>Naive Bayes</h2>
   </hgroup>
   <article>
-    <h1>Case Study: SMS spam filtering</h1>
+    <h1>The Laplace Estimator</h1>
 
 <p><space></p>
 
-<pre><code class="r"># look at first few text messages
-for (i in 1:5){
-  print(sms_corpus[[i]])
-}
+<pre><code>      cash_yes cash_no furniture_yes furniture_no party_yes party_no total
+spam        10      20             6           24         3       27    30
+ham          3      67            20           50         0       70    70
+total       13      87            26           74         3       97   100
 </code></pre>
 
-<pre><code>Error: object &#39;sms_corpus&#39; not found
-</code></pre>
+<p><br>
+<br>
+\(P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = ?\)</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -1987,42 +1935,19 @@ for (i in 1:5){
     <h2>Naive Bayes</h2>
   </hgroup>
   <article>
-    <h1>Case Study: SMS spam filtering</h1>
+    <h1>The Laplace Estimator</h1>
 
 <p><space></p>
 
-<pre><code class="r"># clean the data using helpful functions
-corpus_clean &lt;- tm_map(sms_corpus,tolower)
+<pre><code>      cash_yes cash_no furniture_yes furniture_no party_yes party_no total
+spam        10      20             6           24         3       27    30
+ham          3      67            20           50         0       70    70
+total       13      87            26           74         3       97   100
 </code></pre>
 
-<pre><code>## Error: object &#39;sms_corpus&#39; not found
-</code></pre>
-
-<pre><code class="r">corpus_clean &lt;- tm_map(corpus_clean, removeWords, stopwords())
-</code></pre>
-
-<pre><code>## Error: object &#39;corpus_clean&#39; not found
-</code></pre>
-
-<pre><code class="r">corpus_clean &lt;- tm_map(corpus_clean, removePunctuation)
-</code></pre>
-
-<pre><code>## Error: object &#39;corpus_clean&#39; not found
-</code></pre>
-
-<pre><code class="r">corpus_clean &lt;- tm_map(corpus_clean, stripWhitespace)
-</code></pre>
-
-<pre><code>## Error: object &#39;corpus_clean&#39; not found
-</code></pre>
-
-<pre><code class="r"># now make each word in the corpus into it&#39;s own token
-# each row is a message and each column is a word. Cells are frequency counts.
-sms_dtm &lt;- DocumentTermMatrix(corpus_clean)
-</code></pre>
-
-<pre><code>## Error: object &#39;corpus_clean&#39; not found
-</code></pre>
+<p><br>
+<br>
+\(P(ham \mid cash=yes \cap party=yes) = \frac{P(cash=yes \mid ham) \times P(party=yes \mid ham) \times P(ham)}{P(cash=yes) \times P(party=yes)} = \frac{\frac{3}{70} \times \frac{0}{70} \times \frac{70}{100}}{\frac{13}{100} \times \frac{3}{100}} = 0\)</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -2033,72 +1958,17 @@ sms_dtm &lt;- DocumentTermMatrix(corpus_clean)
     <h2>Naive Bayes</h2>
   </hgroup>
   <article>
-    <h1>Case Study: SMS spam filtering</h1>
+    <h1>The Laplace Estimator</h1>
 
 <p><space></p>
 
-<pre><code class="r"># create training and testing set
-total_n &lt;- nrow(sms_data)
-</code></pre>
+<ul>
+<li>To get around 0&#39;s, apply Laplace estimator
 
-<pre><code>## Error: object &#39;sms_data&#39; not found
-</code></pre>
-
-<pre><code class="r">train_ind &lt;- sample(total_n,total_n*2/3)
-dtm_train_set &lt;- sms_dtm[train_ind,]
-</code></pre>
-
-<pre><code>## Error: object &#39;sms_dtm&#39; not found
-</code></pre>
-
-<pre><code class="r">dtm_test_set &lt;- sms_dtm[-train_ind,]
-</code></pre>
-
-<pre><code>## Error: object &#39;sms_dtm&#39; not found
-</code></pre>
-
-<pre><code class="r">corpus_train_set &lt;- corpus_clean[train_ind]
-</code></pre>
-
-<pre><code>## Error: object &#39;corpus_clean&#39; not found
-</code></pre>
-
-<pre><code class="r">corpus_test_set &lt;- corpus_clean[-train_ind]
-</code></pre>
-
-<pre><code>## Error: object &#39;corpus_clean&#39; not found
-</code></pre>
-
-<pre><code class="r">raw_train_set &lt;- sms_data[train_ind,1:2]
-</code></pre>
-
-<pre><code>## Error: object &#39;sms_data&#39; not found
-</code></pre>
-
-<pre><code class="r">raw_test_set &lt;- sms_data[-train_ind,1:2]
-</code></pre>
-
-<pre><code>## Error: object &#39;sms_data&#39; not found
-</code></pre>
-
-<pre><code class="r"># remove infrequent terms - not useful for classification
-freq_terms &lt;- c(findFreqTerms(dtm_train_set,7))
-</code></pre>
-
-<pre><code>## Error: object &#39;dtm_train_set&#39; not found
-</code></pre>
-
-<pre><code class="r">corpus_train_set &lt;- DocumentTermMatrix(corpus_train_set, list(dictionary = freq_terms))
-</code></pre>
-
-<pre><code>## Error: object &#39;corpus_train_set&#39; not found
-</code></pre>
-
-<pre><code class="r">corpus_test_set &lt;- DocumentTermMatrix(corpus_test_set, list(dictionary = freq_terms))
-</code></pre>
-
-<pre><code>## Error: object &#39;corpus_test_set&#39; not found
-</code></pre>
+<ul>
+<li>add 1 to every feature</li>
+</ul></li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -2113,24 +1983,17 @@ freq_terms &lt;- c(findFreqTerms(dtm_train_set,7))
 
 <p><space></p>
 
-<pre><code class="r"># convert frequency counts to &quot;yes&quot; or &quot;no&quot;
-# implicitly weighing each term the same
-convert &lt;- function(x) {
-  x &lt;- ifelse(x &gt; 0, 1, 0)
-  x &lt;- factor(x, levels = c(0,1), labels=c(&#39;No&#39;,&#39;Yes&#39;))
-  return(x)
-}
-
-corpus_train_set &lt;- apply(corpus_train_set, MARGIN = 2 , FUN = convert)
+<pre><code class="r">sms_data &lt;- read.table(&quot;SMSSpamCollection.txt&quot;, stringsAsFactors = FALSE, sep = &quot;\t&quot;, 
+    quote = &quot;&quot;, col.names = c(&quot;type&quot;, &quot;text&quot;))
+str(sms_data)
 </code></pre>
 
-<pre><code>## Error: object &#39;corpus_train_set&#39; not found
+<pre><code>&#39;data.frame&#39;:   5574 obs. of  2 variables:
+ $ type: chr  &quot;ham&quot; &quot;ham&quot; &quot;spam&quot; &quot;ham&quot; ...
+ $ text: chr  &quot;Go until jurong point, crazy.. Available only in bugis n great world la e buffet... Cine there got amore wat...&quot; &quot;Ok lar... Joking wif u oni...&quot; &quot;Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&amp;C&quot;| __truncated__ &quot;U dun say so early hor... U c already then say...&quot; ...
 </code></pre>
 
-<pre><code class="r">corpus_test_set &lt;- apply(corpus_test_set, MARGIN = 2 , FUN = convert)
-</code></pre>
-
-<pre><code>## Error: object &#39;corpus_test_set&#39; not found
+<pre><code class="r">sms_data$type &lt;- factor(sms_data$type)
 </code></pre>
 
   </article>
@@ -2146,31 +2009,17 @@ corpus_train_set &lt;- apply(corpus_train_set, MARGIN = 2 , FUN = convert)
 
 <p><space></p>
 
-<pre><code class="r"># use naiveBayes() function from e1071 package
-library(e1071)
+<ul>
+<li>Remove words like <code>and</code>, <code>the</code>, <code>or</code></li>
+</ul>
 
-naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
+<pre><code class="r">library(tm)
+# create collection of text documents, a corpus
+sms_corpus &lt;- Corpus(VectorSource(sms_data$text))
+sms_corpus
 </code></pre>
 
-<pre><code>Error: object &#39;corpus_train_set&#39; not found
-</code></pre>
-
-<pre><code class="r">predict_naive &lt;- predict(naive_model, corpus_test_set)
-</code></pre>
-
-<pre><code>Error: object &#39;naive_model&#39; not found
-</code></pre>
-
-<pre><code class="r">naive_conf &lt;- confusionMatrix(predict_naive,raw_test_set$type)$table
-</code></pre>
-
-<pre><code>Error: object &#39;predict_naive&#39; not found
-</code></pre>
-
-<pre><code class="r">naive_conf
-</code></pre>
-
-<pre><code>Error: object &#39;naive_conf&#39; not found
+<pre><code>A corpus with 5574 text documents
 </code></pre>
 
   </article>
@@ -2186,31 +2035,148 @@ naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
 
 <p><space></p>
 
-<pre><code class="r"># use naiveBayes() function from e1071 package
-library(e1071)
+<pre><code class="r"># look at first few text messages
+for (i in 1:5) {
+    print(sms_corpus[[i]])
+}
+</code></pre>
+
+<pre><code>Go until jurong point, crazy.. Available only in bugis n great world la e buffet... Cine there got amore wat...
+Ok lar... Joking wif u oni...
+Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&amp;C&#39;s apply 08452810075over18&#39;s
+U dun say so early hor... U c already then say...
+Nah I don&#39;t think he goes to usf, he lives around here though
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-80" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Case Study: SMS spam filtering</h1>
+
+<p><space></p>
+
+<pre><code class="r"># clean the data using helpful functions
+corpus_clean &lt;- tm_map(sms_corpus, tolower)
+corpus_clean &lt;- tm_map(corpus_clean, removeWords, stopwords())
+corpus_clean &lt;- tm_map(corpus_clean, removePunctuation)
+corpus_clean &lt;- tm_map(corpus_clean, stripWhitespace)
+# now make each word in the corpus into it&#39;s own token each row is a message
+# and each column is a word. Cells are frequency counts.
+sms_dtm &lt;- DocumentTermMatrix(corpus_clean)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-81" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Case Study: SMS spam filtering</h1>
+
+<p><space></p>
+
+<pre><code class="r"># create training and testing set
+total_n &lt;- nrow(sms_data)
+train_ind &lt;- sample(total_n, total_n * 2/3)
+dtm_train_set &lt;- sms_dtm[train_ind, ]
+dtm_test_set &lt;- sms_dtm[-train_ind, ]
+corpus_train_set &lt;- corpus_clean[train_ind]
+corpus_test_set &lt;- corpus_clean[-train_ind]
+raw_train_set &lt;- sms_data[train_ind, 1:2]
+raw_test_set &lt;- sms_data[-train_ind, 1:2]
+
+# remove infrequent terms - not useful for classification
+freq_terms &lt;- c(findFreqTerms(dtm_train_set, 7))
+corpus_train_set &lt;- DocumentTermMatrix(corpus_train_set, list(dictionary = freq_terms))
+corpus_test_set &lt;- DocumentTermMatrix(corpus_test_set, list(dictionary = freq_terms))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-82" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Case Study: SMS spam filtering</h1>
+
+<p><space></p>
+
+<pre><code class="r"># convert frequency counts to &#39;yes&#39; or &#39;no&#39; implicitly weighing each term
+# the same
+convert &lt;- function(x) {
+    x &lt;- ifelse(x &gt; 0, 1, 0)
+    x &lt;- factor(x, levels = c(0, 1), labels = c(&quot;No&quot;, &quot;Yes&quot;))
+    return(x)
+}
+
+corpus_train_set &lt;- apply(corpus_train_set, MARGIN = 2, FUN = convert)
+corpus_test_set &lt;- apply(corpus_test_set, MARGIN = 2, FUN = convert)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-83" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Case Study: SMS spam filtering</h1>
+
+<p><space></p>
+
+<pre><code class="r">library(e1071)
 
 naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
+predict_naive &lt;- predict(naive_model, corpus_test_set)
+
+naive_conf &lt;- confusionMatrix(predict_naive, raw_test_set$type)$table
+naive_conf
 </code></pre>
 
-<pre><code>Error: object &#39;corpus_train_set&#39; not found
+<pre><code>          Reference
+Prediction  ham spam
+      ham  1601   30
+      spam    5  222
 </code></pre>
 
-<pre><code class="r">predict_naive &lt;- predict(naive_model, corpus_test_set)
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-84" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Case Study: SMS spam filtering</h1>
+
+<p><space></p>
+
+<pre><code class="r">naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
+predict_naive &lt;- predict(naive_model, corpus_test_set)
+
+naive_conf &lt;- confusionMatrix(predict_naive, raw_test_set$type)$table
+naive_conf
 </code></pre>
 
-<pre><code>Error: object &#39;naive_model&#39; not found
-</code></pre>
-
-<pre><code class="r">naive_conf &lt;- confusionMatrix(predict_naive,raw_test_set$type)$table
-</code></pre>
-
-<pre><code>Error: object &#39;predict_naive&#39; not found
-</code></pre>
-
-<pre><code class="r">naive_conf
-</code></pre>
-
-<pre><code>Error: object &#39;naive_conf&#39; not found
+<pre><code>          Reference
+Prediction  ham spam
+      ham  1601   30
+      spam    5  222
 </code></pre>
 
 <pre><code>Exercise:
@@ -2223,7 +2189,7 @@ naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-80" style="background:;">
+      <slide class="" id="slide-85" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -2255,7 +2221,7 @@ naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-81" style="background:;">
+      <slide class="" id="slide-86" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2273,7 +2239,7 @@ naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-82" style="background:;">
+      <slide class="" id="slide-87" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2296,7 +2262,7 @@ naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-83" style="background:;">
+      <slide class="" id="slide-88" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2327,7 +2293,7 @@ naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-84" style="background:;">
+      <slide class="" id="slide-89" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2337,23 +2303,24 @@ naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
 <p><space></p>
 
 <pre><code class="r"># estimate a probability for each class
-confidence &lt;- predict(naive_model, corpus_test_set, type=&#39;raw&#39;)
+confidence &lt;- predict(naive_model, corpus_test_set, type = &quot;raw&quot;)
+as.data.frame(format(head(confidence), digits = 2, scientific = FALSE))
 </code></pre>
 
-<pre><code>Error: object &#39;naive_model&#39; not found
-</code></pre>
-
-<pre><code class="r">as.data.frame(format(head(confidence),digits=2,scientific=FALSE))
-</code></pre>
-
-<pre><code>Error: object &#39;confidence&#39; not found
+<pre><code>        ham      spam
+1 0.9999958 0.0000042
+2 0.9999529 0.0000471
+3 0.9946660 0.0053340
+4 0.9998784 0.0001216
+5 0.3280006 0.6719994
+6 0.9999952 0.0000048
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-85" style="background:;">
+      <slide class="" id="slide-90" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2363,37 +2330,27 @@ confidence &lt;- predict(naive_model, corpus_test_set, type=&#39;raw&#39;)
 <p><space></p>
 
 <pre><code class="r"># estimate a probability for each class
-spam_conf &lt;- confidence[,2]
+spam_conf &lt;- confidence[, 2]
+comparison &lt;- data.frame(predict = predict_naive, actual = raw_test_set[, 1], 
+    prob_spam = spam_conf)
+comparison[, 3] &lt;- format(comparison[, 3], digits = 2, scientific = FALSE)
+head(comparison)
 </code></pre>
 
-<pre><code>Error: object &#39;confidence&#39; not found
-</code></pre>
-
-<pre><code class="r">comparison &lt;- data.frame(predict=predict_naive,
-                         actual=raw_test_set[,1],
-                         prob_spam=spam_conf)
-</code></pre>
-
-<pre><code>Error: object &#39;predict_naive&#39; not found
-</code></pre>
-
-<pre><code class="r">comparison[,3] &lt;- format(comparison[,3],digits=2,scientific=FALSE)
-</code></pre>
-
-<pre><code>Error: object &#39;comparison&#39; not found
-</code></pre>
-
-<pre><code class="r">head(comparison)
-</code></pre>
-
-<pre><code>Error: object &#39;comparison&#39; not found
+<pre><code>  predict actual          prob_spam
+1     ham    ham 0.0000041542884430
+2     ham    ham 0.0000471084206757
+3     ham    ham 0.0053339632208271
+4     ham    ham 0.0001215522037056
+5    spam   spam 0.6719994318320414
+6     ham    ham 0.0000048005412025
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-86" style="background:;">
+      <slide class="" id="slide-91" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2402,35 +2359,48 @@ spam_conf &lt;- confidence[,2]
 
 <p><space></p>
 
-<pre><code class="r">head(comparison[with(comparison,predict!=actual),])
+<pre><code class="r">head(comparison[with(comparison, predict != actual), ])
 </code></pre>
 
-<pre><code>Error: object &#39;comparison&#39; not found
+<pre><code>    predict actual          prob_spam
+27     spam    ham 0.5222688649567696
+71      ham   spam 0.0007779366178242
+144     ham   spam 0.4795597109606518
+176     ham   spam 0.0008353358818201
+232     ham   spam 0.0000749191390672
+237     ham   spam 0.2792813366882133
 </code></pre>
 
-<pre><code class="r">head(comparison[with(comparison,predict==actual),])
+<pre><code class="r">head(comparison[with(comparison, predict == actual), ])
 </code></pre>
 
-<pre><code>Error: object &#39;comparison&#39; not found
+<pre><code>  predict actual          prob_spam
+1     ham    ham 0.0000041542884430
+2     ham    ham 0.0000471084206757
+3     ham    ham 0.0053339632208271
+4     ham    ham 0.0001215522037056
+5    spam   spam 0.6719994318320414
+6     ham    ham 0.0000048005412025
 </code></pre>
 
-<pre><code class="r">mean(as.numeric(comparison[with(comparison,predict!=&#39;spam&#39;),]$prob_spam))
+<pre><code class="r">
+mean(as.numeric(comparison[with(comparison, predict != &quot;spam&quot;), ]$prob_spam))
 </code></pre>
 
-<pre><code>Error: object &#39;comparison&#39; not found
+<pre><code>[1] 0.004696
 </code></pre>
 
-<pre><code class="r">mean(as.numeric(comparison[with(comparison,predict==&#39;spam&#39;),]$prob_spam))
+<pre><code class="r">mean(as.numeric(comparison[with(comparison, predict == &quot;spam&quot;), ]$prob_spam))
 </code></pre>
 
-<pre><code>Error: object &#39;comparison&#39; not found
+<pre><code>[1] 0.9687
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-87" style="background:;">
+      <slide class="" id="slide-92" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2445,22 +2415,25 @@ spam_conf &lt;- confidence[,2]
 <li>Count the number of predictions falling on and off the diagonals</li>
 </ul>
 
-<pre><code class="r">predicted &lt;- sample(c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;),1000,TRUE)
-actual &lt;- sample(c(&quot;A&quot;,&quot;B&quot;,&quot;C&quot;),1000,TRUE)
-fabricated &lt;- table(predicted,actual)
+<pre><code class="r">predicted &lt;- sample(c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;), 1000, TRUE)
+actual &lt;- sample(c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;), 1000, TRUE)
+fabricated &lt;- table(predicted, actual)
 
 # for our Naive Bayes classifier
-table(comparison$predict,comparison$actual)
+table(comparison$predict, comparison$actual)
 </code></pre>
 
-<pre><code>Error: object &#39;comparison&#39; not found
+<pre><code>
+        ham spam
+  ham  1601   30
+  spam    5  222
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-88" style="background:;">
+      <slide class="" id="slide-93" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2482,7 +2455,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-89" style="background:;">
+      <slide class="" id="slide-94" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2508,7 +2481,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-90" style="background:;">
+      <slide class="" id="slide-95" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2532,7 +2505,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-91" style="background:;">
+      <slide class="" id="slide-96" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2558,7 +2531,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-92" style="background:;">
+      <slide class="" id="slide-97" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2585,7 +2558,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-93" style="background:;">
+      <slide class="" id="slide-98" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2614,7 +2587,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-94" style="background:;">
+      <slide class="" id="slide-99" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2643,7 +2616,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-95" style="background:;">
+      <slide class="" id="slide-100" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2673,7 +2646,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-96" style="background:;">
+      <slide class="" id="slide-101" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2705,7 +2678,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-97" style="background:;">
+      <slide class="" id="slide-102" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2724,7 +2697,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-98" style="background:;">
+      <slide class="" id="slide-103" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2745,7 +2718,7 @@ table(comparison$predict,comparison$actual)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-99" style="background:;">
+      <slide class="" id="slide-104" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2760,68 +2733,24 @@ table(comparison$predict,comparison$actual)
 </ul>
 
 <pre><code class="r">library(ROCR)
+# create a prediction function
+pred &lt;- prediction(predictions = as.numeric(comparison$predict), labels = raw_test_set[, 
+    1])
+# create a performance function
+perf &lt;- performance(pred, measure = &quot;tpr&quot;, x.measure = &quot;fpr&quot;)
+# create the ROC curve
+plot(perf, main = &quot;ROC Curve for Naive classifier&quot;, col = &quot;blue&quot;, lwd = 3)
+abline(a = 0, b = 1, lwd = 2, lty = 2)
+text(0.75, 0.4, labels = &quot;&lt;&lt;&lt;  Classifier with\n no predictive power&quot;)
 </code></pre>
 
-<pre><code>Warning: package &#39;ROCR&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code>Loading required package: gplots
-</code></pre>
-
-<pre><code>Warning: package &#39;gplots&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code>KernSmooth 2.23 loaded
-Copyright M. P. Wand 1997-2009
-
-Attaching package: &#39;gplots&#39;
-
-The following object is masked from &#39;package:stats&#39;:
-
-    lowess
-</code></pre>
-
-<pre><code class="r"># create a prediction function
-pred &lt;- prediction(predictions = as.numeric(comparison$predict), labels= raw_test_set[,1])
-</code></pre>
-
-<pre><code>Error: object &#39;comparison&#39; not found
-</code></pre>
-
-<pre><code class="r"># create a performance function
-perf &lt;- performance(pred,measure=&#39;tpr&#39;,x.measure=&#39;fpr&#39;)
-</code></pre>
-
-<pre><code>Error: object &#39;pred&#39; not found
-</code></pre>
-
-<pre><code class="r"># create the ROC curve
-plot(perf, main = &quot;ROC Curve for Naive classifier&quot;, col = &#39;blue&#39;, lwd = 3)
-</code></pre>
-
-<pre><code>Called from: top level 
-</code></pre>
-
-<pre><code>Error: error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;plot&#39;: Error: object &#39;perf&#39; not found
-</code></pre>
-
-<pre><code class="r">abline(a = 0, b = 1, lwd = 2, lty = 2)
-</code></pre>
-
-<pre><code>Error: plot.new has not been called yet
-</code></pre>
-
-<pre><code class="r">text(0.75,0.4, labels = &quot;&lt;&lt;&lt;  Classifier with\n no predictive power&quot;)
-</code></pre>
-
-<pre><code>Error: plot.new has not been called yet
-</code></pre>
+<p><img src="figure/roc.png" alt="plot of chunk roc"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-100" style="background:;">
+      <slide class="" id="slide-105" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2843,29 +2772,32 @@ plot(perf, main = &quot;ROC Curve for Naive classifier&quot;, col = &#39;blue&#3
 </ul></li>
 </ul>
 
-<pre><code class="r">auc &lt;- performance(pred, measure=&#39;auc&#39;)
+<pre><code class="r">auc &lt;- performance(pred, measure = &quot;auc&quot;)
+str(auc)
 </code></pre>
 
-<pre><code>Error: object &#39;pred&#39; not found
-</code></pre>
-
-<pre><code class="r">str(auc)
-</code></pre>
-
-<pre><code>Error: object &#39;auc&#39; not found
+<pre><code>Formal class &#39;performance&#39; [package &quot;ROCR&quot;] with 6 slots
+  ..@ x.name      : chr &quot;None&quot;
+  ..@ y.name      : chr &quot;Area under the ROC curve&quot;
+  ..@ alpha.name  : chr &quot;none&quot;
+  ..@ x.values    : list()
+  ..@ y.values    :List of 1
+  .. ..$ : num 0.939
+  ..@ alpha.values: list()
 </code></pre>
 
 <pre><code class="r">auc@y.values
 </code></pre>
 
-<pre><code>Error: object &#39;auc&#39; not found
+<pre><code>[[1]]
+[1] 0.9389
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-101" style="background:;">
+      <slide class="" id="slide-106" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2882,7 +2814,7 @@ plot(perf, main = &quot;ROC Curve for Naive classifier&quot;, col = &#39;blue&#3
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-102" style="background:;">
+      <slide class="" id="slide-107" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2902,24 +2834,20 @@ plot(perf, main = &quot;ROC Curve for Naive classifier&quot;, col = &#39;blue&#3
 </ul></li>
 </ul>
 
-<pre><code class="r">library(caret)
-new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
+<pre><code class="r">new_data &lt;- createDataPartition(sms_data$type, p = 0.1, list = FALSE)
+table(sms_data[new_data, 1])
 </code></pre>
 
-<pre><code>Error: object &#39;sms_data&#39; not found
-</code></pre>
-
-<pre><code class="r">table(sms_data[new_data,1])
-</code></pre>
-
-<pre><code>Error: object &#39;sms_data&#39; not found
+<pre><code>
+ ham spam 
+ 483   75 
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-103" style="background:;">
+      <slide class="" id="slide-108" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2942,22 +2870,27 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
 </ul>
 
 <pre><code class="r">folds &lt;- createFolds(sms_data$type, k = 10)
+str(folds)
 </code></pre>
 
-<pre><code>Error: object &#39;sms_data&#39; not found
-</code></pre>
-
-<pre><code class="r">str(folds)
-</code></pre>
-
-<pre><code>Error: object &#39;folds&#39; not found
+<pre><code>List of 10
+ $ Fold01: int [1:558] 1 13 18 22 42 62 63 123 138 145 ...
+ $ Fold02: int [1:558] 9 14 19 24 27 29 30 32 33 35 ...
+ $ Fold03: int [1:558] 12 20 25 79 91 97 98 103 133 135 ...
+ $ Fold04: int [1:558] 10 40 48 57 59 71 82 94 109 117 ...
+ $ Fold05: int [1:557] 7 28 49 50 54 88 101 102 121 127 ...
+ $ Fold06: int [1:557] 16 21 23 31 34 36 72 81 93 95 ...
+ $ Fold07: int [1:558] 8 17 41 44 51 52 64 69 73 74 ...
+ $ Fold08: int [1:557] 3 4 6 11 37 38 46 47 53 61 ...
+ $ Fold09: int [1:557] 2 15 45 66 68 76 77 84 87 92 ...
+ $ Fold10: int [1:556] 5 26 39 43 56 58 60 120 128 139 ...
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-104" style="background:;">
+      <slide class="" id="slide-109" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -2977,7 +2910,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-105" style="background:;">
+      <slide class="" id="slide-110" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -2997,7 +2930,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-106" style="background:;">
+      <slide class="" id="slide-111" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -3024,7 +2957,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-107" style="background:;">
+      <slide class="" id="slide-112" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -3054,7 +2987,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-108" style="background:;">
+      <slide class="" id="slide-113" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -3100,7 +3033,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-109" style="background:;">
+      <slide class="" id="slide-114" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -3134,7 +3067,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-110" style="background:;">
+      <slide class="" id="slide-115" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -3148,13 +3081,13 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
 <li>continue taking a step until minimum is reached</li>
 </ul>
 
-<p><img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
+<p><img src="figure/grad_power.png" alt="plot of chunk grad_power"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-111" style="background:;">
+      <slide class="" id="slide-116" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -3168,13 +3101,13 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
 <li>continue taking a step until minimum is reached</li>
 </ul>
 
-<p><img src="figure/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
+<p><img src="figure/grad_power_2.png" alt="plot of chunk grad_power_2"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-112" style="background:;">
+      <slide class="" id="slide-117" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -3188,13 +3121,13 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
 <li>continue taking a step until minimum is reached</li>
 </ul>
 
-<p><img src="figure/unnamed-chunk-8.png" alt="plot of chunk unnamed-chunk-8"> </p>
+<p><img src="figure/grad_power_3.png" alt="plot of chunk grad_power_3"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-113" style="background:;">
+      <slide class="" id="slide-118" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -3208,13 +3141,13 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
 <li>continue taking a step until minimum is reached</li>
 </ul>
 
-<p><img src="figure/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"> </p>
+<p><img src="figure/grad_power_4.png" alt="plot of chunk grad_power_4"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-114" style="background:;">
+      <slide class="" id="slide-119" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3239,7 +3172,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-115" style="background:;">
+      <slide class="" id="slide-120" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3264,7 +3197,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-116" style="background:;">
+      <slide class="" id="slide-121" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3289,7 +3222,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-117" style="background:;">
+      <slide class="" id="slide-122" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3308,7 +3241,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-118" style="background:;">
+      <slide class="" id="slide-123" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3327,7 +3260,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-119" style="background:;">
+      <slide class="" id="slide-124" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3346,7 +3279,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-120" style="background:;">
+      <slide class="" id="slide-125" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3361,7 +3294,7 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-121" style="background:;">
+      <slide class="" id="slide-126" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3370,17 +3303,17 @@ new_data &lt;- createDataPartition(sms_data$type,p=0.1, list=FALSE)
 
 <p><space></p>
 
-<pre><code class="r">x &lt;- cbind(1,x)  #Add ones to x  
-theta&lt;- c(0,0)  # initalize theta vector 
+<pre><code class="r">x &lt;- cbind(1, x)  #Add ones to x  
+theta &lt;- c(0, 0)  # initalize theta vector 
 m &lt;- nrow(x)  # Number of the observations 
-grad_cost &lt;- function(X,y,theta) return(sum(((X%*%theta)- y)^2))
+grad_cost &lt;- function(X, y, theta) return(sum(((X %*% theta) - y)^2))
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-122" style="background:;">
+      <slide class="" id="slide-127" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3389,19 +3322,19 @@ grad_cost &lt;- function(X,y,theta) return(sum(((X%*%theta)- y)^2))
 
 <p><space></p>
 
-<pre><code class="r">gradDescent&lt;-function(X,y,theta,iterations,alpha){
-  m &lt;- length(y)
-  grad &lt;- rep(0,length(theta))
-  cost.df &lt;- data.frame(cost=0,theta=0)
+<pre><code class="r">gradDescent &lt;- function(X, y, theta, iterations, alpha) {
+    m &lt;- length(y)
+    grad &lt;- rep(0, length(theta))
+    cost.df &lt;- data.frame(cost = 0, theta = 0)
 
-  for (i in 1:iterations){
-    h &lt;- X%*%theta
-    grad &lt;-  (t(X)%*%(h - y))/m
-    theta &lt;- theta - alpha * grad
-    cost.df &lt;- rbind(cost.df,c(grad_cost(X,y,theta),theta))    
-  }  
+    for (i in 1:iterations) {
+        h &lt;- X %*% theta
+        grad &lt;- (t(X) %*% (h - y))/m
+        theta &lt;- theta - alpha * grad
+        cost.df &lt;- rbind(cost.df, c(grad_cost(X, y, theta), theta))
+    }
 
-  return(list(theta,cost.df))
+    return(list(theta, cost.df))
 }
 </code></pre>
 
@@ -3409,7 +3342,7 @@ grad_cost &lt;- function(X,y,theta) return(sum(((X%*%theta)- y)^2))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-123" style="background:;">
+      <slide class="" id="slide-128" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3419,26 +3352,27 @@ grad_cost &lt;- function(X,y,theta) return(sum(((X%*%theta)- y)^2))
 <p><space></p>
 
 <pre><code class="r">## initialize X, y and theta
-X1&lt;-matrix(ncol=1,nrow=nrow(df),cbind(1,df$X))
-Y1&lt;-matrix(ncol=1,nrow=nrow(df),df$Y)
+X1 &lt;- matrix(ncol = 1, nrow = nrow(df), cbind(1, df$X))
+Y1 &lt;- matrix(ncol = 1, nrow = nrow(df), df$Y)
 
-init_theta&lt;-as.matrix(c(0))
-grad_cost(X1,Y1,init_theta)
+init_theta &lt;- as.matrix(c(0))
+grad_cost(X1, Y1, init_theta)
 </code></pre>
 
-<pre><code>[1] 5409
+<pre><code>[1] 5344
 </code></pre>
 
-<pre><code class="r">iterations = 10000
+<pre><code class="r">
+iterations = 10000
 alpha = 0.1
-results &lt;- gradDescent(X1,Y1,init_theta,iterations,alpha)
+results &lt;- gradDescent(X1, Y1, init_theta, iterations, alpha)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-124" style="background:;">
+      <slide class="" id="slide-129" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3454,7 +3388,7 @@ results &lt;- gradDescent(X1,Y1,init_theta,iterations,alpha)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-125" style="background:;">
+      <slide class="" id="slide-130" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3463,24 +3397,24 @@ results &lt;- gradDescent(X1,Y1,init_theta,iterations,alpha)
 
 <p><space></p>
 
-<pre><code class="r">grad_cost(X1,Y1,theta[[1]])
+<pre><code class="r">grad_cost(X1, Y1, theta[[1]])
 </code></pre>
 
-<pre><code>[1] 355.4
+<pre><code>[1] 347.7
 </code></pre>
 
 <pre><code class="r">## Make some predictions
-intercept &lt;- df[df$X==0,]$Y
-pred &lt;- function (x) return(intercept+c(x)%*%theta)
-new_points &lt;- c(0.1,0.5,0.8,1.1)
-new_preds &lt;- data.frame(X=new_points,Y=sapply(new_points,pred))
+intercept &lt;- df[df$X == 0, ]$Y
+pred &lt;- function(x) return(intercept + c(x) %*% theta)
+new_points &lt;- c(0.1, 0.5, 0.8, 1.1)
+new_preds &lt;- data.frame(X = new_points, Y = sapply(new_points, pred))
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-126" style="background:;">
+      <slide class="" id="slide-131" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3489,12 +3423,13 @@ new_preds &lt;- data.frame(X=new_points,Y=sapply(new_points,pred))
 
 <p><space></p>
 
-<pre><code class="r">ggplot(data=df,aes(x=X,y=Y))+geom_point(size=2)
+<pre><code class="r">ggplot(data = df, aes(x = X, y = Y)) + geom_point(size = 2)
 </code></pre>
 
 <p><img src="figure/new_point1.png" alt="plot of chunk new_point"> </p>
 
-<pre><code class="r">ggplot(data=df,aes(x=X,y=Y))+geom_point()+geom_point(data=new_preds,aes(x=X,y=Y,color=&#39;red&#39;),size=3)+scale_colour_discrete(guide = FALSE)
+<pre><code class="r">ggplot(data = df, aes(x = X, y = Y)) + geom_point() + geom_point(data = new_preds, 
+    aes(x = X, y = Y, color = &quot;red&quot;), size = 3) + scale_colour_discrete(guide = FALSE)
 </code></pre>
 
 <p><img src="figure/new_point2.png" alt="plot of chunk new_point"> </p>
@@ -3503,7 +3438,7 @@ new_preds &lt;- data.frame(X=new_points,Y=sapply(new_points,pred))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-127" style="background:;">
+      <slide class="" id="slide-132" style="background:;">
   <hgroup>
     <h2>Regression example</h2>
   </hgroup>
@@ -3524,177 +3459,6 @@ new_preds &lt;- data.frame(X=new_points,Y=sapply(new_points,pred))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-128" style="background:;">
-  <hgroup>
-    <h2>Learning Curves</h2>
-  </hgroup>
-  <article>
-    <h1>How many parameters are too many?</h1>
-
-<p><space></p>
-
-<pre><code>## Warning: package &#39;gridExtra&#39; was built under R version 3.0.2
-</code></pre>
-
-<pre><code>## Loading required package: grid
-</code></pre>
-
-<p><img src="figure/multi_plot.png" alt="plot of chunk multi_plot"> </p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-129" style="background:;">
-  <hgroup>
-    <h2>Learning Curves</h2>
-  </hgroup>
-  <article>
-    <h1>How many parameters are too many?</h1>
-
-<p><space></p>
-
-<ul>
-<li>a simple linear model won&#39;t fit</li>
-</ul>
-
-<p><img src="figure/multi_plot_2.png" alt="plot of chunk multi_plot_2"> </p>
-
-<pre><code>[1] 0.04267
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-130" style="background:;">
-  <hgroup>
-    <h2>Learning Curves</h2>
-  </hgroup>
-  <article>
-    <h1>How many parameters are too many?</h1>
-
-<p><space></p>
-
-<ul>
-<li>let&#39;s add some features</li>
-</ul>
-
-<pre><code class="r">df &lt;- transform(df, X2=X^2, X3=X^3)
-summary(lm(Y~X+X2+X3,df))$coef[,1]
-</code></pre>
-
-<pre><code>(Intercept)           X          X2          X3 
-     0.2402      7.2225    -28.4351     22.9371 
-</code></pre>
-
-<pre><code class="r">summary(lm(Y~X + X2 + X3,df))$adj.r.squared
-</code></pre>
-
-<pre><code>[1] 0.8243
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-131" style="background:;">
-  <hgroup>
-    <h2>Learning Curves</h2>
-  </hgroup>
-  <article>
-    <h1>How many parameters are too many?</h1>
-
-<p><space></p>
-
-<ul>
-<li>let&#39;s add even more features</li>
-</ul>
-
-<pre><code>(Intercept)           X          X2          X3          X4          X5 
- -1.092e-01   1.389e+01  -9.527e+01   9.750e+01   7.410e+03  -7.870e+04 
-         X6          X7          X8          X9         X10         X11 
-  3.937e+05  -1.178e+06   2.273e+06  -2.888e+06   2.376e+06  -1.180e+06 
-        X12         X14 
-  2.853e+05  -1.016e+04 
-</code></pre>
-
-<pre><code>[1] 0.1026
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-132" style="background:;">
-  <hgroup>
-    <h2>Learning Curves</h2>
-  </hgroup>
-  <article>
-    <h1>How many parameters are too many?</h1>
-
-<p><space></p>
-
-<ul>
-<li>use orthogonal polynomials to avoid correlated features</li>
-<li><code>poly()</code> function</li>
-</ul>
-
-<pre><code class="r">ortho.coefs &lt;- with(df,cor(poly(X,degree=3)))
-sum(ortho.coefs[upper.tri(ortho.coefs)]) # polynomials are uncorrelated
-</code></pre>
-
-<pre><code>[1] -1.415e-16
-</code></pre>
-
-<pre><code class="r">linear.fit &lt;- lm(Y~poly(X,degree=15),df)
-summary(linear.fit)$coef[,1]
-</code></pre>
-
-<pre><code>           (Intercept)  poly(X, degree = 15)1  poly(X, degree = 15)2 
-               0.11238               -2.20014                6.37207 
- poly(X, degree = 15)3  poly(X, degree = 15)4  poly(X, degree = 15)5 
-               6.23707               -3.54027               -1.60842 
- poly(X, degree = 15)6  poly(X, degree = 15)7  poly(X, degree = 15)8 
-               0.57128                0.24805               -0.10615 
- poly(X, degree = 15)9 poly(X, degree = 15)10 poly(X, degree = 15)11 
-               0.01508               -0.12307                0.05959 
-poly(X, degree = 15)12 poly(X, degree = 15)13 poly(X, degree = 15)14 
-               0.05033               -0.02110                0.03834 
-poly(X, degree = 15)15 
-              -0.03048 
-</code></pre>
-
-<pre><code class="r">summary(linear.fit)$adj.r.squared # R^2 is 98% and no errors
-</code></pre>
-
-<pre><code>[1] 0.9776
-</code></pre>
-
-<pre><code class="r">sqrt(mean((predict(linear.fit)-df$Y)^2)) # RMSE = 0.472
-</code></pre>
-
-<pre><code>[1] 0.1025
-</code></pre>
-
-<hr>
-
-<h2>Learning Curves</h2>
-
-<h1>How many parameters are too many?</h1>
-
-<p><space></p>
-
-<ul>
-<li>when to stop adding othogonal features?</li>
-</ul>
-
-<p><img src="figure/polt_2.png" alt="plot of chunk polt_2"> </p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
       <slide class="" id="slide-133" style="background:;">
   <hgroup>
     <h2>Learning Curves</h2>
@@ -3704,23 +3468,7 @@ poly(X, degree = 15)15
 
 <p><space></p>
 
-<ul>
-<li>use cross-validation to determine best degree</li>
-</ul>
-
-<pre><code class="r">x &lt;- seq(0,1,by=0.005)
-y &lt;- sin(3*pi*x) + rnorm(length(x),0,0.1)
-
-indices &lt;- sort(sample(1:length(x), round(0.5 * length(x))))
-training.x &lt;- x[indices] 
-training.y &lt;- y[indices]
-test.x &lt;- x[-indices] 
-test.y &lt;- y[-indices]
-training.df &lt;- data.frame(X = training.x, Y = training.y) 
-test.df &lt;- data.frame(X = test.x, Y = test.y)
-
-rmse &lt;- function(y,h) return(sqrt(mean((y-h)^2)))
-</code></pre>
+<p><img src="figure/multi_plot.png" alt="plot of chunk multi_plot"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -3735,17 +3483,13 @@ rmse &lt;- function(y,h) return(sqrt(mean((y-h)^2)))
 
 <p><space></p>
 
-<pre><code class="r">performance &lt;- data.frame()
-for (d in 1:20){
-  fits &lt;- lm(Y~poly(X,degree=d),data=training.df)
-  performance &lt;- rbind(performance, data.frame(Degree = d,
-                                               Data = &#39;Training&#39;,
-                                               RMSE = rmse(training.y, predict(fits))))
-  performance &lt;- rbind(performance, data.frame(Degree = d,
-                                             Data = &#39;Test&#39;,
-                                             RMSE = rmse(test.y, predict(fits,
-                                                                         newdata = test.df))))
-}
+<ul>
+<li>a simple linear model won&#39;t fit</li>
+</ul>
+
+<p><img src="figure/multi_plot_2.png" alt="plot of chunk multi_plot_2"> </p>
+
+<pre><code>[1] 0.05431
 </code></pre>
 
   </article>
@@ -3761,13 +3505,200 @@ for (d in 1:20){
 
 <p><space></p>
 
-<p><img src="figure/unnamed-chunk-11.png" alt="plot of chunk unnamed-chunk-11"> </p>
+<ul>
+<li>let&#39;s add some features</li>
+</ul>
+
+<pre><code class="r">df &lt;- transform(df, X2 = X^2, X3 = X^3)
+summary(lm(Y ~ X + X2 + X3, df))$coef[, 1]
+</code></pre>
+
+<pre><code>(Intercept)           X          X2          X3 
+     0.2889      6.8761    -27.3598     22.0761 
+</code></pre>
+
+<pre><code class="r">summary(lm(Y ~ X + X2 + X3, df))$adj.r.squared
+</code></pre>
+
+<pre><code>[1] 0.8157
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
       <slide class="" id="slide-136" style="background:;">
+  <hgroup>
+    <h2>Learning Curves</h2>
+  </hgroup>
+  <article>
+    <h1>How many parameters are too many?</h1>
+
+<p><space></p>
+
+<ul>
+<li>let&#39;s add even more features</li>
+</ul>
+
+<pre><code>(Intercept)           X          X2          X3          X4          X5 
+  8.742e-03   1.033e+01  -1.425e+02   3.268e+03  -4.154e+04   3.029e+05 
+         X6          X7          X8          X9         X10         X11 
+ -1.390e+06   4.203e+06  -8.549e+06   1.170e+07  -1.049e+07   5.730e+06 
+        X12         X14 
+ -1.532e+06   6.756e+04 
+</code></pre>
+
+<pre><code>[1] 0.1026
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-137" style="background:;">
+  <hgroup>
+    <h2>Learning Curves</h2>
+  </hgroup>
+  <article>
+    <h1>How many parameters are too many?</h1>
+
+<p><space></p>
+
+<ul>
+<li>use orthogonal polynomials to avoid correlated features</li>
+<li><code>poly()</code> function</li>
+</ul>
+
+<pre><code class="r">ortho.coefs &lt;- with(df, cor(poly(X, degree = 3)))
+sum(ortho.coefs[upper.tri(ortho.coefs)])  # polynomials are uncorrelated
+</code></pre>
+
+<pre><code>[1] -4.807e-17
+</code></pre>
+
+<pre><code class="r">linear.fit &lt;- lm(Y ~ poly(X, degree = 15), df)
+summary(linear.fit)$coef[, 1]
+</code></pre>
+
+<pre><code>           (Intercept)  poly(X, degree = 15)1  poly(X, degree = 15)2 
+               0.13082               -2.39444                6.14134 
+ poly(X, degree = 15)3  poly(X, degree = 15)4  poly(X, degree = 15)5 
+               6.00294               -3.49001               -1.73733 
+ poly(X, degree = 15)6  poly(X, degree = 15)7  poly(X, degree = 15)8 
+               0.48506                0.18690               -0.11713 
+ poly(X, degree = 15)9 poly(X, degree = 15)10 poly(X, degree = 15)11 
+              -0.03000               -0.01293               -0.06498 
+poly(X, degree = 15)12 poly(X, degree = 15)13 poly(X, degree = 15)14 
+               0.06926                0.12933                0.05248 
+poly(X, degree = 15)15 
+               0.03935 
+</code></pre>
+
+<pre><code class="r">summary(linear.fit)$adj.r.squared  # R^2 is 98% and no errors
+</code></pre>
+
+<pre><code>[1] 0.9765
+</code></pre>
+
+<pre><code class="r">sqrt(mean((predict(linear.fit) - df$Y)^2))  # RMSE = 0.472
+</code></pre>
+
+<pre><code>[1] 0.1025
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-138" style="background:;">
+  <hgroup>
+    <h2>Learning Curves</h2>
+  </hgroup>
+  <article>
+    <h1>How many parameters are too many?</h1>
+
+<p><space></p>
+
+<ul>
+<li>when to stop adding othogonal features?</li>
+</ul>
+
+<p><img src="figure/polt_2.png" alt="plot of chunk polt_2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-139" style="background:;">
+  <hgroup>
+    <h2>Learning Curves</h2>
+  </hgroup>
+  <article>
+    <h1>How many parameters are too many?</h1>
+
+<p><space></p>
+
+<ul>
+<li>use cross-validation to determine best degree</li>
+</ul>
+
+<pre><code class="r">x &lt;- seq(0, 1, by = 0.005)
+y &lt;- sin(3 * pi * x) + rnorm(length(x), 0, 0.1)
+
+indices &lt;- sort(sample(1:length(x), round(0.5 * length(x))))
+training.x &lt;- x[indices]
+training.y &lt;- y[indices]
+test.x &lt;- x[-indices]
+test.y &lt;- y[-indices]
+training.df &lt;- data.frame(X = training.x, Y = training.y)
+test.df &lt;- data.frame(X = test.x, Y = test.y)
+
+rmse &lt;- function(y, h) return(sqrt(mean((y - h)^2)))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-140" style="background:;">
+  <hgroup>
+    <h2>Learning Curves</h2>
+  </hgroup>
+  <article>
+    <h1>How many parameters are too many?</h1>
+
+<p><space></p>
+
+<pre><code class="r">performance &lt;- data.frame()
+for (d in 1:20) {
+    fits &lt;- lm(Y ~ poly(X, degree = d), data = training.df)
+    performance &lt;- rbind(performance, data.frame(Degree = d, Data = &quot;Training&quot;, 
+        RMSE = rmse(training.y, predict(fits))))
+    performance &lt;- rbind(performance, data.frame(Degree = d, Data = &quot;Test&quot;, 
+        RMSE = rmse(test.y, predict(fits, newdata = test.df))))
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-141" style="background:;">
+  <hgroup>
+    <h2>Learning Curves</h2>
+  </hgroup>
+  <article>
+    <h1>How many parameters are too many?</h1>
+
+<p><space></p>
+
+<p><img src="figure/learning_plot.png" alt="plot of chunk learning_plot"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-142" style="background:;">
   <hgroup>
     <h2>Regression</h2>
   </hgroup>
@@ -3787,7 +3718,7 @@ for (d in 1:20){
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-137" style="background:;">
+      <slide class="" id="slide-143" style="background:;">
   <hgroup>
     <h2>Summary</h2>
   </hgroup>
@@ -3812,7 +3743,7 @@ for (d in 1:20){
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-138" style="background:;">
+      <slide class="" id="slide-144" style="background:;">
   <hgroup>
     <h2>Next Time</h2>
   </hgroup>
@@ -3831,7 +3762,7 @@ for (d in 1:20){
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-139" style="background:;">
+      <slide class="" id="slide-145" style="background:;">
   <hgroup>
     <h2>Resources</h2>
   </hgroup>
@@ -3848,7 +3779,7 @@ for (d in 1:20){
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-140" style="background:;">
+      <slide class="" id="slide-146" style="background:;">
   <hgroup>
     
   </hgroup>

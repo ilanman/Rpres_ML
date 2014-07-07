@@ -239,8 +239,8 @@ slides > slide {
   color: #797979;
   width: 900px;
   height: 700px;
-  margin-left: -450px;
-  margin-top: -350px;
+  margin-left: -400px;
+  margin-top: -300px;
   padding: 40px 60px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -512,8 +512,8 @@ ul ul {
 /* line 373, ../scss/default.scss */
 pre {
   font-family: 'Inconsolata', 'Courier New', monospace;
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 18px;
   padding: 10px 0 10px 60px;
   letter-spacing: -1px;
   margin-bottom: 20px;
@@ -1186,17 +1186,17 @@ article.smaller q:before, article.smaller q:after {
   left: 50%;
   top: 50%;
   cursor: pointer;
-  margin-top: -350px;
+  margin-top: -250px;
 }
 
 /* line 826, ../scss/default.scss */
 #prev-slide-area {
-  margin-left: -550px;
+  margin-left: -450px;
 }
 
 /* line 831, ../scss/default.scss */
 #next-slide-area {
-  margin-left: 450px;
+  margin-left: 400px;
 }
 
 /* ===== SLIDE CONTENT ===== */

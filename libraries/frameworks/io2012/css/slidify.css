@@ -23,13 +23,13 @@
 article p, article li, article li.build{
   font-family: 'Helvetica', 'Crimson Text', 'Garamond',  'Palatino', sans-serif;
   text-align: justify;
-  font-size:22px;
-  line-height: 1.5em;
+  font-size: 18px;
+  line-height: 1.25em;
 }
 
 slide:not(.segue) h2{
   font-family: 'Signika Negative', 'Calibri', Arial, sans-serif;
-  font-size: 52px;
+  font-size: 42px;
   font-style: normal;
   font-weight: bold;
   text-transform: normal;
@@ -167,7 +167,7 @@ table tr:nth-child(2n+1) {
 
 /* Styling for Ordered Lists (only for io2012) */
 ol {
-  margin-left: 2em;
+  margin-left: 1.2em;
   margin-bottom: 1em;
   position: relative;
 }
@@ -177,7 +177,7 @@ ol li {
 }
 
 ol li ol {
-  margin-left: 2em;
+  margin-left: 1.2em;
   margin-bottom: 0;
 }
 
