@@ -13,6 +13,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## Agenda 
 <space>
+<space>
 
 1. Machine Learning Overview
 2. Exploring Data
@@ -30,8 +31,9 @@ mode        : selfcontained # {standalone, draft}
 - Field of study interested in transforming data into intelligent actions
 - Intersection of statistics, available data and computing power
 - It is NOT data mining
-- Data mining is an exploratory exercise, whereas most machine learning has a known answer
-- Data mining is a subset of machine learning (unsupervised)
+  - Data mining is an exploratory exercise
+      - Most machine learning problems have a known answer
+  - Data mining is a subset (unsupervised)
 
 ----
 
@@ -44,7 +46,7 @@ mode        : selfcontained # {standalone, draft}
 - Credit fraud prediction
 - Image processing
 - Customer churn
-- Customer subscription rates
+- Customer subscription predictions
 
 ----
 
@@ -75,7 +77,7 @@ mode        : selfcontained # {standalone, draft}
 <space>
 
 - Turn abstracted knowledge into something that can be utilized
-- Model user heuristics since it cannot see every example
+- Model uses heuristics since it cannot see every example
   - When hueristics are systematically wrong, the algorithm has a bias
 - Very simple models have high bias
   - Some bias is good - let's us ignore the noise
@@ -88,23 +90,23 @@ mode        : selfcontained # {standalone, draft}
 
 - After training, the model is tested on unseen data
 - Perfect generalization is exceedingly rare
-  - Partly due to noise
+  - Noise
   - Measurement error
-  - Change in user behavior
-  - Incorrect data, erroneous values, etc...
+  - Change in behavior
+  - Incorrect/erroneous data
 - Fitting too closesly to the noise leads to overfitting
   - Complex models have high variance
-  - Good on training, bad on testing
+  - Performs well on training, poorly on testing
 
 ----
 
 ## Machine Learning Overview
-# Steps to apply Machine Learning
+# Steps to apply
 <space>
 
 1. Collect data
 2. Explore and preprocess data 
-  - Majority of the time is spent in this stage
+  - Large majority of the time is spent in this stage
 3. Train the model
   - Specific tasks will inform which algorithm is appropriate
 4. Evaluate model performance
@@ -118,10 +120,10 @@ mode        : selfcontained # {standalone, draft}
 <space>
 
 - Consider input data
-- An <strong>example</strong> is one data point that the machine is intended to learn 
-- A feature is a characteristic of the example
+- An `example` is one data point that the machine is intended to learn 
+- A `feature` is a characteristic of the example
   - e.g. Number of times the word "viagra" appears in an email
-- For classification problems, a label is the example's classification
+- For classification problems, a `label` is the example's classification
 - Most algorithms require data in matrix format because Math said so
 - Features can be numeric, categorical/nominal or ordinal
 
@@ -209,7 +211,7 @@ summary(iris[, 1:4])
 
 - Measures of central tendency: mean and median
   - Mean is sensitive to outliers
-    - Trimmed mean
+  - Trimmed mean
   - Median is resistant
 
 ![plot of chunk skew](figure/skew.png) 
@@ -251,12 +253,13 @@ quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
 ----
 
 ## Exploring Data
-# Visualizing - histograms
+# Visualizing - Histograms
 <space>
 
 - Each bar is a 'bin'
 - Height of bar is the frequency (count of) that bin
 - Some distributions are normally distributed (bell shaped) or skewed (heavy tails)
+- Can see the `kurtosis` - peakedness of a distribution
 
 <img src="figure/histogram.png" title="plot of chunk histogram" alt="plot of chunk histogram" style="display: block; margin: auto;" />
 
@@ -264,7 +267,7 @@ quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
 ----
 
 ## Exploring Data
-# Visualizing - scatterplots
+# Visualizing - Scatterplots
 <space>
 
 - Useful for visualizing bivariate relationships (2 variables)
@@ -278,9 +281,9 @@ quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
 # Summary
 <space>
 
-- Measures of central tendency and dispersion
-- Visualizing data using histograms, boxplots, scatterplots
-- Skewed vs normally distributed data
+1. Measures of central tendency and dispersion
+2. Visualizing data using histograms, boxplots, scatterplots
+3. Skewed vs unskewed data
 
 ----
 
@@ -289,7 +292,7 @@ quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
 <space>
 
 - Understanding the algorithm
-- Data Preparation
+- Data preparation
 - Case study: diagnosing breast cancer
 - Summary
 
@@ -299,7 +302,7 @@ quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
 # The Concept
 <space>
 
-- Things that are similar are probably of the same class
+- Things that are similar are probably of the same type
 - Good for: when it's difficult to define, but "you know it when you see it"
 - Bad for: when a clear distinction doesn't exist
 
@@ -327,7 +330,7 @@ quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
 # The Algorithm
 <space>
 
-<img src="figure/new_point.png" title="plot of chunk new point" alt="plot of chunk new point" style="display: block; margin: auto auto auto 0;" />
+<img src="figure/new_point_knn.png" title="plot of chunk new_point_knn" alt="plot of chunk new_point_knn" style="display: block; margin: auto auto auto 0;" />
 
 
 - Suppose we had a new point with Sepal Length of 7 and Petal Length of 4
@@ -343,8 +346,8 @@ quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
   - Euclidean distance
   - $dist(p,q) = \sqrt{(p_1-q_1)^2+(p_2-q_2)^2+ ... + (p_n-q_n)^2}$
   - Closest neighbor -> 1-NN
-  - 3 closest neighbors -> 3-NN. 
-  - Winner is the majority class of all neighbors
+  - 3 closest neighbors -> 3-NN
+- Winner is the majority class of all neighbors
 
 ----
 
@@ -356,13 +359,13 @@ quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
   - Euclidean distance
   - $dist(p,q) = \sqrt{(p_1-q_1)^2+(p_2-q_2)^2+ ... + (p_n-q_n)^2}$
   - Closest neighbor -> 1-NN
-  - 3 closest neighbors -> 3-NN. 
-  - Winner is the majority class of all neighbors
+  - 3 closest neighbors -> 3-NN
+- Winner is the majority class of all neighbors
 - Why not just fit to all data points?
 
 ----
 
-## K-Nearest neighbors
+## K-Nearest Neighbors
 # Bias vs. Variance
 <space>
 
@@ -375,8 +378,8 @@ quantile(iris$Sepal.Length, probs = c(0.1, 0.5, 0.99))
 
 ----
 
-## K-Nearest neighbors
-# Data preparation
+## K-Nearest Neighbors
+# Data Preparation
 <space>
 
 - Classify houses based on prices and square footage
@@ -394,7 +397,7 @@ ex <- ggplot(houses, aes(price, size)) + geom_point() + scale_x_continuous(label
 
 ----
 
-## K-Nearest neighbors
+## K-Nearest Neighbors
 # Data Preparation
 <space>
 
@@ -403,7 +406,7 @@ ex <- ggplot(houses, aes(price, size)) + geom_point() + scale_x_continuous(label
 
 ----
 
-## K-Nearest neighbors
+## K-Nearest Neighbors
 # Data Preparation
 <space>
 
@@ -412,7 +415,7 @@ ex <- ggplot(houses, aes(price, size)) + geom_point() + scale_x_continuous(label
 
 ----
 
-## K-Nearest neighbors
+## K-Nearest Neighbors
 # Data Preparation
 <space>
 
@@ -421,9 +424,12 @@ ex <- ggplot(houses, aes(price, size)) + geom_point() + scale_x_continuous(label
 
 ----
 
-## K-Nearest neighbors
+## K-Nearest Neighbors
 # Data Preparation
 <space>
+
+- $dist(p,q) = \sqrt{(p_1-q_1)^2+(p_2-q_2)^2+ ... + (p_n-q_n)^2}$
+- Minimize the distance
 
 
 ```r
@@ -436,12 +442,13 @@ for (i in 1:nrow(houses)) {
 # 2) vectorized
 vec_dist <- sqrt(rowSums(t(new_p - t(houses))^2))
 closest <- data.frame(houses[which.min(vec_dist), ])
+
 print(closest)
 ```
 
 ```
    price  size
-11 4e+05 323.8
+11 4e+05 385.9
 ```
 
 
@@ -472,9 +479,9 @@ print(closest)
 - Feature scaling. Level the playing field.
 - Two common approaches:
   - min-max normalization
-    - $X_{new} = \frac{X-min(X)}{max(X) - min(X)}$
+  - $X_{new} = \frac{X-min(X)}{max(X) - min(X)}$
   - z-score standardization
-    - $X_{new} = \frac{X-mean(X)}{sd(X)}$
+  - $X_{new} = \frac{X-mean(X)}{sd(X)}$
 - Euclidean distance doesn't discriminate between important and noisy features
   - can add weights
 
@@ -487,6 +494,8 @@ print(closest)
 
 ```r
 new_house <- scale(houses)
+
+# z-score standardization
 new_new <- c((new_p[1] - mean(houses[, 1]))/sd(houses[, 1]), (new_p[2] - mean(houses[, 
     2]))/sd(houses[, 2]))
 
@@ -719,35 +728,8 @@ prop.table(table(predict_1))
 
 ```
 predict_1
-     B      M 
-0.6789 0.3211 
-```
-
-
-----
-
-## K-Nearest Neighbors
-# Case study
-<space>
-
-
-```r
-pred_B <- which(predict_1 == "B")
-test_B <- which(test_labels == "B")
-pred_M <- which(predict_1 == "M")
-test_M <- which(test_labels == "M")
-
-true_positive <- sum(pred_B %in% test_B)
-true_negative <- sum(pred_M %in% test_M)
-false_positive <- sum(pred_B %in% test_M)
-false_negative <- sum(pred_M %in% test_B)
-
-conf_mat <- matrix(c(true_positive, false_negative, false_positive, true_negative), 
-    nrow = 2, ncol = 2)
-
-acc <- sum(diag(conf_mat))/sum(conf_mat)
-tpr <- conf_mat[1, 1]/sum(conf_mat[1, ])
-tn <- conf_mat[2, 2]/sum(conf_mat[2, ])
+  B   M 
+0.7 0.3 
 ```
 
 
@@ -760,13 +742,13 @@ tn <- conf_mat[2, 2]/sum(conf_mat[2, ])
 
 ```
    acc    tpr     tn 
-0.9579 0.9380 1.0000 
+0.9474 0.9323 0.9825 
 ```
 
 ```
        Actual B Actual M
-Pred B      121        8
-Pred M        0       61
+Pred B      124        9
+Pred M        1       56
 ```
 
 
@@ -786,8 +768,8 @@ con_mat$table
 ```
           Reference
 Prediction   B   M
-         B 121   8
-         M   0  61
+         B 124   9
+         M   1  56
 ```
 
 
@@ -808,8 +790,8 @@ con_mat$table
 ```
           Reference
 Prediction   B   M
-         B 121   8
-         M   0  61
+         B 124   9
+         M   1  56
 ```
 
 
@@ -846,18 +828,18 @@ for (i in k_params) {
 <space>
 
 <!-- html table generated in R 3.0.3 by xtable 1.7-3 package -->
-<!-- Mon Jul 07 19:28:56 2014 -->
+<!-- Tue Jul 08 16:53:35 2014 -->
 <TABLE border=1>
 <TR> <TH> K </TH> <TH> Acc </TH> <TH> TP </TH> <TH> FP </TH> <TH> FN </TH> <TH> TN </TH>  </TR>
-  <TR> <TD align="right"> 1.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 118.00 </TD> <TD align="right"> 2.00 </TD> <TD align="right"> 3.00 </TD> <TD align="right"> 67.00 </TD> </TR>
-  <TR> <TD align="right"> 3.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 120.00 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 64.00 </TD> </TR>
-  <TR> <TD align="right"> 5.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 64.00 </TD> </TR>
-  <TR> <TD align="right"> 10.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 15.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 20.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 60.00 </TD> </TR>
-  <TR> <TD align="right"> 25.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 30.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 40.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 60.00 </TD> </TR>
+  <TR> <TD align="right"> 1.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 123.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 2.00 </TD> <TD align="right"> 58.00 </TD> </TR>
+  <TR> <TD align="right"> 3.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 125.00 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 60.00 </TD> </TR>
+  <TR> <TD align="right"> 5.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 123.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 2.00 </TD> <TD align="right"> 58.00 </TD> </TR>
+  <TR> <TD align="right"> 10.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 58.00 </TD> </TR>
+  <TR> <TD align="right"> 15.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 56.00 </TD> </TR>
+  <TR> <TD align="right"> 20.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 56.00 </TD> </TR>
+  <TR> <TD align="right"> 25.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 125.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 56.00 </TD> </TR>
+  <TR> <TD align="right"> 30.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 56.00 </TD> </TR>
+  <TR> <TD align="right"> 40.00 </TD> <TD align="right"> 0.94 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 11.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 54.00 </TD> </TR>
    </TABLE>
 
 
@@ -867,15 +849,15 @@ for (i in k_params) {
 # Summary
 <space>
   
-- kNN is a lazy learning algorithm
+1. kNN is a lazy learning algorithm
   - Stores training data and applies it verbatim to new data
   - "instance-based" learning
-- Assigns the majority class of the k data points closest to the new data
+2. Assigns the majority class of the k data points closest to the new data
   - Ensure all features are on the same scale
-- Strengths
+3. Strengths
   - Can be applied to data from any distribution
   - Simple and intuitive
-- Weaknesses
+4. Weaknesses
   - Choosing k requires trial and error
   - Testing step is computationally expensive (unlike parametric models)
   - Needs a large number of training samples to be useful
@@ -1443,8 +1425,8 @@ naive_conf
 ```
           Reference
 Prediction  ham spam
-      ham  1607   44
-      spam    7  200
+      ham  1597   23
+      spam    7  231
 ```
 
 
@@ -1468,8 +1450,8 @@ naive_conf
 ```
           Reference
 Prediction  ham spam
-      ham  1607   44
-      spam    7  200
+      ham  1597   23
+      spam    7  231
 ```
 
 
@@ -1486,14 +1468,14 @@ Exercise:
 # Summary
 <space>
 
-- Probabalistic approach
-- Naive Bayes assumes features are independent, conditioned on being in the same class
-- Useful for text classification
-- Strengths
+1. Probabalistic approach
+2. Naive Bayes assumes features are independent, conditioned on being in the same class
+3. Useful for text classification
+4. Strengths
   - Simple, fast
   - Does well with noisy and missing data
   - Doesn't need large training set
-- Weaknesses
+5. Weaknesses
   - Assumes all features are independent and equally important
   - Not well suited for numeric data sets
 
@@ -1548,13 +1530,13 @@ as.data.frame(format(head(confidence), digits = 2, scientific = FALSE))
 ```
 
 ```
-             ham           spam
-1 0.969265077228 0.030734922772
-2 0.000000000272 0.999999999728
-3 0.999999987545 0.000000012455
-4 0.000000000003 0.999999999997
-5 0.999999274158 0.000000725842
-6 0.997483049798 0.002516950202
+              ham            spam
+1 0.9999980224859 0.0000019775141
+2 0.9999758617729 0.0000241382271
+3 0.0000000000091 0.9999999999909
+4 0.9944709959147 0.0055290040853
+5 0.9998858546288 0.0001141453712
+6 0.9999638652818 0.0000361347182
 ```
 
 
@@ -1575,13 +1557,13 @@ head(comparison)
 ```
 
 ```
-  predict actual           prob_spam
-1     ham    ham 0.03073492277184106
-2    spam   spam 0.99999999972755882
-3     ham    ham 0.00000001245462555
-4    spam   spam 0.99999999999695421
-5     ham    ham 0.00000072584174971
-6     ham    ham 0.00251695020244934
+  predict actual          prob_spam
+1     ham    ham 0.0000019775140932
+2     ham    ham 0.0000241382270614
+3    spam   spam 0.9999999999908598
+4     ham    ham 0.0055290040853312
+5     ham    ham 0.0001141453711585
+6     ham    ham 0.0000361347182039
 ```
 
 
@@ -1597,13 +1579,13 @@ head(comparison[with(comparison, predict == actual), ])
 ```
 
 ```
-  predict actual           prob_spam
-1     ham    ham 0.03073492277184106
-2    spam   spam 0.99999999972755882
-3     ham    ham 0.00000001245462555
-4    spam   spam 0.99999999999695421
-5     ham    ham 0.00000072584174971
-6     ham    ham 0.00251695020244934
+  predict actual          prob_spam
+1     ham    ham 0.0000019775140932
+2     ham    ham 0.0000241382270614
+3    spam   spam 0.9999999999908598
+4     ham    ham 0.0055290040853312
+5     ham    ham 0.0001141453711585
+6     ham    ham 0.0000361347182039
 ```
 
 ```r
@@ -1611,7 +1593,7 @@ mean(as.numeric(comparison[with(comparison, predict == "spam"), ]$prob_spam))
 ```
 
 ```
-[1] 0.9827
+[1] 0.9723
 ```
 
 
@@ -1627,13 +1609,13 @@ head(comparison[with(comparison, predict != actual), ])
 ```
 
 ```
-    predict actual           prob_spam
-70      ham   spam 0.32261195298564260
-142     ham   spam 0.22348642626700724
-181     ham   spam 0.00074384650893715
-226     ham   spam 0.00052525521655908
-232     ham   spam 0.23899356386596546
-248     ham   spam 0.00240698897952186
+    predict actual          prob_spam
+20     spam    ham 0.5757090697677075
+125    spam    ham 0.5417553641799085
+206     ham   spam 0.0008557227673755
+231     ham   spam 0.0454769513801028
+294     ham   spam 0.0488146924315075
+397     ham   spam 0.0119352110379246
 ```
 
 ```r
@@ -1641,7 +1623,7 @@ mean(as.numeric(comparison[with(comparison, predict != "spam"), ]$prob_spam))
 ```
 
 ```
-[1] 0.006759
+[1] 0.00552
 ```
 
 
@@ -1652,7 +1634,7 @@ mean(as.numeric(comparison[with(comparison, predict != "spam"), ]$prob_spam))
 <space>
 
 - Categorize predictions on whether they match actual values or not
-- Can be more than two classes
+  - Can be more than two classes
 - Count the number of predictions falling on and off the diagonals
 
 
@@ -1663,8 +1645,8 @@ table(comparison$predict, comparison$actual)
 ```
       
         ham spam
-  ham  1607   44
-  spam    7  200
+  ham  1597   23
+  spam    7  231
 ```
 
 
@@ -1701,10 +1683,10 @@ table(comparison$predict, comparison$actual)
 # Kappa
 <space>
 
-- P(A) is the accuracy
-- P(E) is the proportion of results where actual = predicted
-  - $P(E) = P(E = class 1 ) + P(E = class 2)$
-  - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
+- $P(A)$ is the accuracy
+- $P(E)$ is the proportion of results where actual = predicted
+  - $P(E) = P(E = class\hspace{2 mm}1 ) + P(E = class\hspace{2 mm}2)$
+  - $P(E = class 1) = P(actual = class\hspace{2 mm}1 \cap predicted = class\hspace{2 mm}1)$
     - actual and predicted are independent so...
 
 ----
@@ -1713,12 +1695,12 @@ table(comparison$predict, comparison$actual)
 # Kappa
 <space>
 
-- P(A) is the accuracy
-- P(E) is the proportion of results where actual = predicted
-  - $P(E) = P(E = class 1 ) + P(E = class 2)$
-  - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
+- $P(A)$ is the accuracy
+- $P(E)$ is the proportion of results where actual = predicted
+  - $P(E) = P(E = class\hspace{2 mm}1 ) + P(E = class\hspace{2 mm}2)$
+  - $P(E = class 1) = P(actual = class\hspace{2 mm}1 \cap predicted = class\hspace{2 mm}1)$
     - actual and predicted are independent so...
-  - $P(E = class 1) = P(actual = class 1 ) \times P(predicted = class 1)$    
+  - $P(E = class 1) = P(actual = class\hspace{2 mm}1 ) \times P(predicted = class\hspace{2 mm}1)$    
     - putting it all together... 
 
 ----
@@ -1727,12 +1709,12 @@ table(comparison$predict, comparison$actual)
 # Kappa
 <space>
 
-- P(A) is the accuracy
-- P(E) is the proportion of results where actual = predicted
-  - $P(E) = P(E = class 1 ) + P(E = class 2)$
-  - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
+- $P(A)$ is the accuracy
+- $P(E)$ is the proportion of results where actual = predicted
+  - $P(E) = P(E = class\hspace{2 mm}1 ) + P(E = class\hspace{2 mm}2)$
+  - $P(E = class 1) = P(actual = class\hspace{2 mm}1 \cap predicted = class\hspace{2 mm}1)$
     - actual and predicted are independent so...
-  - $P(E = class 1) = P(actual = class 1 ) \times P(predicted = class 1)$    
+  - $P(E = class 1) = P(actual = class\hspace{2 mm}1 ) \times P(predicted = class\hspace{2 mm}1)$    
     - putting it all together...
   - $P(E) = P(actual = class 1) \times P(predicted = class 1) + P(actual = class 2) \times P(predicted = class 2)$
 
@@ -1744,12 +1726,12 @@ table(comparison$predict, comparison$actual)
 
 - P(A) is the accuracy
 - P(E) is the proportion of results where actual = predicted
-  - $P(E) = P(E = class 1 ) + P(E = class 2)$
-  - $P(E = class 1) = P(actual = class 1 \cap predicted = class 1)$
+  - $P(E) = P(E = class\hspace{2 mm}1 ) + P(E = class\hspace{2 mm}2)$
+  - $P(E = class 1) = P(actual = class\hspace{2 mm}1 \cap predicted = class\hspace{2 mm}1)$
     - actual and predicted are independent so...
-  - $P(E = class 1) = P(actual = class 1 ) \times P(predicted = class 1)$    
+  - $P(E = class 1) = P(actual = class\hspace{2 mm}1 ) \times P(predicted = class\hspace{2 mm}1)$    
     - putting it all together...
-  - $P(E) = P(actual = class 1) \times P(predicted = class 1) + P(actual = class 2) \times P(predicted = class 2)$
+  - $P(E) = P(actual = class\hspace{2 mm}1) \times P(predicted = class\hspace{2 mm}1) + P(actual = class\hspace{2 mm}2) \times P(predicted = class\hspace{2 mm}2)$
   
 ```
 Exercise: 
@@ -1780,7 +1762,7 @@ Exercise:
 - Precision: proportion of positives that are truly positive
   - $precision = \frac{TP}{TP + FP}$
   - Precise model only predicts positive when it is sure. Very trustworthy model.
-- Recall: proportion of true positives of all positives
+- Recall: proportion of true positives out of all positives
   - $recall = \frac{TP}{TP + FN}$
   - High recall model will capture a large proportion of positives. Returns relevant results
 - Easy to have high recall (cast a wide net) or high precision (low hanging fruit) but hard to have both high
@@ -1795,7 +1777,7 @@ Exercise:
 - Precision: proportion of positives that are truly positive
   - $precision = \frac{TP}{TP + FP}$
   - Precise model only predicts positive when it is sure. Very trustworthy model.
-- Recall: proportion of true positives of all positives
+- Recall: proportion of true positives out of all positives
   - $recall = \frac{TP}{TP + FN}$
   - High recall model will capture a large proportion of positives. Returns relevant results
 - Easy to have high recall (cast a wide net) or high precision (low hanging fruit) but hard to have both high
@@ -1892,7 +1874,7 @@ auc@y.values
 
 ```
 [[1]]
-[1] 0.9077
+[1] 0.9525
 ```
 
 
@@ -1912,8 +1894,8 @@ auc@y.values
 
 - In the kNN `Exercise`, we cheated...kind of
   - Train model - 50% of data
-  - Tune parameters on validation set - 25% of data
-      - (optionally) retrain final model on training and validation set (maximize data points)
+  - Tune parameters on cross validation set - 25% of data
+      - (optionally) retrain final model on training and validation set to enhance model robustness
   - Test final model - 25% of data
 
 
@@ -1952,18 +1934,28 @@ str(folds)
 
 ```
 List of 10
- $ Fold01: int [1:558] 24 61 64 75 85 90 97 122 126 130 ...
- $ Fold02: int [1:557] 6 10 21 46 47 53 74 94 101 104 ...
- $ Fold03: int [1:557] 7 14 15 17 20 25 29 36 41 49 ...
- $ Fold04: int [1:558] 33 40 66 68 89 102 134 142 143 145 ...
- $ Fold05: int [1:556] 5 9 19 37 39 45 48 56 59 63 ...
- $ Fold06: int [1:558] 4 11 27 30 73 77 100 138 148 160 ...
- $ Fold07: int [1:558] 8 22 26 32 34 35 60 71 72 79 ...
- $ Fold08: int [1:557] 23 28 38 43 51 54 67 99 103 111 ...
- $ Fold09: int [1:558] 12 13 16 50 62 84 88 91 98 110 ...
- $ Fold10: int [1:557] 1 2 3 18 31 42 44 57 58 69 ...
+ $ Fold01: int [1:558] 16 38 45 60 64 74 82 84 89 90 ...
+ $ Fold02: int [1:557] 5 11 12 14 19 34 49 65 72 88 ...
+ $ Fold03: int [1:558] 6 15 18 27 41 47 70 86 96 97 ...
+ $ Fold04: int [1:557] 17 20 24 30 39 42 54 55 79 94 ...
+ $ Fold05: int [1:557] 2 7 9 44 48 56 63 66 92 101 ...
+ $ Fold06: int [1:558] 1 10 22 23 32 33 35 62 67 81 ...
+ $ Fold07: int [1:558] 4 25 46 50 58 85 91 99 115 127 ...
+ $ Fold08: int [1:556] 8 13 21 28 31 36 37 53 61 83 ...
+ $ Fold09: int [1:558] 26 51 52 59 69 71 75 78 126 139 ...
+ $ Fold10: int [1:557] 3 29 40 43 57 68 73 76 77 80 ...
 ```
 
+
+----
+
+## Model Performance
+# Summary
+<space>
+
+1. Confusion Matrix measures
+2. ROC and AUC
+3. Holdout method
 
 ----
 
@@ -2013,7 +2005,7 @@ List of 10
   - $MSE = \frac{1}{n} \sum_{i=1}^{n}\epsilon_{i}^{2} = \frac{1}{n} \sum_{i=1}^{n}(\hat{y_{i}} - y_{i})^{2}$
   - $y_{i}$ is the true/observed value
   - $\hat{y_{i}}$ is the approximation to/prediction of the true $y_{i}$
-- Minimization of MSE yields an unbiased estimator with the least variance
+- Minimization of MSE yields an unbiased estimator with the least variance (this is good!)
 - 2 common ways to minimize MSE:
   - analytical, closed form solution (e.g. `lm()` function does this)
   - approximation (e.g. gradient descent)
@@ -2026,7 +2018,7 @@ List of 10
 
 - In Machine Learning, regression equation is called the hypothesis function
   - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$ from before
 
 ----
 
@@ -2036,7 +2028,7 @@ List of 10
 
 - In Machine Learning, regression equation is called the hypothesis function
   - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
+  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$ from before
   - $X = \{x_{0}, x_{1}\}$
   - Make $x_{0}$ = 1
   - $h_{\theta}(x) = \beta \times t(X)$
@@ -2047,12 +2039,6 @@ List of 10
 # Gradient descent
 <space>
 
-- In Machine Learning, regression equation is called the hypothesis function
-  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
-  - $X = \{x_{0}, x_{1}\}$
-  - Make $x_{0}$ = 1
-  - $h_{\theta}(x) = \beta \times t(X)$
 - Goal remains the same: minimize MSE
   - define a cost (aka objective) function, $J(\theta_{0},\theta_{1})$
   - $J(\theta_{0},\theta_{1}) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x_{i}) - y_{i})^2$
@@ -2064,22 +2050,16 @@ List of 10
 # Gradient descent
 <space>
 
-- In Machine Learning, regression equation is called the hypothesis function
-  - Linear hypothesis function: $h_{\theta}(x) = \theta_{0} + \theta_{1}x$
-  - $\theta$ is $\{\beta_{0}, \beta{1}\}$, where $\beta_{0}$ is $\alpha$
-  - $X = \{x_{0}, x_{1}\}$  
-  - Make $x_{0}$ = 1
-  - $h_{\theta}(x) = \beta \times t(X)$
 - Goal remains the same: minimize MSE
   - define a cost (aka objective) function, $J(\theta_{0},\theta_{1})$
   - $J(\theta_{0},\theta_{1}) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x_{i}) - y_{i})^2$
   - $m$ is the number of examples
-- Find a value for theta that minimizes $J$
+- Find a value for $\theta$ that minimizes $J$
 
 ----
 
 ## Regression
-# Gradient descent
+# Gradient descent - intuition
 <space>
 
 - Given a starting value, take a step along the slope
@@ -2091,7 +2071,7 @@ List of 10
 ----
 
 ## Regression
-# Gradient descent
+# Gradient descent - intuition
 <space>
 
 - Given a starting value, take a step along the slope
@@ -2103,7 +2083,7 @@ List of 10
 ----
 
 ## Regression
-# Gradient descent
+# Gradient descent - intuition
 <space>
 
 - Given a starting value, take a step along the slope
@@ -2115,7 +2095,7 @@ List of 10
 ----
 
 ## Regression
-# Gradient descent
+# Gradient descent - intuition
 <space>
 
 - Given a starting value, take a step along the slope
@@ -2127,30 +2107,28 @@ List of 10
 ----
 
 ## Regression
-# Gradient descent
+# Gradient descent - intuition
 <space>
 
 - Start with a point (guess)
-- Repeat {
+- Repeat
   - Determine a descent direction 
   - Choose a step size
   - Update
-  }
 - Until minimum is reached (or stopping criteria)
 
 ----
 
 ## Regression
-# Gradient descent
+# Gradient descent - intuition
 <space>
 
 - Start with a point (guess) &nbsp;&nbsp; &nbsp;  $x$
-- Repeat {
+- Repeat
   - Determine a descent direction &nbsp;&nbsp;&nbsp;  $-f^\prime$
   - Choose a step size &nbsp;&nbsp;&nbsp;  $\alpha$ (not the intercept!)
   - Update  &nbsp;&nbsp; &nbsp; $x:=x - \alpha f^\prime$
-  }
-- Until minimum is reached (or stopping criteria) &nbsp;&nbsp; &nbsp; $f^\prime ~ 0$
+- Until minimum is reached (or stopping criteria) &nbsp;&nbsp; &nbsp; $f^\prime \sim 0$
 
 ----
 
@@ -2198,7 +2176,7 @@ $=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{i}) - y^{i})(x^{i}_{j})$
   - Choose the learning rate, alpha
   - Choose the stopping point
   - Local vs. global minimum
-<br>
+<space>
 - Let's see it in action
 
 ----
@@ -2218,10 +2196,11 @@ $=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{i}) - y^{i})(x^{i}_{j})$
 
 
 ```r
-x <- cbind(1, x)  #Add ones to x  
-theta <- c(0, 0)  # initalize theta vector 
-m <- nrow(x)  # Number of the observations 
-grad_cost <- function(X, y, theta) return(sum(((X %*% theta) - y)^2))
+x <- seq(0, 1, by = 0.01)
+y <- 4 + 3 * x * rnorm(length(x), 2, sd = 0.3)
+df <- data.frame(cbind(X = x, Y = y))
+
+grad_cost <- function(X, y, theta) return(sum(((X %*% theta) - y)^2))  # recall the linear hypothesis function
 ```
 
 
@@ -2239,9 +2218,9 @@ gradDescent <- function(X, y, theta, iterations, alpha) {
     cost.df <- data.frame(cost = 0, theta = 0)
     
     for (i in 1:iterations) {
-        h <- X %*% theta  # Linear hypothesis function
+        h <- X %*% theta  # hypothesis function
         grad <- (t(X) %*% (h - y))/m
-        theta <- theta - alpha * grad  # Update theta
+        theta <- theta - alpha * grad  # Update theta by step size
         cost.df <- rbind(cost.df, c(grad_cost(X, y, theta), theta))
     }
     
@@ -2262,18 +2241,17 @@ gradDescent <- function(X, y, theta, iterations, alpha) {
 X1 <- matrix(ncol = 1, nrow = nrow(df), cbind(1, df$X))
 Y1 <- matrix(ncol = 1, nrow = nrow(df), df$Y)
 
-init_theta <- as.matrix(c(0))
-grad_cost(X1, Y1, init_theta)
+init_theta <- as.matrix(0)
+grad_cost(X1, Y1, init_theta)  # initial cost
 ```
 
 ```
-[1] 5282
+[1] 5217
 ```
 
 ```r
-
-iterations = 10000
-alpha = 0.1
+iterations <- 1000
+alpha <- 0.1
 results <- gradDescent(X1, Y1, init_theta, iterations, alpha)
 ```
 
@@ -2299,7 +2277,7 @@ grad_cost(X1, Y1, theta[[1]])
 ```
 
 ```
-[1] 339.5
+[1] 316
 ```
 
 ```r
@@ -2334,7 +2312,7 @@ ggplot(data = df, aes(x = X, y = Y)) + geom_point(size = 2)
 
 ```r
 ggplot(data = df, aes(x = X, y = Y)) + geom_point() + geom_point(data = new_preds, 
-    aes(x = X, y = Y, color = "red"), size = 3) + scale_colour_discrete(guide = FALSE)
+    aes(x = X, y = Y, color = "red"), size = 3.5) + scale_colour_discrete(guide = FALSE)
 ```
 
 ![plot of chunk new_point_2](figure/new_point_2.png) 
@@ -2342,21 +2320,21 @@ ggplot(data = df, aes(x = X, y = Y)) + geom_point() + geom_point(data = new_pred
 
 ----
 
-## Regression example
+## Regression
 # Gradient descent - Summary
 <space>
 
-- Minimization algorithm
-- Approximation, non-closed form solution
-- Good for large number of examples
-- Hard to select the right $\alpha$
-- Finds local not global minimum
-- Traditional looping is slow - optimization algorithms are used in practice
+1. Minimization algorithm
+2. Approximation, non-closed form solution
+3. Good for large number of examples
+4. Hard to select the right $\alpha$ and starting point
+5. Finds local not global minimum
+6. Optimization algorithms are used in practice
 
 ----
 
-## CV Error
-# How many parameters are too many?
+## Regression
+# CV Error
 <space>
 
 ![plot of chunk multi_plot](figure/multi_plot.png) 
@@ -2364,30 +2342,19 @@ ggplot(data = df, aes(x = X, y = Y)) + geom_point() + geom_point(data = new_pred
 
 ----
 
-## CV Error
-# How many parameters are too many?
+## Regression
+# CV Error
 <space>
-
-
-```r
-ggplot(df, aes(x = X, y = Y)) + geom_point() + geom_smooth(method = "lm", se = FALSE)
-```
 
 ![plot of chunk multi_plot_2](figure/multi_plot_2.png) 
 
-```r
-summary(lm(Y ~ X, df))$adj.r.squared  # low R^2 - simple linear model won't fit
-```
 
-```
-[1] 0.0529
-```
-
+- Simple linear model won't fit
 
 ----
 
-## CV Error
-# How many parameters are too many?
+## Regression
+# CV Error
 <space>
 
 - Let's add some features
@@ -2395,27 +2362,27 @@ summary(lm(Y ~ X, df))$adj.r.squared  # low R^2 - simple linear model won't fit
 
 ```r
 df <- transform(df, X2 = X^2, X3 = X^3)
-summary(lm(Y ~ X + X2 + X3, df))$coef[, 1]
+fit_3 <- lm(Y ~ ., df)
+summary(fit_3)$adj.r.squared
 ```
 
 ```
-(Intercept)           X          X2          X3 
-     0.3363      6.5690    -26.9982     22.0071 
+[1] 0.8195
 ```
 
 ```r
-summary(lm(Y ~ X + X2 + X3, df))$adj.r.squared
+sqrt(mean((predict(fit_3) - df$Y)^2))  # Root MSE
 ```
 
 ```
-[1] 0.8082
+[1] 0.2936
 ```
 
 
 ----
 
-## CV Error
-# How many parameters are too many?
+## Regression
+# CV Error
 <space>
 
 - Let's add even more features
@@ -2425,14 +2392,12 @@ summary(lm(Y ~ X + X2 + X3, df))$adj.r.squared
 df <- transform(df, X4 = X^4, X5 = X^5, X6 = X^6, X7 = X^7, X8 = X^8, X9 = X^9, 
     X10 = X^10, X11 = X^11, X12 = X^12, X13 = X^13, X14 = X^14, X15 = X^15, 
     X16 = X^16, X17 = X^17, X18 = X^18, X19 = X^19, X20 = X^20)
-line.fit <- lm(Y ~ X + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + 
-    X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20, df)
-head(summary(line.fit)$coef[, 1])
+line.fit <- lm(Y ~ ., df)
+summary(line.fit)$adj.r.squared
 ```
 
 ```
-(Intercept)           X          X2          X3          X4          X5 
-  8.297e-03   1.842e+01  -7.101e+02   1.986e+04  -3.064e+05   2.903e+06 
+[1] 0.9786
 ```
 
 ```r
@@ -2440,14 +2405,14 @@ sqrt(mean((predict(line.fit) - df$Y)^2))  # Root MSE
 ```
 
 ```
-[1] 0.08925
+[1] 0.09781
 ```
 
 
 ----
 
-## CV Error
-# How many parameters are too many?
+## Regression
+# CV Error
 <space>
 
 - Use orthogonal polynomials to avoid correlated features
@@ -2469,7 +2434,7 @@ summary(linear.fit)$adj.r.squared
 ```
 
 ```
-[1] 0.9828
+[1] 0.9781
 ```
 
 ```r
@@ -2477,14 +2442,14 @@ sqrt(mean((predict(linear.fit) - df$Y)^2))
 ```
 
 ```
-[1] 0.08859
+[1] 0.09766
 ```
 
 
 ----
 
-## CV Error
-# How many parameters are too many?
+## Regression
+# CV Error
 <space>
 
 - When to stop adding othogonal features?
@@ -2494,8 +2459,8 @@ sqrt(mean((predict(linear.fit) - df$Y)^2))
 
 ----
 
-## CV Error
-# How many parameters are too many?
+## Regression
+# CV Error
 <space>
 
 - Use cross-validation to determine best degree
@@ -2522,8 +2487,8 @@ rmse <- function(y, h) return(sqrt(mean((y - h)^2)))
 
 ----
 
-## CV Error
-# How many parameters are too many?
+## Regression
+# CV Error
 <space>
 
 
@@ -2542,8 +2507,8 @@ for (d in degrees) {
 
 ----
 
-## CV Error
-# How many parameters are too many?
+## Regression
+# CV Error
 <space>
 
 ![plot of chunk learning_plot](figure/learning_plot.png) 
@@ -2555,45 +2520,50 @@ for (d in degrees) {
 # Summary
 <space>
 
-- Minimize MSE of target function
-- Analytically vs. approximation
-- Gradient descent preferrable when lots of examples
-- Use Cross Validation plot to determine optimal number of parameters
+1. Minimize MSE of target function
+2. Analytical vs. approximation
+3. Approximation is preferrable when lots of examples
+4. Use Cross Validation plot to determine optimal number of parameters
 
 ----
 
 ## Summary
-# 
+<space>
 <space>
 
-- Machine learning overview and concepts
-- Visualizing Data
-- kNN algorithm
-- Naive Bayes
-  - Probability concepts
-  - Mobile Spam case study
-- Model performance measures
-- Regression
+1. Machine learning overview and concepts
+2. Visualizing Data
+3. kNN algorithm
+4. Naive Bayes
+5. Model performance measures
+6. Regression
 
 ----
 
-## Next Time
-# 
+## Next Time?
+<space> 
 <space>
 
 - Logistic regression
 - Decision Trees
 - Clustering
-- Dimensionality reduction (PCA, ICA)
+- Dimensionality reduction
 - Regularization
 
 ----
 
 ## Resources
 <space>
+<space>
 
+- [Presentation](http://github.com/ilanman/Rpres_ML)
 - [Machine Learning with R](http://www.packtpub.com/machine-learning-with-r/book)
 - [Machine Learning for Hackers](http://shop.oreilly.com/product/0636920018483.do)
 - [Elements of Statistical Learning](http://web.stanford.edu/~hastie/local.ftp/Springer/OLD/ESLII_print4.pdf)
+- [Machine Learning for Astronomy - Scikit Learn](http://www.astroml.org/sklearn_tutorial/)
+
+----
+
+## THANKS!
 
 ----

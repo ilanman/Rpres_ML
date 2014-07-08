@@ -43,7 +43,8 @@
     <h2>Agenda</h2>
   </hgroup>
   <article>
-    <p><space></p>
+    <p><space>
+<space></p>
 
 <ol>
 <li>Machine Learning Overview</li>
@@ -70,9 +71,16 @@
 <ul>
 <li>Field of study interested in transforming data into intelligent actions</li>
 <li>Intersection of statistics, available data and computing power</li>
-<li>It is NOT data mining</li>
-<li>Data mining is an exploratory exercise, whereas most machine learning has a known answer</li>
-<li>Data mining is a subset of machine learning (unsupervised)</li>
+<li>It is NOT data mining
+
+<ul>
+<li>Data mining is an exploratory exercise
+
+<ul>
+<li>Most machine learning problems have a known answer</li>
+</ul></li>
+<li>Data mining is a subset (unsupervised)</li>
+</ul></li>
 </ul>
 
   </article>
@@ -94,7 +102,7 @@
 <li>Credit fraud prediction</li>
 <li>Image processing</li>
 <li>Customer churn</li>
-<li>Customer subscription rates</li>
+<li>Customer subscription predictions</li>
 </ul>
 
   </article>
@@ -155,7 +163,7 @@
 
 <ul>
 <li>Turn abstracted knowledge into something that can be utilized</li>
-<li>Model user heuristics since it cannot see every example
+<li>Model uses heuristics since it cannot see every example
 
 <ul>
 <li>When hueristics are systematically wrong, the algorithm has a bias</li>
@@ -185,16 +193,16 @@
 <li>Perfect generalization is exceedingly rare
 
 <ul>
-<li>Partly due to noise</li>
+<li>Noise</li>
 <li>Measurement error</li>
-<li>Change in user behavior</li>
-<li>Incorrect data, erroneous values, etc...</li>
+<li>Change in behavior</li>
+<li>Incorrect/erroneous data</li>
 </ul></li>
 <li>Fitting too closesly to the noise leads to overfitting
 
 <ul>
 <li>Complex models have high variance</li>
-<li>Good on training, bad on testing</li>
+<li>Performs well on training, poorly on testing</li>
 </ul></li>
 </ul>
 
@@ -207,7 +215,7 @@
     <h2>Machine Learning Overview</h2>
   </hgroup>
   <article>
-    <h1>Steps to apply Machine Learning</h1>
+    <h1>Steps to apply</h1>
 
 <p><space></p>
 
@@ -216,7 +224,7 @@
 <li>Explore and preprocess data 
 
 <ul>
-<li>Majority of the time is spent in this stage</li>
+<li>Large majority of the time is spent in this stage</li>
 </ul></li>
 <li>Train the model
 
@@ -246,13 +254,13 @@
 
 <ul>
 <li>Consider input data</li>
-<li>An <strong>example</strong> is one data point that the machine is intended to learn </li>
-<li>A feature is a characteristic of the example
+<li>An <code>example</code> is one data point that the machine is intended to learn </li>
+<li>A <code>feature</code> is a characteristic of the example
 
 <ul>
 <li>e.g. Number of times the word &quot;viagra&quot; appears in an email</li>
 </ul></li>
-<li>For classification problems, a label is the example&#39;s classification</li>
+<li>For classification problems, a <code>label</code> is the example&#39;s classification</li>
 <li>Most algorithms require data in matrix format because Math said so</li>
 <li>Features can be numeric, categorical/nominal or ordinal</li>
 </ul>
@@ -448,7 +456,7 @@ summary(iris[, 1:4])
     <h2>Exploring Data</h2>
   </hgroup>
   <article>
-    <h1>Visualizing - histograms</h1>
+    <h1>Visualizing - Histograms</h1>
 
 <p><space></p>
 
@@ -456,6 +464,7 @@ summary(iris[, 1:4])
 <li>Each bar is a &#39;bin&#39;</li>
 <li>Height of bar is the frequency (count of) that bin</li>
 <li>Some distributions are normally distributed (bell shaped) or skewed (heavy tails)</li>
+<li>Can see the <code>kurtosis</code> - peakedness of a distribution</li>
 </ul>
 
 <p><img src="figure/histogram.png" title="plot of chunk histogram" alt="plot of chunk histogram" style="display: block; margin: auto;" /></p>
@@ -469,7 +478,7 @@ summary(iris[, 1:4])
     <h2>Exploring Data</h2>
   </hgroup>
   <article>
-    <h1>Visualizing - scatterplots</h1>
+    <h1>Visualizing - Scatterplots</h1>
 
 <p><space></p>
 
@@ -492,11 +501,11 @@ summary(iris[, 1:4])
 
 <p><space></p>
 
-<ul>
+<ol>
 <li>Measures of central tendency and dispersion</li>
 <li>Visualizing data using histograms, boxplots, scatterplots</li>
-<li>Skewed vs normally distributed data</li>
-</ul>
+<li>Skewed vs unskewed data</li>
+</ol>
 
   </article>
   <!-- Presenter Notes -->
@@ -513,7 +522,7 @@ summary(iris[, 1:4])
 
 <ul>
 <li>Understanding the algorithm</li>
-<li>Data Preparation</li>
+<li>Data preparation</li>
 <li>Case study: diagnosing breast cancer</li>
 <li>Summary</li>
 </ul>
@@ -532,7 +541,7 @@ summary(iris[, 1:4])
 <p><space></p>
 
 <ul>
-<li>Things that are similar are probably of the same class</li>
+<li>Things that are similar are probably of the same type</li>
 <li>Good for: when it&#39;s difficult to define, but &quot;you know it when you see it&quot;</li>
 <li>Bad for: when a clear distinction doesn&#39;t exist</li>
 </ul>
@@ -580,7 +589,7 @@ summary(iris[, 1:4])
 
 <p><space></p>
 
-<p><img src="figure/new_point.png" title="plot of chunk new point" alt="plot of chunk new point" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="figure/new_point_knn.png" title="plot of chunk new_point_knn" alt="plot of chunk new_point_knn" style="display: block; margin: auto auto auto 0;" /></p>
 
 <ul>
 <li>Suppose we had a new point with Sepal Length of 7 and Petal Length of 4</li>
@@ -607,9 +616,9 @@ summary(iris[, 1:4])
 <li>Euclidean distance</li>
 <li>\(dist(p,q) = \sqrt{(p_1-q_1)^2+(p_2-q_2)^2+ ... + (p_n-q_n)^2}\)</li>
 <li>Closest neighbor -&gt; 1-NN</li>
-<li>3 closest neighbors -&gt; 3-NN. </li>
-<li>Winner is the majority class of all neighbors</li>
+<li>3 closest neighbors -&gt; 3-NN</li>
 </ul></li>
+<li>Winner is the majority class of all neighbors</li>
 </ul>
 
   </article>
@@ -632,9 +641,9 @@ summary(iris[, 1:4])
 <li>Euclidean distance</li>
 <li>\(dist(p,q) = \sqrt{(p_1-q_1)^2+(p_2-q_2)^2+ ... + (p_n-q_n)^2}\)</li>
 <li>Closest neighbor -&gt; 1-NN</li>
-<li>3 closest neighbors -&gt; 3-NN. </li>
-<li>Winner is the majority class of all neighbors</li>
+<li>3 closest neighbors -&gt; 3-NN</li>
 </ul></li>
+<li>Winner is the majority class of all neighbors</li>
 <li>Why not just fit to all data points?</li>
 </ul>
 
@@ -644,7 +653,7 @@ summary(iris[, 1:4])
 
       <slide class="" id="slide-27" style="background:;">
   <hgroup>
-    <h2>K-Nearest neighbors</h2>
+    <h2>K-Nearest Neighbors</h2>
   </hgroup>
   <article>
     <h1>Bias vs. Variance</h1>
@@ -672,10 +681,10 @@ summary(iris[, 1:4])
 
       <slide class="" id="slide-28" style="background:;">
   <hgroup>
-    <h2>K-Nearest neighbors</h2>
+    <h2>K-Nearest Neighbors</h2>
   </hgroup>
   <article>
-    <h1>Data preparation</h1>
+    <h1>Data Preparation</h1>
 
 <p><space></p>
 
@@ -697,7 +706,7 @@ ex &lt;- ggplot(houses, aes(price, size)) + geom_point() + scale_x_continuous(la
 
       <slide class="" id="slide-29" style="background:;">
   <hgroup>
-    <h2>K-Nearest neighbors</h2>
+    <h2>K-Nearest Neighbors</h2>
   </hgroup>
   <article>
     <h1>Data Preparation</h1>
@@ -712,7 +721,7 @@ ex &lt;- ggplot(houses, aes(price, size)) + geom_point() + scale_x_continuous(la
 
       <slide class="" id="slide-30" style="background:;">
   <hgroup>
-    <h2>K-Nearest neighbors</h2>
+    <h2>K-Nearest Neighbors</h2>
   </hgroup>
   <article>
     <h1>Data Preparation</h1>
@@ -727,7 +736,7 @@ ex &lt;- ggplot(houses, aes(price, size)) + geom_point() + scale_x_continuous(la
 
       <slide class="" id="slide-31" style="background:;">
   <hgroup>
-    <h2>K-Nearest neighbors</h2>
+    <h2>K-Nearest Neighbors</h2>
   </hgroup>
   <article>
     <h1>Data Preparation</h1>
@@ -742,12 +751,17 @@ ex &lt;- ggplot(houses, aes(price, size)) + geom_point() + scale_x_continuous(la
 
       <slide class="" id="slide-32" style="background:;">
   <hgroup>
-    <h2>K-Nearest neighbors</h2>
+    <h2>K-Nearest Neighbors</h2>
   </hgroup>
   <article>
     <h1>Data Preparation</h1>
 
 <p><space></p>
+
+<ul>
+<li>\(dist(p,q) = \sqrt{(p_1-q_1)^2+(p_2-q_2)^2+ ... + (p_n-q_n)^2}\)</li>
+<li>Minimize the distance</li>
+</ul>
 
 <pre><code class="r"># 1) using loops
 loop_dist &lt;- 0
@@ -758,11 +772,12 @@ for (i in 1:nrow(houses)) {
 # 2) vectorized
 vec_dist &lt;- sqrt(rowSums(t(new_p - t(houses))^2))
 closest &lt;- data.frame(houses[which.min(vec_dist), ])
+
 print(closest)
 </code></pre>
 
 <pre><code>   price  size
-11 4e+05 323.8
+11 4e+05 385.9
 </code></pre>
 
   </article>
@@ -839,6 +854,8 @@ print(closest)
 <p><space></p>
 
 <pre><code class="r">new_house &lt;- scale(houses)
+
+# z-score standardization
 new_new &lt;- c((new_p[1] - mean(houses[, 1]))/sd(houses[, 1]), (new_p[2] - mean(houses[, 
     2]))/sd(houses[, 2]))
 
@@ -1107,8 +1124,8 @@ prop.table(table(predict_1))
 </code></pre>
 
 <pre><code>predict_1
-     B      M 
-0.6789 0.3211 
+  B   M 
+0.7 0.3 
 </code></pre>
 
   </article>
@@ -1124,22 +1141,13 @@ prop.table(table(predict_1))
 
 <p><space></p>
 
-<pre><code class="r">pred_B &lt;- which(predict_1 == &quot;B&quot;)
-test_B &lt;- which(test_labels == &quot;B&quot;)
-pred_M &lt;- which(predict_1 == &quot;M&quot;)
-test_M &lt;- which(test_labels == &quot;M&quot;)
+<pre><code>   acc    tpr     tn 
+0.9474 0.9323 0.9825 
+</code></pre>
 
-true_positive &lt;- sum(pred_B %in% test_B)
-true_negative &lt;- sum(pred_M %in% test_M)
-false_positive &lt;- sum(pred_B %in% test_M)
-false_negative &lt;- sum(pred_M %in% test_B)
-
-conf_mat &lt;- matrix(c(true_positive, false_negative, false_positive, true_negative), 
-    nrow = 2, ncol = 2)
-
-acc &lt;- sum(diag(conf_mat))/sum(conf_mat)
-tpr &lt;- conf_mat[1, 1]/sum(conf_mat[1, ])
-tn &lt;- conf_mat[2, 2]/sum(conf_mat[2, ])
+<pre><code>       Actual B Actual M
+Pred B      124        9
+Pred M        1       56
 </code></pre>
 
   </article>
@@ -1155,13 +1163,15 @@ tn &lt;- conf_mat[2, 2]/sum(conf_mat[2, ])
 
 <p><space></p>
 
-<pre><code>   acc    tpr     tn 
-0.9579 0.9380 1.0000 
+<pre><code class="r">library(caret)  # Classification and Regression Training
+con_mat &lt;- confusionMatrix(predict_1, test_labels)
+con_mat$table
 </code></pre>
 
-<pre><code>       Actual B Actual M
-Pred B      121        8
-Pred M        0       61
+<pre><code>          Reference
+Prediction   B   M
+         B 124   9
+         M   1  56
 </code></pre>
 
   </article>
@@ -1184,32 +1194,8 @@ con_mat$table
 
 <pre><code>          Reference
 Prediction   B   M
-         B 121   8
-         M   0  61
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-50" style="background:;">
-  <hgroup>
-    <h2>K-Nearest Neighbors</h2>
-  </hgroup>
-  <article>
-    <h1>Case study</h1>
-
-<p><space></p>
-
-<pre><code class="r">library(caret)  # Classification and Regression Training
-con_mat &lt;- confusionMatrix(predict_1, test_labels)
-con_mat$table
-</code></pre>
-
-<pre><code>          Reference
-Prediction   B   M
-         B 121   8
-         M   0  61
+         B 124   9
+         M   1  56
 </code></pre>
 
 <pre><code>Exercise:
@@ -1220,7 +1206,7 @@ Prediction   B   M
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-51" style="background:;">
+      <slide class="" id="slide-50" style="background:;">
   <hgroup>
     <h2>K-Nearest Neighbors</h2>
   </hgroup>
@@ -1245,7 +1231,7 @@ for (i in k_params) {
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-52" style="background:;">
+      <slide class="" id="slide-51" style="background:;">
   <hgroup>
     <h2>K-Nearest Neighbors</h2>
   </hgroup>
@@ -1256,26 +1242,26 @@ for (i in k_params) {
 
 <!-- html table generated in R 3.0.3 by xtable 1.7-3 package -->
 
-<!-- Mon Jul 07 19:28:56 2014 -->
+<!-- Tue Jul 08 16:53:35 2014 -->
 
 <TABLE border=1>
 <TR> <TH> K </TH> <TH> Acc </TH> <TH> TP </TH> <TH> FP </TH> <TH> FN </TH> <TH> TN </TH>  </TR>
-  <TR> <TD align="right"> 1.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 118.00 </TD> <TD align="right"> 2.00 </TD> <TD align="right"> 3.00 </TD> <TD align="right"> 67.00 </TD> </TR>
-  <TR> <TD align="right"> 3.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 120.00 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 64.00 </TD> </TR>
-  <TR> <TD align="right"> 5.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 64.00 </TD> </TR>
-  <TR> <TD align="right"> 10.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 15.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 20.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 60.00 </TD> </TR>
-  <TR> <TD align="right"> 25.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 30.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 8.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 61.00 </TD> </TR>
-  <TR> <TD align="right"> 40.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 121.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 60.00 </TD> </TR>
+  <TR> <TD align="right"> 1.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 123.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 2.00 </TD> <TD align="right"> 58.00 </TD> </TR>
+  <TR> <TD align="right"> 3.00 </TD> <TD align="right"> 0.97 </TD> <TD align="right"> 125.00 </TD> <TD align="right"> 5.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 60.00 </TD> </TR>
+  <TR> <TD align="right"> 5.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 123.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 2.00 </TD> <TD align="right"> 58.00 </TD> </TR>
+  <TR> <TD align="right"> 10.00 </TD> <TD align="right"> 0.96 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 7.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 58.00 </TD> </TR>
+  <TR> <TD align="right"> 15.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 56.00 </TD> </TR>
+  <TR> <TD align="right"> 20.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 56.00 </TD> </TR>
+  <TR> <TD align="right"> 25.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 125.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 56.00 </TD> </TR>
+  <TR> <TD align="right"> 30.00 </TD> <TD align="right"> 0.95 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 9.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 56.00 </TD> </TR>
+  <TR> <TD align="right"> 40.00 </TD> <TD align="right"> 0.94 </TD> <TD align="right"> 124.00 </TD> <TD align="right"> 11.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 54.00 </TD> </TR>
    </TABLE>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-53" style="background:;">
+      <slide class="" id="slide-52" style="background:;">
   <hgroup>
     <h2>K-Nearest Neighbors</h2>
   </hgroup>
@@ -1284,7 +1270,7 @@ for (i in k_params) {
 
 <p><space></p>
 
-<ul>
+<ol>
 <li>kNN is a lazy learning algorithm
 
 <ul>
@@ -1309,13 +1295,13 @@ for (i in k_params) {
 <li>Testing step is computationally expensive (unlike parametric models)</li>
 <li>Needs a large number of training samples to be useful</li>
 </ul></li>
-</ul>
+</ol>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-54" style="background:;">
+      <slide class="" id="slide-53" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1334,7 +1320,7 @@ for (i in k_params) {
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-55" style="background:;">
+      <slide class="" id="slide-54" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1365,7 +1351,7 @@ for (i in k_params) {
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-56" style="background:;">
+      <slide class="" id="slide-55" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1394,7 +1380,7 @@ for (i in k_params) {
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-57" style="background:;">
+      <slide class="" id="slide-56" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1417,6 +1403,37 @@ for (i in k_params) {
 <ul>
 <li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\) </li>
 <li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-57" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Probability and Bayes Theorem</h1>
+
+<p><space></p>
+
+<ul>
+<li>&quot;A and B&quot; is \(A \cap B\) (intersect)</li>
+<li>Independent events
+
+<ul>
+<li>\(P(A \cap B) = P(A) \times P(B)\)
+<space></li>
+</ul></li>
+<li>&quot;A given B&quot; is \(A \mid B\)</li>
+<li>Conditional probability
+
+<ul>
+<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</li>
+<li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
+<li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
 </ul></li>
 </ul>
 
@@ -1448,6 +1465,7 @@ for (i in k_params) {
 <li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</li>
 <li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
 <li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
+<li>but \(P(B \cap A) = P(A \cap B)\)</li>
 </ul></li>
 </ul>
 
@@ -1480,6 +1498,7 @@ for (i in k_params) {
 <li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
 <li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
 <li>but \(P(B \cap A) = P(A \cap B)\)</li>
+<li>so \(P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}\)</li>
 </ul></li>
 </ul>
 
@@ -1512,39 +1531,6 @@ for (i in k_params) {
 <li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
 <li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
 <li>but \(P(B \cap A) = P(A \cap B)\)</li>
-<li>so \(P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}\)</li>
-</ul></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-61" style="background:;">
-  <hgroup>
-    <h2>Naive Bayes</h2>
-  </hgroup>
-  <article>
-    <h1>Probability and Bayes Theorem</h1>
-
-<p><space></p>
-
-<ul>
-<li>&quot;A and B&quot; is \(A \cap B\) (intersect)</li>
-<li>Independent events
-
-<ul>
-<li>\(P(A \cap B) = P(A) \times P(B)\)
-<space></li>
-</ul></li>
-<li>&quot;A given B&quot; is \(A \mid B\)</li>
-<li>Conditional probability
-
-<ul>
-<li>\(P(A \mid B) = \frac{P(A \cap B)}{P(B)}\)</li>
-<li>\(P(B \mid A) = \frac{P(B \cap A)}{P(A)}\)</li>
-<li>\(P(B \mid A) \times P(A) = P(B \cap A)\)</li>
-<li>but \(P(B \cap A) = P(A \cap B)\)</li>
 <li>so \(P(A \mid B) = \frac{P(B \mid A) \times P(A)}{P(B)}\) &nbsp;&nbsp;&lt;-  &nbsp; Bayes theorem</li>
 </ul></li>
 </ul>
@@ -1553,7 +1539,7 @@ for (i in k_params) {
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-62" style="background:;">
+      <slide class="" id="slide-61" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1582,7 +1568,7 @@ for (i in k_params) {
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-63" style="background:;">
+      <slide class="" id="slide-62" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1607,7 +1593,7 @@ total       13      87   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-64" style="background:;">
+      <slide class="" id="slide-63" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1632,7 +1618,7 @@ total       13      87   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-65" style="background:;">
+      <slide class="" id="slide-64" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1660,7 +1646,7 @@ total       13      87   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-66" style="background:;">
+      <slide class="" id="slide-65" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1692,7 +1678,7 @@ total       13      87   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-67" style="background:;">
+      <slide class="" id="slide-66" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1713,7 +1699,7 @@ total       13      87            26           74   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-68" style="background:;">
+      <slide class="" id="slide-67" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1744,7 +1730,7 @@ total       13      87            26           74   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-69" style="background:;">
+      <slide class="" id="slide-68" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1760,6 +1746,32 @@ total       13      87            26           74   100
 <ul>
 <li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
 <li>Called &quot;class conditional independence&quot;</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-69" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Why Naive?</h1>
+
+<p><space></p>
+
+<ul>
+<li>As features increase, formula becomes very expensive</li>
+<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
+
+<ul>
+<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
+<li>Called &quot;class conditional independence&quot;:<br>
+<br>
+\(P(spam \mid cash=yes \cap furniture=no) =\)<br>
+<br></li>
 </ul></li>
 </ul>
 
@@ -1785,6 +1797,8 @@ total       13      87            26           74   100
 <li>Called &quot;class conditional independence&quot;:<br>
 <br>
 \(P(spam \mid cash=yes \cap furniture=no) =\)<br>
+<br>
+\(\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =\)<br> 
 <br></li>
 </ul></li>
 </ul>
@@ -1813,6 +1827,8 @@ total       13      87            26           74   100
 \(P(spam \mid cash=yes \cap furniture=no) =\)<br>
 <br>
 \(\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =\)<br> 
+<br>
+\(\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =\)<br>
 <br></li>
 </ul></li>
 </ul>
@@ -1843,6 +1859,8 @@ total       13      87            26           74   100
 \(\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =\)<br> 
 <br>
 \(\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =\)<br>
+<br>
+\(\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}\)<br>
 <br></li>
 </ul></li>
 </ul>
@@ -1879,38 +1897,6 @@ total       13      87            26           74   100
 </ul></li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-74" style="background:;">
-  <hgroup>
-    <h2>Naive Bayes</h2>
-  </hgroup>
-  <article>
-    <h1>Why Naive?</h1>
-
-<p><space></p>
-
-<ul>
-<li>As features increase, formula becomes very expensive</li>
-<li>Solution: assume each feature is independent of any other feature, given they are in the same class 
-
-<ul>
-<li>Independence formula: \(P(A \cap B) = P(A) \times P(B)\)</li>
-<li>Called &quot;class conditional independence&quot;:<br>
-<br>
-\(P(spam \mid cash=yes \cap furniture=no) =\)<br>
-<br>
-\(\frac{P(cash=yes \cap furniture=no \mid spam) \times P(spam)}{P(cash=yes \cap furniture=no)} =\)<br> 
-<br>
-\(\frac{P(cash=yes \mid spam) \times P(furniture=no \mid spam) \times P(spam)}{P(cash=yes) \times P(furniture=no)} =\)<br>
-<br>
-\(\frac{\frac{10}{30} \times \frac{24}{30} \times \frac{30}{100}}{\frac{13}{100} \times \frac{74}{100}}\)<br>
-<br></li>
-</ul></li>
-</ul>
-
 <pre><code>Exercise:
 1) What is the probability of a ham email given that the word CASH! exists and the word furniture does not?
 </code></pre>
@@ -1919,7 +1905,7 @@ total       13      87            26           74   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-75" style="background:;">
+      <slide class="" id="slide-74" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1942,7 +1928,7 @@ total       13      87            26           74         3       97   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-76" style="background:;">
+      <slide class="" id="slide-75" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1965,7 +1951,7 @@ total       13      87            26           74         3       97   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-77" style="background:;">
+      <slide class="" id="slide-76" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -1996,7 +1982,7 @@ total       13      87            26           74         3       97   100
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-78" style="background:;">
+      <slide class="" id="slide-77" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -2022,7 +2008,7 @@ str(sms_data)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-79" style="background:;">
+      <slide class="" id="slide-78" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -2044,7 +2030,7 @@ sms_corpus
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-80" style="background:;">
+      <slide class="" id="slide-79" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -2070,7 +2056,7 @@ Nah I don&#39;t think he goes to usf, he lives around here though
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-81" style="background:;">
+      <slide class="" id="slide-80" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -2094,7 +2080,7 @@ sms_dtm &lt;- DocumentTermMatrix(corpus_clean)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-82" style="background:;">
+      <slide class="" id="slide-81" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -2124,7 +2110,7 @@ corpus_test_set &lt;- DocumentTermMatrix(corpus_test_set, list(dictionary = freq
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-83" style="background:;">
+      <slide class="" id="slide-82" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -2143,6 +2129,34 @@ convert &lt;- function(x) {
 
 corpus_train_set &lt;- apply(corpus_train_set, MARGIN = 2, FUN = convert)
 corpus_test_set &lt;- apply(corpus_test_set, MARGIN = 2, FUN = convert)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-83" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article>
+    <h1>Case Study: SMS spam filtering</h1>
+
+<p><space></p>
+
+<pre><code class="r">library(e1071)
+
+naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
+predict_naive &lt;- predict(naive_model, corpus_test_set)
+
+naive_conf &lt;- confusionMatrix(predict_naive, raw_test_set$type)$table
+naive_conf
+</code></pre>
+
+<pre><code>          Reference
+Prediction  ham spam
+      ham  1597   23
+      spam    7  231
 </code></pre>
 
   </article>
@@ -2169,36 +2183,8 @@ naive_conf
 
 <pre><code>          Reference
 Prediction  ham spam
-      ham  1607   44
-      spam    7  200
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-85" style="background:;">
-  <hgroup>
-    <h2>Naive Bayes</h2>
-  </hgroup>
-  <article>
-    <h1>Case Study: SMS spam filtering</h1>
-
-<p><space></p>
-
-<pre><code class="r">library(e1071)
-
-naive_model &lt;- naiveBayes(x = corpus_train_set, y = raw_train_set$type)
-predict_naive &lt;- predict(naive_model, corpus_test_set)
-
-naive_conf &lt;- confusionMatrix(predict_naive, raw_test_set$type)$table
-naive_conf
-</code></pre>
-
-<pre><code>          Reference
-Prediction  ham spam
-      ham  1607   44
-      spam    7  200
+      ham  1597   23
+      spam    7  231
 </code></pre>
 
 <pre><code>Exercise:
@@ -2211,7 +2197,7 @@ Prediction  ham spam
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-86" style="background:;">
+      <slide class="" id="slide-85" style="background:;">
   <hgroup>
     <h2>Naive Bayes</h2>
   </hgroup>
@@ -2220,7 +2206,7 @@ Prediction  ham spam
 
 <p><space></p>
 
-<ul>
+<ol>
 <li>Probabalistic approach</li>
 <li>Naive Bayes assumes features are independent, conditioned on being in the same class</li>
 <li>Useful for text classification</li>
@@ -2237,13 +2223,13 @@ Prediction  ham spam
 <li>Assumes all features are independent and equally important</li>
 <li>Not well suited for numeric data sets</li>
 </ul></li>
-</ul>
+</ol>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-87" style="background:;">
+      <slide class="" id="slide-86" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2261,7 +2247,7 @@ Prediction  ham spam
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-88" style="background:;">
+      <slide class="" id="slide-87" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2284,7 +2270,7 @@ Prediction  ham spam
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-89" style="background:;">
+      <slide class="" id="slide-88" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2315,7 +2301,7 @@ Prediction  ham spam
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-90" style="background:;">
+      <slide class="" id="slide-89" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2329,20 +2315,20 @@ confidence &lt;- predict(naive_model, corpus_test_set, type = &quot;raw&quot;)
 as.data.frame(format(head(confidence), digits = 2, scientific = FALSE))
 </code></pre>
 
-<pre><code>             ham           spam
-1 0.969265077228 0.030734922772
-2 0.000000000272 0.999999999728
-3 0.999999987545 0.000000012455
-4 0.000000000003 0.999999999997
-5 0.999999274158 0.000000725842
-6 0.997483049798 0.002516950202
+<pre><code>              ham            spam
+1 0.9999980224859 0.0000019775141
+2 0.9999758617729 0.0000241382271
+3 0.0000000000091 0.9999999999909
+4 0.9944709959147 0.0055290040853
+5 0.9998858546288 0.0001141453712
+6 0.9999638652818 0.0000361347182
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-91" style="background:;">
+      <slide class="" id="slide-90" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2359,13 +2345,44 @@ comparison[, 3] &lt;- format(comparison[, 3], digits = 2, scientific = FALSE)
 head(comparison)
 </code></pre>
 
-<pre><code>  predict actual           prob_spam
-1     ham    ham 0.03073492277184106
-2    spam   spam 0.99999999972755882
-3     ham    ham 0.00000001245462555
-4    spam   spam 0.99999999999695421
-5     ham    ham 0.00000072584174971
-6     ham    ham 0.00251695020244934
+<pre><code>  predict actual          prob_spam
+1     ham    ham 0.0000019775140932
+2     ham    ham 0.0000241382270614
+3    spam   spam 0.9999999999908598
+4     ham    ham 0.0055290040853312
+5     ham    ham 0.0001141453711585
+6     ham    ham 0.0000361347182039
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-91" style="background:;">
+  <hgroup>
+    <h2>Model Performance</h2>
+  </hgroup>
+  <article>
+    <h1>Classification problems</h1>
+
+<p><space></p>
+
+<pre><code class="r">head(comparison[with(comparison, predict == actual), ])
+</code></pre>
+
+<pre><code>  predict actual          prob_spam
+1     ham    ham 0.0000019775140932
+2     ham    ham 0.0000241382270614
+3    spam   spam 0.9999999999908598
+4     ham    ham 0.0055290040853312
+5     ham    ham 0.0001141453711585
+6     ham    ham 0.0000361347182039
+</code></pre>
+
+<pre><code class="r">mean(as.numeric(comparison[with(comparison, predict == &quot;spam&quot;), ]$prob_spam))
+</code></pre>
+
+<pre><code>[1] 0.9723
 </code></pre>
 
   </article>
@@ -2381,22 +2398,22 @@ head(comparison)
 
 <p><space></p>
 
-<pre><code class="r">head(comparison[with(comparison, predict == actual), ])
+<pre><code class="r">head(comparison[with(comparison, predict != actual), ])
 </code></pre>
 
-<pre><code>  predict actual           prob_spam
-1     ham    ham 0.03073492277184106
-2    spam   spam 0.99999999972755882
-3     ham    ham 0.00000001245462555
-4    spam   spam 0.99999999999695421
-5     ham    ham 0.00000072584174971
-6     ham    ham 0.00251695020244934
+<pre><code>    predict actual          prob_spam
+20     spam    ham 0.5757090697677075
+125    spam    ham 0.5417553641799085
+206     ham   spam 0.0008557227673755
+231     ham   spam 0.0454769513801028
+294     ham   spam 0.0488146924315075
+397     ham   spam 0.0119352110379246
 </code></pre>
 
-<pre><code class="r">mean(as.numeric(comparison[with(comparison, predict == &quot;spam&quot;), ]$prob_spam))
+<pre><code class="r">mean(as.numeric(comparison[with(comparison, predict != &quot;spam&quot;), ]$prob_spam))
 </code></pre>
 
-<pre><code>[1] 0.9827
+<pre><code>[1] 0.00552
 </code></pre>
 
   </article>
@@ -2408,44 +2425,16 @@ head(comparison)
     <h2>Model Performance</h2>
   </hgroup>
   <article>
-    <h1>Classification problems</h1>
-
-<p><space></p>
-
-<pre><code class="r">head(comparison[with(comparison, predict != actual), ])
-</code></pre>
-
-<pre><code>    predict actual           prob_spam
-70      ham   spam 0.32261195298564260
-142     ham   spam 0.22348642626700724
-181     ham   spam 0.00074384650893715
-226     ham   spam 0.00052525521655908
-232     ham   spam 0.23899356386596546
-248     ham   spam 0.00240698897952186
-</code></pre>
-
-<pre><code class="r">mean(as.numeric(comparison[with(comparison, predict != &quot;spam&quot;), ]$prob_spam))
-</code></pre>
-
-<pre><code>[1] 0.006759
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-94" style="background:;">
-  <hgroup>
-    <h2>Model Performance</h2>
-  </hgroup>
-  <article>
     <h1>Confusion Matrix</h1>
 
 <p><space></p>
 
 <ul>
-<li>Categorize predictions on whether they match actual values or not</li>
+<li>Categorize predictions on whether they match actual values or not
+
+<ul>
 <li>Can be more than two classes</li>
+</ul></li>
 <li>Count the number of predictions falling on and off the diagonals</li>
 </ul>
 
@@ -2454,15 +2443,15 @@ head(comparison)
 
 <pre><code>
         ham spam
-  ham  1607   44
-  spam    7  200
+  ham  1597   23
+  spam    7  231
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-95" style="background:;">
+      <slide class="" id="slide-94" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2484,7 +2473,7 @@ head(comparison)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-96" style="background:;">
+      <slide class="" id="slide-95" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2510,6 +2499,30 @@ head(comparison)
   <!-- Presenter Notes -->
 </slide>
 
+      <slide class="" id="slide-96" style="background:;">
+  <hgroup>
+    <h2>Model Performance</h2>
+  </hgroup>
+  <article>
+    <h1>Kappa</h1>
+
+<p><space></p>
+
+<ul>
+<li>\(P(A)\) is the accuracy</li>
+<li>\(P(E)\) is the proportion of results where actual = predicted
+
+<ul>
+<li>\(P(E) = P(E = class\hspace{2 mm}1 ) + P(E = class\hspace{2 mm}2)\)</li>
+<li>\(P(E = class 1) = P(actual = class\hspace{2 mm}1 \cap predicted = class\hspace{2 mm}1)\)</li>
+<li>actual and predicted are independent so...</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
       <slide class="" id="slide-97" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
@@ -2520,13 +2533,15 @@ head(comparison)
 <p><space></p>
 
 <ul>
-<li>P(A) is the accuracy</li>
-<li>P(E) is the proportion of results where actual = predicted
+<li>\(P(A)\) is the accuracy</li>
+<li>\(P(E)\) is the proportion of results where actual = predicted
 
 <ul>
-<li>\(P(E) = P(E = class 1 ) + P(E = class 2)\)</li>
-<li>\(P(E = class 1) = P(actual = class 1 \cap predicted = class 1)\)</li>
+<li>\(P(E) = P(E = class\hspace{2 mm}1 ) + P(E = class\hspace{2 mm}2)\)</li>
+<li>\(P(E = class 1) = P(actual = class\hspace{2 mm}1 \cap predicted = class\hspace{2 mm}1)\)</li>
 <li>actual and predicted are independent so...</li>
+<li>\(P(E = class 1) = P(actual = class\hspace{2 mm}1 ) \times P(predicted = class\hspace{2 mm}1)\)<br></li>
+<li>putting it all together... </li>
 </ul></li>
 </ul>
 
@@ -2544,15 +2559,16 @@ head(comparison)
 <p><space></p>
 
 <ul>
-<li>P(A) is the accuracy</li>
-<li>P(E) is the proportion of results where actual = predicted
+<li>\(P(A)\) is the accuracy</li>
+<li>\(P(E)\) is the proportion of results where actual = predicted
 
 <ul>
-<li>\(P(E) = P(E = class 1 ) + P(E = class 2)\)</li>
-<li>\(P(E = class 1) = P(actual = class 1 \cap predicted = class 1)\)</li>
+<li>\(P(E) = P(E = class\hspace{2 mm}1 ) + P(E = class\hspace{2 mm}2)\)</li>
+<li>\(P(E = class 1) = P(actual = class\hspace{2 mm}1 \cap predicted = class\hspace{2 mm}1)\)</li>
 <li>actual and predicted are independent so...</li>
-<li>\(P(E = class 1) = P(actual = class 1 ) \times P(predicted = class 1)\)<br></li>
-<li>putting it all together... </li>
+<li>\(P(E = class 1) = P(actual = class\hspace{2 mm}1 ) \times P(predicted = class\hspace{2 mm}1)\)<br></li>
+<li>putting it all together...</li>
+<li>\(P(E) = P(actual = class 1) \times P(predicted = class 1) + P(actual = class 2) \times P(predicted = class 2)\)</li>
 </ul></li>
 </ul>
 
@@ -2574,39 +2590,12 @@ head(comparison)
 <li>P(E) is the proportion of results where actual = predicted
 
 <ul>
-<li>\(P(E) = P(E = class 1 ) + P(E = class 2)\)</li>
-<li>\(P(E = class 1) = P(actual = class 1 \cap predicted = class 1)\)</li>
+<li>\(P(E) = P(E = class\hspace{2 mm}1 ) + P(E = class\hspace{2 mm}2)\)</li>
+<li>\(P(E = class 1) = P(actual = class\hspace{2 mm}1 \cap predicted = class\hspace{2 mm}1)\)</li>
 <li>actual and predicted are independent so...</li>
-<li>\(P(E = class 1) = P(actual = class 1 ) \times P(predicted = class 1)\)<br></li>
+<li>\(P(E = class 1) = P(actual = class\hspace{2 mm}1 ) \times P(predicted = class\hspace{2 mm}1)\)<br></li>
 <li>putting it all together...</li>
-<li>\(P(E) = P(actual = class 1) \times P(predicted = class 1) + P(actual = class 2) \times P(predicted = class 2)\)</li>
-</ul></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-100" style="background:;">
-  <hgroup>
-    <h2>Model Performance</h2>
-  </hgroup>
-  <article>
-    <h1>Kappa</h1>
-
-<p><space></p>
-
-<ul>
-<li>P(A) is the accuracy</li>
-<li>P(E) is the proportion of results where actual = predicted
-
-<ul>
-<li>\(P(E) = P(E = class 1 ) + P(E = class 2)\)</li>
-<li>\(P(E = class 1) = P(actual = class 1 \cap predicted = class 1)\)</li>
-<li>actual and predicted are independent so...</li>
-<li>\(P(E = class 1) = P(actual = class 1 ) \times P(predicted = class 1)\)<br></li>
-<li>putting it all together...</li>
-<li>\(P(E) = P(actual = class 1) \times P(predicted = class 1) + P(actual = class 2) \times P(predicted = class 2)\)</li>
+<li>\(P(E) = P(actual = class\hspace{2 mm}1) \times P(predicted = class\hspace{2 mm}1) + P(actual = class\hspace{2 mm}2) \times P(predicted = class\hspace{2 mm}2)\)</li>
 </ul></li>
 </ul>
 
@@ -2618,7 +2607,7 @@ head(comparison)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-101" style="background:;">
+      <slide class="" id="slide-100" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2647,6 +2636,36 @@ head(comparison)
   <!-- Presenter Notes -->
 </slide>
 
+      <slide class="" id="slide-101" style="background:;">
+  <hgroup>
+    <h2>Model Performance</h2>
+  </hgroup>
+  <article>
+    <h1>Precision and Recall</h1>
+
+<p><space></p>
+
+<ul>
+<li>Originally used in information retrieval</li>
+<li>Precision: proportion of positives that are truly positive
+
+<ul>
+<li>\(precision = \frac{TP}{TP + FP}\)</li>
+<li>Precise model only predicts positive when it is sure. Very trustworthy model.</li>
+</ul></li>
+<li>Recall: proportion of true positives out of all positives
+
+<ul>
+<li>\(recall = \frac{TP}{TP + FN}\)</li>
+<li>High recall model will capture a large proportion of positives. Returns relevant results</li>
+</ul></li>
+<li>Easy to have high recall (cast a wide net) or high precision (low hanging fruit) but hard to have both high</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
       <slide class="" id="slide-102" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
@@ -2664,37 +2683,7 @@ head(comparison)
 <li>\(precision = \frac{TP}{TP + FP}\)</li>
 <li>Precise model only predicts positive when it is sure. Very trustworthy model.</li>
 </ul></li>
-<li>Recall: proportion of true positives of all positives
-
-<ul>
-<li>\(recall = \frac{TP}{TP + FN}\)</li>
-<li>High recall model will capture a large proportion of positives. Returns relevant results</li>
-</ul></li>
-<li>Easy to have high recall (cast a wide net) or high precision (low hanging fruit) but hard to have both high</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-103" style="background:;">
-  <hgroup>
-    <h2>Model Performance</h2>
-  </hgroup>
-  <article>
-    <h1>Precision and Recall</h1>
-
-<p><space></p>
-
-<ul>
-<li>Originally used in information retrieval</li>
-<li>Precision: proportion of positives that are truly positive
-
-<ul>
-<li>\(precision = \frac{TP}{TP + FP}\)</li>
-<li>Precise model only predicts positive when it is sure. Very trustworthy model.</li>
-</ul></li>
-<li>Recall: proportion of true positives of all positives
+<li>Recall: proportion of true positives out of all positives
 
 <ul>
 <li>\(recall = \frac{TP}{TP + FN}\)</li>
@@ -2711,7 +2700,7 @@ head(comparison)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-104" style="background:;">
+      <slide class="" id="slide-103" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2730,7 +2719,7 @@ head(comparison)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-105" style="background:;">
+      <slide class="" id="slide-104" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2753,7 +2742,7 @@ head(comparison)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-106" style="background:;">
+      <slide class="" id="slide-105" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2781,7 +2770,7 @@ perf &lt;- performance(pred, measure = &quot;tpr&quot;, x.measure = &quot;fpr&qu
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-107" style="background:;">
+      <slide class="" id="slide-106" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2801,7 +2790,7 @@ perf &lt;- performance(pred, measure = &quot;tpr&quot;, x.measure = &quot;fpr&qu
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-108" style="background:;">
+      <slide class="" id="slide-107" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2827,7 +2816,7 @@ perf &lt;- performance(pred, measure = &quot;tpr&quot;, x.measure = &quot;fpr&qu
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-109" style="background:;">
+      <slide class="" id="slide-108" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2841,14 +2830,14 @@ auc@y.values
 </code></pre>
 
 <pre><code>[[1]]
-[1] 0.9077
+[1] 0.9525
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-110" style="background:;">
+      <slide class="" id="slide-109" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2865,7 +2854,7 @@ auc@y.values
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-111" style="background:;">
+      <slide class="" id="slide-110" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2879,10 +2868,10 @@ auc@y.values
 
 <ul>
 <li>Train model - 50% of data</li>
-<li>Tune parameters on validation set - 25% of data
+<li>Tune parameters on cross validation set - 25% of data
 
 <ul>
-<li>(optionally) retrain final model on training and validation set (maximize data points)</li>
+<li>(optionally) retrain final model on training and validation set to enhance model robustness</li>
 </ul></li>
 <li>Test final model - 25% of data</li>
 </ul></li>
@@ -2901,7 +2890,7 @@ table(sms_data[new_data, 1])
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-112" style="background:;">
+      <slide class="" id="slide-111" style="background:;">
   <hgroup>
     <h2>Model Performance</h2>
   </hgroup>
@@ -2929,17 +2918,36 @@ str(folds)
 </code></pre>
 
 <pre><code>List of 10
- $ Fold01: int [1:558] 24 61 64 75 85 90 97 122 126 130 ...
- $ Fold02: int [1:557] 6 10 21 46 47 53 74 94 101 104 ...
- $ Fold03: int [1:557] 7 14 15 17 20 25 29 36 41 49 ...
- $ Fold04: int [1:558] 33 40 66 68 89 102 134 142 143 145 ...
- $ Fold05: int [1:556] 5 9 19 37 39 45 48 56 59 63 ...
- $ Fold06: int [1:558] 4 11 27 30 73 77 100 138 148 160 ...
- $ Fold07: int [1:558] 8 22 26 32 34 35 60 71 72 79 ...
- $ Fold08: int [1:557] 23 28 38 43 51 54 67 99 103 111 ...
- $ Fold09: int [1:558] 12 13 16 50 62 84 88 91 98 110 ...
- $ Fold10: int [1:557] 1 2 3 18 31 42 44 57 58 69 ...
+ $ Fold01: int [1:558] 16 38 45 60 64 74 82 84 89 90 ...
+ $ Fold02: int [1:557] 5 11 12 14 19 34 49 65 72 88 ...
+ $ Fold03: int [1:558] 6 15 18 27 41 47 70 86 96 97 ...
+ $ Fold04: int [1:557] 17 20 24 30 39 42 54 55 79 94 ...
+ $ Fold05: int [1:557] 2 7 9 44 48 56 63 66 92 101 ...
+ $ Fold06: int [1:558] 1 10 22 23 32 33 35 62 67 81 ...
+ $ Fold07: int [1:558] 4 25 46 50 58 85 91 99 115 127 ...
+ $ Fold08: int [1:556] 8 13 21 28 31 36 37 53 61 83 ...
+ $ Fold09: int [1:558] 26 51 52 59 69 71 75 78 126 139 ...
+ $ Fold10: int [1:557] 3 29 40 43 57 68 73 76 77 80 ...
 </code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-112" style="background:;">
+  <hgroup>
+    <h2>Model Performance</h2>
+  </hgroup>
+  <article>
+    <h1>Summary</h1>
+
+<p><space></p>
+
+<ol>
+<li>Confusion Matrix measures</li>
+<li>ROC and AUC</li>
+<li>Holdout method</li>
+</ol>
 
   </article>
   <!-- Presenter Notes -->
@@ -3029,7 +3037,7 @@ str(folds)
 <li>\(y_{i}\) is the true/observed value</li>
 <li>\(\hat{y_{i}}\) is the approximation to/prediction of the true \(y_{i}\)</li>
 </ul></li>
-<li>Minimization of MSE yields an unbiased estimator with the least variance</li>
+<li>Minimization of MSE yields an unbiased estimator with the least variance (this is good!)</li>
 <li>2 common ways to minimize MSE:
 
 <ul>
@@ -3056,7 +3064,7 @@ str(folds)
 
 <ul>
 <li>Linear hypothesis function: \(h_{\theta}(x) = \theta_{0} + \theta_{1}x\)</li>
-<li>\(\theta\) is \(\{\beta_{0}, \beta{1}\}\), where \(\beta_{0}\) is \(\alpha\)</li>
+<li>\(\theta\) is \(\{\beta_{0}, \beta{1}\}\), where \(\beta_{0}\) is \(\alpha\) from before</li>
 </ul></li>
 </ul>
 
@@ -3078,7 +3086,7 @@ str(folds)
 
 <ul>
 <li>Linear hypothesis function: \(h_{\theta}(x) = \theta_{0} + \theta_{1}x\)</li>
-<li>\(\theta\) is \(\{\beta_{0}, \beta{1}\}\), where \(\beta_{0}\) is \(\alpha\)</li>
+<li>\(\theta\) is \(\{\beta_{0}, \beta{1}\}\), where \(\beta_{0}\) is \(\alpha\) from before</li>
 <li>\(X = \{x_{0}, x_{1}\}\)</li>
 <li>Make \(x_{0}\) = 1</li>
 <li>\(h_{\theta}(x) = \beta \times t(X)\)</li>
@@ -3099,15 +3107,6 @@ str(folds)
 <p><space></p>
 
 <ul>
-<li>In Machine Learning, regression equation is called the hypothesis function
-
-<ul>
-<li>Linear hypothesis function: \(h_{\theta}(x) = \theta_{0} + \theta_{1}x\)</li>
-<li>\(\theta\) is \(\{\beta_{0}, \beta{1}\}\), where \(\beta_{0}\) is \(\alpha\)</li>
-<li>\(X = \{x_{0}, x_{1}\}\)</li>
-<li>Make \(x_{0}\) = 1</li>
-<li>\(h_{\theta}(x) = \beta \times t(X)\)</li>
-</ul></li>
 <li>Goal remains the same: minimize MSE
 
 <ul>
@@ -3131,15 +3130,6 @@ str(folds)
 <p><space></p>
 
 <ul>
-<li>In Machine Learning, regression equation is called the hypothesis function
-
-<ul>
-<li>Linear hypothesis function: \(h_{\theta}(x) = \theta_{0} + \theta_{1}x\)</li>
-<li>\(\theta\) is \(\{\beta_{0}, \beta{1}\}\), where \(\beta_{0}\) is \(\alpha\)</li>
-<li>\(X = \{x_{0}, x_{1}\}\)<br></li>
-<li>Make \(x_{0}\) = 1</li>
-<li>\(h_{\theta}(x) = \beta \times t(X)\)</li>
-</ul></li>
 <li>Goal remains the same: minimize MSE
 
 <ul>
@@ -3147,7 +3137,7 @@ str(folds)
 <li>\(J(\theta_{0},\theta_{1}) = \frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x_{i}) - y_{i})^2\)</li>
 <li>\(m\) is the number of examples</li>
 </ul></li>
-<li>Find a value for theta that minimizes \(J\)</li>
+<li>Find a value for \(\theta\) that minimizes \(J\)</li>
 </ul>
 
   </article>
@@ -3159,7 +3149,7 @@ str(folds)
     <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>Gradient descent</h1>
+    <h1>Gradient descent - intuition</h1>
 
 <p><space></p>
 
@@ -3179,7 +3169,7 @@ str(folds)
     <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>Gradient descent</h1>
+    <h1>Gradient descent - intuition</h1>
 
 <p><space></p>
 
@@ -3199,7 +3189,7 @@ str(folds)
     <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>Gradient descent</h1>
+    <h1>Gradient descent - intuition</h1>
 
 <p><space></p>
 
@@ -3219,7 +3209,7 @@ str(folds)
     <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>Gradient descent</h1>
+    <h1>Gradient descent - intuition</h1>
 
 <p><space></p>
 
@@ -3239,19 +3229,18 @@ str(folds)
     <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>Gradient descent</h1>
+    <h1>Gradient descent - intuition</h1>
 
 <p><space></p>
 
 <ul>
 <li>Start with a point (guess)</li>
-<li>Repeat {
+<li>Repeat
 
 <ul>
 <li>Determine a descent direction </li>
 <li>Choose a step size</li>
-<li>Update
-}</li>
+<li>Update</li>
 </ul></li>
 <li>Until minimum is reached (or stopping criteria)</li>
 </ul>
@@ -3265,21 +3254,20 @@ str(folds)
     <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>Gradient descent</h1>
+    <h1>Gradient descent - intuition</h1>
 
 <p><space></p>
 
 <ul>
 <li>Start with a point (guess) &nbsp;&nbsp; &nbsp;  \(x\)</li>
-<li>Repeat {
+<li>Repeat
 
 <ul>
 <li>Determine a descent direction &nbsp;&nbsp;&nbsp;  \(-f^\prime\)</li>
 <li>Choose a step size &nbsp;&nbsp;&nbsp;  \(\alpha\) (not the intercept!)</li>
-<li>Update  &nbsp;&nbsp; &nbsp; \(x:=x - \alpha f^\prime\)
-}</li>
+<li>Update  &nbsp;&nbsp; &nbsp; \(x:=x - \alpha f^\prime\)</li>
 </ul></li>
-<li>Until minimum is reached (or stopping criteria) &nbsp;&nbsp; &nbsp; \(f^\prime ~ 0\)</li>
+<li>Until minimum is reached (or stopping criteria) &nbsp;&nbsp; &nbsp; \(f^\prime \sim 0\)</li>
 </ul>
 
   </article>
@@ -3368,7 +3356,7 @@ str(folds)
 <li>Choose the learning rate, alpha</li>
 <li>Choose the stopping point</li>
 <li>Local vs. global minimum
-<br></li>
+<space></li>
 </ul></li>
 <li>Let&#39;s see it in action</li>
 </ul>
@@ -3401,10 +3389,11 @@ str(folds)
 
 <p><space></p>
 
-<pre><code class="r">x &lt;- cbind(1, x)  #Add ones to x  
-theta &lt;- c(0, 0)  # initalize theta vector 
-m &lt;- nrow(x)  # Number of the observations 
-grad_cost &lt;- function(X, y, theta) return(sum(((X %*% theta) - y)^2))
+<pre><code class="r">x &lt;- seq(0, 1, by = 0.01)
+y &lt;- 4 + 3 * x * rnorm(length(x), 2, sd = 0.3)
+df &lt;- data.frame(cbind(X = x, Y = y))
+
+grad_cost &lt;- function(X, y, theta) return(sum(((X %*% theta) - y)^2))  # recall the linear hypothesis function
 </code></pre>
 
   </article>
@@ -3426,9 +3415,9 @@ grad_cost &lt;- function(X, y, theta) return(sum(((X %*% theta) - y)^2))
     cost.df &lt;- data.frame(cost = 0, theta = 0)
 
     for (i in 1:iterations) {
-        h &lt;- X %*% theta  # Linear hypothesis function
+        h &lt;- X %*% theta  # hypothesis function
         grad &lt;- (t(X) %*% (h - y))/m
-        theta &lt;- theta - alpha * grad  # Update theta
+        theta &lt;- theta - alpha * grad  # Update theta by step size
         cost.df &lt;- rbind(cost.df, c(grad_cost(X, y, theta), theta))
     }
 
@@ -3453,16 +3442,15 @@ grad_cost &lt;- function(X, y, theta) return(sum(((X %*% theta) - y)^2))
 X1 &lt;- matrix(ncol = 1, nrow = nrow(df), cbind(1, df$X))
 Y1 &lt;- matrix(ncol = 1, nrow = nrow(df), df$Y)
 
-init_theta &lt;- as.matrix(c(0))
-grad_cost(X1, Y1, init_theta)
+init_theta &lt;- as.matrix(0)
+grad_cost(X1, Y1, init_theta)  # initial cost
 </code></pre>
 
-<pre><code>[1] 5282
+<pre><code>[1] 5217
 </code></pre>
 
-<pre><code class="r">
-iterations = 10000
-alpha = 0.1
+<pre><code class="r">iterations &lt;- 1000
+alpha &lt;- 0.1
 results &lt;- gradDescent(X1, Y1, init_theta, iterations, alpha)
 </code></pre>
 
@@ -3497,7 +3485,7 @@ results &lt;- gradDescent(X1, Y1, init_theta, iterations, alpha)
 <pre><code class="r">grad_cost(X1, Y1, theta[[1]])
 </code></pre>
 
-<pre><code>[1] 339.5
+<pre><code>[1] 316
 </code></pre>
 
 <pre><code class="r">## Make some predictions
@@ -3539,7 +3527,7 @@ new_preds &lt;- data.frame(X = new_points, Y = sapply(new_points, pred))
 <p><space></p>
 
 <pre><code class="r">ggplot(data = df, aes(x = X, y = Y)) + geom_point() + geom_point(data = new_preds, 
-    aes(x = X, y = Y, color = &quot;red&quot;), size = 3) + scale_colour_discrete(guide = FALSE)
+    aes(x = X, y = Y, color = &quot;red&quot;), size = 3.5) + scale_colour_discrete(guide = FALSE)
 </code></pre>
 
 <p><img src="figure/new_point_2.png" alt="plot of chunk new_point_2"> </p>
@@ -3550,21 +3538,21 @@ new_preds &lt;- data.frame(X = new_points, Y = sapply(new_points, pred))
 
       <slide class="" id="slide-139" style="background:;">
   <hgroup>
-    <h2>Regression example</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
     <h1>Gradient descent - Summary</h1>
 
 <p><space></p>
 
-<ul>
+<ol>
 <li>Minimization algorithm</li>
 <li>Approximation, non-closed form solution</li>
 <li>Good for large number of examples</li>
-<li>Hard to select the right \(\alpha\)</li>
+<li>Hard to select the right \(\alpha\) and starting point</li>
 <li>Finds local not global minimum</li>
-<li>Traditional looping is slow - optimization algorithms are used in practice</li>
-</ul>
+<li>Optimization algorithms are used in practice</li>
+</ol>
 
   </article>
   <!-- Presenter Notes -->
@@ -3572,10 +3560,10 @@ new_preds &lt;- data.frame(X = new_points, Y = sapply(new_points, pred))
 
       <slide class="" id="slide-140" style="background:;">
   <hgroup>
-    <h2>CV Error</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>How many parameters are too many?</h1>
+    <h1>CV Error</h1>
 
 <p><space></p>
 
@@ -3587,23 +3575,18 @@ new_preds &lt;- data.frame(X = new_points, Y = sapply(new_points, pred))
 
       <slide class="" id="slide-141" style="background:;">
   <hgroup>
-    <h2>CV Error</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>How many parameters are too many?</h1>
+    <h1>CV Error</h1>
 
 <p><space></p>
 
-<pre><code class="r">ggplot(df, aes(x = X, y = Y)) + geom_point() + geom_smooth(method = &quot;lm&quot;, se = FALSE)
-</code></pre>
-
 <p><img src="figure/multi_plot_2.png" alt="plot of chunk multi_plot_2"> </p>
 
-<pre><code class="r">summary(lm(Y ~ X, df))$adj.r.squared  # low R^2 - simple linear model won&#39;t fit
-</code></pre>
-
-<pre><code>[1] 0.0529
-</code></pre>
+<ul>
+<li>Simple linear model won&#39;t fit</li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -3611,10 +3594,10 @@ new_preds &lt;- data.frame(X = new_points, Y = sapply(new_points, pred))
 
       <slide class="" id="slide-142" style="background:;">
   <hgroup>
-    <h2>CV Error</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>How many parameters are too many?</h1>
+    <h1>CV Error</h1>
 
 <p><space></p>
 
@@ -3623,17 +3606,17 @@ new_preds &lt;- data.frame(X = new_points, Y = sapply(new_points, pred))
 </ul>
 
 <pre><code class="r">df &lt;- transform(df, X2 = X^2, X3 = X^3)
-summary(lm(Y ~ X + X2 + X3, df))$coef[, 1]
+fit_3 &lt;- lm(Y ~ ., df)
+summary(fit_3)$adj.r.squared
 </code></pre>
 
-<pre><code>(Intercept)           X          X2          X3 
-     0.3363      6.5690    -26.9982     22.0071 
+<pre><code>[1] 0.8195
 </code></pre>
 
-<pre><code class="r">summary(lm(Y ~ X + X2 + X3, df))$adj.r.squared
+<pre><code class="r">sqrt(mean((predict(fit_3) - df$Y)^2))  # Root MSE
 </code></pre>
 
-<pre><code>[1] 0.8082
+<pre><code>[1] 0.2936
 </code></pre>
 
   </article>
@@ -3642,10 +3625,10 @@ summary(lm(Y ~ X + X2 + X3, df))$coef[, 1]
 
       <slide class="" id="slide-143" style="background:;">
   <hgroup>
-    <h2>CV Error</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>How many parameters are too many?</h1>
+    <h1>CV Error</h1>
 
 <p><space></p>
 
@@ -3656,19 +3639,17 @@ summary(lm(Y ~ X + X2 + X3, df))$coef[, 1]
 <pre><code class="r">df &lt;- transform(df, X4 = X^4, X5 = X^5, X6 = X^6, X7 = X^7, X8 = X^8, X9 = X^9, 
     X10 = X^10, X11 = X^11, X12 = X^12, X13 = X^13, X14 = X^14, X15 = X^15, 
     X16 = X^16, X17 = X^17, X18 = X^18, X19 = X^19, X20 = X^20)
-line.fit &lt;- lm(Y ~ X + X2 + X3 + X4 + X5 + X6 + X7 + X8 + X9 + X10 + X11 + X12 + 
-    X13 + X14 + X15 + X16 + X17 + X18 + X19 + X20, df)
-head(summary(line.fit)$coef[, 1])
+line.fit &lt;- lm(Y ~ ., df)
+summary(line.fit)$adj.r.squared
 </code></pre>
 
-<pre><code>(Intercept)           X          X2          X3          X4          X5 
-  8.297e-03   1.842e+01  -7.101e+02   1.986e+04  -3.064e+05   2.903e+06 
+<pre><code>[1] 0.9786
 </code></pre>
 
 <pre><code class="r">sqrt(mean((predict(line.fit) - df$Y)^2))  # Root MSE
 </code></pre>
 
-<pre><code>[1] 0.08925
+<pre><code>[1] 0.09781
 </code></pre>
 
   </article>
@@ -3677,10 +3658,10 @@ head(summary(line.fit)$coef[, 1])
 
       <slide class="" id="slide-144" style="background:;">
   <hgroup>
-    <h2>CV Error</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>How many parameters are too many?</h1>
+    <h1>CV Error</h1>
 
 <p><space></p>
 
@@ -3700,13 +3681,13 @@ sum(ortho.coefs[upper.tri(ortho.coefs)])  # polynomials are uncorrelated
 summary(linear.fit)$adj.r.squared
 </code></pre>
 
-<pre><code>[1] 0.9828
+<pre><code>[1] 0.9781
 </code></pre>
 
 <pre><code class="r">sqrt(mean((predict(linear.fit) - df$Y)^2))
 </code></pre>
 
-<pre><code>[1] 0.08859
+<pre><code>[1] 0.09766
 </code></pre>
 
   </article>
@@ -3715,10 +3696,10 @@ summary(linear.fit)$adj.r.squared
 
       <slide class="" id="slide-145" style="background:;">
   <hgroup>
-    <h2>CV Error</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>How many parameters are too many?</h1>
+    <h1>CV Error</h1>
 
 <p><space></p>
 
@@ -3734,10 +3715,10 @@ summary(linear.fit)$adj.r.squared
 
       <slide class="" id="slide-146" style="background:;">
   <hgroup>
-    <h2>CV Error</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>How many parameters are too many?</h1>
+    <h1>CV Error</h1>
 
 <p><space></p>
 
@@ -3768,10 +3749,10 @@ rmse &lt;- function(y, h) return(sqrt(mean((y - h)^2)))
 
       <slide class="" id="slide-147" style="background:;">
   <hgroup>
-    <h2>CV Error</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>How many parameters are too many?</h1>
+    <h1>CV Error</h1>
 
 <p><space></p>
 
@@ -3792,10 +3773,10 @@ for (d in degrees) {
 
       <slide class="" id="slide-148" style="background:;">
   <hgroup>
-    <h2>CV Error</h2>
+    <h2>Regression</h2>
   </hgroup>
   <article>
-    <h1>How many parameters are too many?</h1>
+    <h1>CV Error</h1>
 
 <p><space></p>
 
@@ -3814,12 +3795,12 @@ for (d in degrees) {
 
 <p><space></p>
 
-<ul>
+<ol>
 <li>Minimize MSE of target function</li>
-<li>Analytically vs. approximation</li>
-<li>Gradient descent preferrable when lots of examples</li>
+<li>Analytical vs. approximation</li>
+<li>Approximation is preferrable when lots of examples</li>
 <li>Use Cross Validation plot to determine optimal number of parameters</li>
-</ul>
+</ol>
 
   </article>
   <!-- Presenter Notes -->
@@ -3830,21 +3811,17 @@ for (d in degrees) {
     <h2>Summary</h2>
   </hgroup>
   <article>
-    <p><space></p>
+    <p><space>
+<space></p>
 
-<ul>
+<ol>
 <li>Machine learning overview and concepts</li>
 <li>Visualizing Data</li>
 <li>kNN algorithm</li>
-<li>Naive Bayes
-
-<ul>
-<li>Probability concepts</li>
-<li>Mobile Spam case study</li>
-</ul></li>
+<li>Naive Bayes</li>
 <li>Model performance measures</li>
 <li>Regression</li>
-</ul>
+</ol>
 
   </article>
   <!-- Presenter Notes -->
@@ -3852,16 +3829,17 @@ for (d in degrees) {
 
       <slide class="" id="slide-151" style="background:;">
   <hgroup>
-    <h2>Next Time</h2>
+    <h2>Next Time?</h2>
   </hgroup>
   <article>
-    <p><space></p>
+    <p><space> 
+<space></p>
 
 <ul>
 <li>Logistic regression</li>
 <li>Decision Trees</li>
 <li>Clustering</li>
-<li>Dimensionality reduction (PCA, ICA)</li>
+<li>Dimensionality reduction</li>
 <li>Regularization</li>
 </ul>
 
@@ -3874,12 +3852,15 @@ for (d in degrees) {
     <h2>Resources</h2>
   </hgroup>
   <article>
-    <p><space></p>
+    <p><space>
+<space></p>
 
 <ul>
+<li><a href="http://github.com/ilanman/Rpres_ML">Presentation</a></li>
 <li><a href="http://www.packtpub.com/machine-learning-with-r/book">Machine Learning with R</a></li>
 <li><a href="http://shop.oreilly.com/product/0636920018483.do">Machine Learning for Hackers</a></li>
 <li><a href="http://web.stanford.edu/%7Ehastie/local.ftp/Springer/OLD/ESLII_print4.pdf">Elements of Statistical Learning</a></li>
+<li><a href="http://www.astroml.org/sklearn_tutorial/">Machine Learning for Astronomy - Scikit Learn</a></li>
 </ul>
 
   </article>
@@ -3887,6 +3868,16 @@ for (d in degrees) {
 </slide>
 
       <slide class="" id="slide-153" style="background:;">
+  <hgroup>
+    <h2>THANKS!</h2>
+  </hgroup>
+  <article>
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-154" style="background:;">
   <hgroup>
     
   </hgroup>
